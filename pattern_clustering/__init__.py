@@ -1,10 +1,20 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+#
+# This file is part of the pattern-clustering project.
+# https://github.com/nokia/pattern-clustering
+
 """Top-level package for Pattern clustering."""
 
-__author__ = """Marc-Olivier Buob"""
-__email__ = 'marc-olivier.buob@nokia-bell-labs.com'
-__version__ = '0.1.0'
+__author__     = "Marc-Olivier Buob, Maxime Raynal"
+__maintainer__ = "Marc-Olivier Buob, Maxime Raynal"
+__email__      = "marc-olivier.buob@nokia-bell-labs.com, maxime.raynal@nokia.com"
+__copyright__  = "Copyright (C) 2022, Nokia"
+__license__    = "Nokia"
+__version__    = "0.1.0"
 
-
-from pattern_clustering.sub_package_1.my_class_1 import MyClass1
-from pattern_clustering.sub_package_2.my_class_2 import MyClass2
-from pattern_clustering.sub_package_2.my_class_3 import MyClass3
+from .boost import *
+from .language_density import *
+from .multi_grep import *
+from .pattern_automaton import *
+from .regexp import *
