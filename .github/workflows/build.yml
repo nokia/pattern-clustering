@@ -24,9 +24,7 @@ jobs:
 #    - name: Download and install Boost
 #      run: MarkusJx/install-boost@v2.3.0
     - name: Install Boost
-      run: |
-        sudo apt update
-        sudo apt install -y libboost-dev libboost-python-dev
+      run: sudo apt-get update && sudo apt-get install -y libboost-all-dev
         
     - name: Install Python dependencies
       run: |
