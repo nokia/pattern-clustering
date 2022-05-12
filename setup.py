@@ -76,7 +76,7 @@ setup(
             sources=sources,
             extra_compile_args=cxx_flags,
             extra_link_args=cxx_flags,
-            include_dirs=[os.path.join(os.getcwd(), headers_dir)],
+            include_dirs=["/home/runner/work/pattern-clustering/pattern-clustering/boost"],
             libraries=[lib_boost]
         )
     ],
