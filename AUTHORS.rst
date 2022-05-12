@@ -6,8 +6,9 @@ Development Lead
 ----------------
 
 * Marc-Olivier Buob <marc-olivier.buob@nokia-bell-labs.com>
+* Maxime Raynal <maxime.raynal@nokia.com>
 
 Contributors
 ------------
 
-None yet. Why not be the first?
+* Georges Quénot <georges.quenot@imag.fr>
