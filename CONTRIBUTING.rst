@@ -103,7 +103,7 @@ Before you submit a pull request, check that it meets these guidelines:
    your new functionality into a function with a docstring, and add the
    feature to the list in README.rst.
 3. The pull request should work for Python 3.6, 3.7 and 3.8. Check
-   https://github.com/ibgp2/pattern_clustering/actions?query=workflow%3Abuild
+   https://github.com/nokia/pattern_clustering/actions?query=workflow%3Abuild
    and make sure that the tests pass for all supported Python versions.
 
 Tips

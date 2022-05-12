@@ -7,17 +7,17 @@ Pattern clustering
         :target: https://pypi.python.org/pypi/pattern_clustering
         :alt: PyPI Status
 
-.. image:: https://github.com/ibgp2/pattern_clustering/workflows/build/badge.svg?branch=main
-        :target: https://github.com/ibgp2/pattern_clustering/actions?query=workflow%3Abuild
+.. image:: https://github.com/nokia/pattern_clustering/workflows/build/badge.svg?branch=main
+        :target: https://github.com/nokia/pattern_clustering/actions?query=workflow%3Abuild
         :alt: Build Status
 
-.. image:: https://github.com/ibgp2/pattern_clustering/workflows/docs/badge.svg?branch=main
-        :target: https://github.com/ibgp2/pattern_clustering/actions?query=workflow%3Adocs
+.. image:: https://github.com/nokia/pattern_clustering/workflows/docs/badge.svg?branch=main
+        :target: https://github.com/nokia/pattern_clustering/actions?query=workflow%3Adocs
         :alt: Documentation Status
 
 
-.. image:: https://codecov.io/gh/ibgp2/pattern_clustering/branch/main/graphs/badge.svg
-        :target: https://codecov.io/gh/ibgp2/pattern_clustering/tree/main
+.. image:: https://codecov.io/gh/nokia/pattern_clustering/branch/main/graphs/badge.svg
+        :target: https://codecov.io/gh/nokia/pattern_clustering/tree/main
         :alt: Code Coverage
 
 
@@ -26,7 +26,7 @@ This tool clusterizes lines of text given a collection of input patterns modeled
 
 
 * Free software: BSD license
-* Documentation: https://ibgp2.github.io/pattern_clustering/.
+* Documentation: https://nokia.github.io/pattern_clustering/.
 
 
 --------

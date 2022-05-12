@@ -32,13 +32,13 @@ You can either clone the public repository:
 
 .. code-block:: console
 
-    $ git clone git://github.com/ibgp2/pattern_clustering
+    $ git clone git://github.com/nokia/pattern_clustering
 
 Or download the `tarball`_:
 
 .. code-block:: console
 
-    $ curl -OJL https://github.com/ibgp2/pattern_clustering/tarball/main
+    $ curl -OJL https://github.com/nokia/pattern_clustering/tarball/main
 
 Once you have a copy of the source, you can install it with:
 
@@ -47,5 +47,5 @@ Once you have a copy of the source, you can install it with:
     $ python setup.py install
 
 
-.. _Github repo: https://github.com/ibgp2/pattern_clustering
-.. _tarball: https://github.com/ibgp2/pattern_clustering/tarball/main
+.. _Github repo: https://github.com/nokia/pattern_clustering
+.. _tarball: https://github.com/nokia/pattern_clustering/tarball/main
