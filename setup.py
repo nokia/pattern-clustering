@@ -18,12 +18,14 @@ from setuptools     import setup, find_packages
 from distutils.core import Extension
 from setup_cpp      import find_cpp_sources
 
+headers_dir = "boost"
+sources_dir = "boost"
 sources = find_cpp_sources(
     use_pyplusplus=False,
     sources_ext="cpp",
     headers_ext="hpp",
-    headers_dir="boost",
-    sources_dir="boost"
+    headers_dir=headers_dir,
+    sources_dir=sources_dir
 )
 
 # https://stackoverflow.com/questions/20872698/place-boost-python-extension-inside-package
@@ -74,6 +76,7 @@ setup(
             sources=sources,
             extra_compile_args=cxx_flags,
             extra_link_args=cxx_flags,
+            include_dirs=[headers_dir],  # Otherwise, GitHub action build.yml fails
             libraries=[lib_boost]
         )
     ],
