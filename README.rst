@@ -24,10 +24,9 @@ Pattern clustering
 
 This tool clusterizes lines of text given a collection of input patterns modeled using regular expressions.
 
+This work has been published to:
 
-* Free software: BSD license
-* Documentation: https://nokia.github.io/pattern_clustering/.
-
+[ICPR'2022] A novel pattern-based edit distance for automatic log parsing, Maxime Raynal, Marc-Olivier Buob, Georges Quénot.
 
 -----------------------------
 More about pattern-clustering
@@ -50,11 +49,15 @@ For more information, feel free to visit the wiki_:
 - Configuration_
 - Packaging_
 
+.. _documentation https://nokia.github.io/pattern_clustering/.
+
+... and the documentation_.
+
 -------
-Credits
+Acks
 -------
 
-This package was created with Cookiecutter_ and the `francois-durand/package_helper_2`_ project template.
+The skeleton package was created with Cookiecutter_ and the `francois-durand/package_helper_2`_ project template.
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`francois-durand/package_helper_2`: https://github.com/francois-durand/package_helper_2
