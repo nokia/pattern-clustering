@@ -49,7 +49,7 @@ For more information, feel free to visit the wiki_:
 - Configuration_
 - Packaging_
 
-.. _documentation https://nokia.github.io/pattern_clustering/.
+.. _documentation https://nokia.github.io/pattern_clustering/
 
 ... and the documentation_.
 
