@@ -29,11 +29,16 @@ This tool clusterizes lines of text given a collection of input patterns modeled
 * Documentation: https://nokia.github.io/pattern_clustering/.
 
 
---------
-Features
---------
+-----------------------------
+More about pattern-clustering
+-----------------------------
 
-* TODO
+.. _Overview: https://github.com/nokia/pattern-clustering/wiki/Overview
+.. _Installation: https://github.com/nokia/pattern-clustering/wiki/Installation
+.. _Tests: https://github.com/nokia/pattern-clustering/wiki/Tests
+.. _Tutorial: https://github.com/nokia/pattern-clustering/wiki/Tutorial
+.. _Configuration: https://github.com/nokia/pattern-clustering/wiki/Configuration
+.. _Packaging: https://github.com/nokia/pattern-clustering/wiki/Packaging
 
 -------
 Credits
