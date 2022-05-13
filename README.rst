@@ -40,6 +40,15 @@ More about pattern-clustering
 .. _Configuration: https://github.com/nokia/pattern-clustering/wiki/Configuration
 .. _Packaging: https://github.com/nokia/pattern-clustering/wiki/Packaging
 
+For more information, feel free to visit the wiki_:
+
+- Overview_
+- Installation_
+- Tests_
+- Tutorial_ 
+- Configuration_
+- Packaging_
+
 -------
 Credits
 -------
