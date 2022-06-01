@@ -21,7 +21,6 @@ Pattern clustering
         :alt: Code Coverage
 
 
-
 This tool clusterizes lines of text given a collection of input patterns modeled using regular expressions.
 
 This work has been published to:
