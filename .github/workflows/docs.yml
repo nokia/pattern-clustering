@@ -22,6 +22,7 @@ jobs:
       - name: Install boost
         run:
           sudo apt install g++ libboost-dev libboost-python-dev
+          find /usr/lib | grep libboost | grep \.so$
 
       - name: Install package
         run: |
