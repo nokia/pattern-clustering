@@ -15,7 +15,7 @@ jobs:
         # 3.10 for ubuntu 22.04
         # ...
         # Unfortunately, 3.x does not work for ubuntu-latest
-        python-version: "3.8"
+        python-version: ["3.8"]
     steps:
 
     - name: Checkout
