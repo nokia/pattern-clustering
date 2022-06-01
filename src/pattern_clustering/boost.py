@@ -22,6 +22,8 @@ try:
     from pattern_clustering.pattern_clustering import pattern_distance_normalized
 except ImportError:
     print("pattern_clustering is not yet installed and so the C++ objects cannot be imported!", file=sys.stderr)
+    import sys
+    print(sys.path)
     sys.exit()
 
 from .language_density import language_density

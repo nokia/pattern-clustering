@@ -28,12 +28,18 @@ This tool clusterizes lines of text given a collection of input patterns modeled
 * Free software: BSD license
 * Documentation: https://nokia.github.io/pattern_clustering/.
 
-
 --------
 Features
 --------
 
-* TODO
+* Forms groups of homogeneous line using a pattern based distance, based on customizable patterns.
+* Configured by default to use common patterns (IP addresses, numeric values, etc.) 
+
+-------
+License
+-------
+
+This project is licensed under the BSD-3-Clause license - see the `LICENSE <https://github.com/nokia/minifold/blob/master/LICENSE>`_.
 
 -------
 Credits

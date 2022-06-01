@@ -14,8 +14,8 @@ __license__    = "BSD-3"
 """The setup script."""
 
 import os, platform
-from setuptools     import setup, find_packages
-from distutils.core import Extension
+from setuptools     import setup, find_packages, Extension
+#from distutils.core import Extension
 from setup_cpp      import find_cpp_sources
 
 headers_dir = "boost"
@@ -76,7 +76,7 @@ setup(
             sources=sources,
             extra_compile_args=cxx_flags,
             extra_link_args=cxx_flags,
-            include_dirs=["/home/runner/work/pattern-clustering/pattern-clustering/boost"],
+            include_dirs=["../../boost", os.path.dirname(os.path.abspath(__file__))],
             libraries=[lib_boost]
         )
     ],
@@ -87,7 +87,9 @@ setup(
     include_package_data=True,
     keywords="pattern_clustering",
     name="pattern_clustering",
-    packages=find_packages(),
+    # https://blog.ionelmc.ro/2014/05/25/python-packaging/#the-structure
+    packages=find_packages("src"),
+    package_dir={'': 'src'},
     setup_requires=setup_requirements,
     test_suite="tests",
     tests_require=test_requirements,

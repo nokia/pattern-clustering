@@ -125,10 +125,10 @@ def make_dfa_any(alphabet: iter = None, separator_alphabet: iter = None) -> Auto
         alphabet = set(printable)
     if not separator_alphabet:
         separator_alphabet = {" ", "\t", "\n"}
-    # return plus(bracket([a for a in alphabet - separator_alphabet]))
     dfa_any = Automaton(2)
     set_final(1, dfa_any)
-    for a in set(alphabet) - set(separator_alphabet):
+    restricted_alphabet = sorted(set(alphabet) - set(separator_alphabet))
+    for a in restricted_alphabet:
         add_edge(0, 1, a, dfa_any)
-        add_edge(1, 0, a, dfa_any)
+        add_edge(1, 1, a, dfa_any)
     return dfa_any
