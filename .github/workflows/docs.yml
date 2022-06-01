@@ -17,7 +17,8 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.8'
+          # Only use the current version of python as we'll need with the libboost_python*.so lib
+          python-version: "3.x"
 
       - name: Install boost
         run:
