@@ -14,6 +14,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -44,7 +45,9 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Pattern clustering</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#features">Features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#credits">Credits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#more-about-pattern-clustering">More about pattern-clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#acks">Acks</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
@@ -80,25 +83,40 @@
            <div itemprop="articleBody">
              
   <section id="pattern-clustering">
-<h1>Pattern clustering<a class="headerlink" href="#pattern-clustering" title="Permalink to this headline"></a></h1>
+<h1>Pattern clustering<a class="headerlink" href="#pattern-clustering" title="Permalink to this heading"></a></h1>
 <a class="reference external image-reference" href="https://pypi.python.org/pypi/pattern_clustering"><img alt="PyPI Status" src="https://img.shields.io/pypi/v/pattern_clustering.svg" /></a>
-<a class="reference external image-reference" href="https://github.com/ibgp2/pattern_clustering/actions?query=workflow%3Abuild"><img alt="Build Status" src="https://github.com/ibgp2/pattern_clustering/workflows/build/badge.svg?branch=main" /></a>
-<a class="reference external image-reference" href="https://github.com/ibgp2/pattern_clustering/actions?query=workflow%3Adocs"><img alt="Documentation Status" src="https://github.com/ibgp2/pattern_clustering/workflows/docs/badge.svg?branch=main" /></a>
-<a class="reference external image-reference" href="https://codecov.io/gh/ibgp2/pattern_clustering/tree/main"><img alt="Code Coverage" src="https://codecov.io/gh/ibgp2/pattern_clustering/branch/main/graphs/badge.svg" /></a>
+<a class="reference external image-reference" href="https://github.com/nokia/pattern_clustering/actions?query=workflow%3Abuild"><img alt="Build Status" src="https://github.com/nokia/pattern_clustering/workflows/build/badge.svg?branch=main" /></a>
+<a class="reference external image-reference" href="https://github.com/nokia/pattern_clustering/actions?query=workflow%3Adocs"><img alt="Documentation Status" src="https://github.com/nokia/pattern_clustering/workflows/docs/badge.svg?branch=main" /></a>
+<a class="reference external image-reference" href="https://codecov.io/gh/nokia/pattern_clustering/tree/main"><img alt="Code Coverage" src="https://codecov.io/gh/nokia/pattern_clustering/branch/main/graphs/badge.svg" /></a>
 <p>This tool clusterizes lines of text given a collection of input patterns modeled using regular expressions.</p>
-<ul class="simple">
-<li><p>Free software: BSD license</p></li>
-<li><p>Documentation: <a class="reference external" href="https://ibgp2.github.io/pattern_clustering/">https://ibgp2.github.io/pattern_clustering/</a>.</p></li>
-</ul>
+<p>This work has been published to:</p>
+<p>[ICPR’2022] A novel pattern-based edit distance for automatic log parsing, Maxime Raynal, Marc-Olivier Buob, Georges Quénot.</p>
 <section id="features">
-<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline"></a></h2>
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this heading"></a></h2>
 <ul class="simple">
-<li><p>TODO</p></li>
+<li><p>Forms groups of homogeneous line using a pattern based distance, based on customizable patterns.</p></li>
+<li><p>Configured by default to use common patterns (IP addresses, numeric values, etc.)</p></li>
 </ul>
 </section>
-<section id="credits">
-<h2>Credits<a class="headerlink" href="#credits" title="Permalink to this headline"></a></h2>
-<p>This package was created with <a class="reference external" href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> and the <a class="reference external" href="https://github.com/francois-durand/package_helper_2">francois-durand/package_helper_2</a> project template.</p>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this heading"></a></h2>
+<p>This project is licensed under the BSD-3-Clause license - see the <a class="reference external" href="https://github.com/nokia/minifold/blob/master/LICENSE">LICENSE</a>.</p>
+</section>
+<section id="more-about-pattern-clustering">
+<h2>More about pattern-clustering<a class="headerlink" href="#more-about-pattern-clustering" title="Permalink to this heading"></a></h2>
+<p>For more information, feel free to visit the <a class="reference external" href="https://github.com/nokia/pattern-clustering/wiki">wiki</a>:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/nokia/pattern-clustering/wiki/Overview">Overview</a></p></li>
+<li><p><a class="reference external" href="https://github.com/nokia/pattern-clustering/wiki/Installation">Installation</a></p></li>
+<li><p><a class="reference external" href="https://github.com/nokia/pattern-clustering/wiki/Tests">Tests</a></p></li>
+<li><p><a class="reference external" href="https://github.com/nokia/pattern-clustering/wiki/Tutorial">Tutorial</a></p></li>
+<li><p><a class="reference external" href="https://github.com/nokia/pattern-clustering/wiki/Configuration">Configuration</a></p></li>
+<li><p><a class="reference external" href="https://github.com/nokia/pattern-clustering/wiki/Packaging">Packaging</a></p></li>
+</ul>
+</section>
+<section id="acks">
+<h2>Acks<a class="headerlink" href="#acks" title="Permalink to this heading"></a></h2>
+<p>The skeleton package was created with <a class="reference external" href="https://github.com/audreyr/cookiecutter">Cookiecutter</a> and the <a class="reference external" href="https://github.com/francois-durand/package_helper_2">francois-durand/package_helper_2</a> project template.</p>
 </section>
 </section>
 
