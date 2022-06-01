@@ -19,7 +19,11 @@ jobs:
         with:
           python-version: '3.8'
 
-      - name: Install dependencies
+      - name: Install boost
+        run:
+          sudo apt install g++ libboost-dev libboost-python-dev
+
+      - name: Install package
         run: |
           sudo apt install pandoc
           python -m pip install --upgrade pip
