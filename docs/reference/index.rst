@@ -2,8 +2,7 @@
 Reference
 =========
 
-.. toctree::
+.. autosummary::
+    :toctree: generated
 
-   my_class_1
-   my_class_2
-   my_class_3
+    pattern_clustering
