@@ -24,9 +24,9 @@ Pattern clustering
 
 This tool clusterizes lines of text given a collection of input patterns modeled using regular expressions.
 
+This work has been published to:
 
-* Free software: BSD license
-* Documentation: https://nokia.github.io/pattern_clustering/.
+[ICPR'2022] A novel pattern-based edit distance for automatic log parsing, Maxime Raynal, Marc-Olivier Buob, Georges Quénot.
 
 --------
 Features
@@ -41,11 +41,32 @@ License
 
 This project is licensed under the BSD-3-Clause license - see the `LICENSE <https://github.com/nokia/minifold/blob/master/LICENSE>`_.
 
+-----------------------------
+More about pattern-clustering
+-----------------------------
+
+.. _wiki: https://github.com/nokia/pattern-clustering/wiki
+.. _Overview: https://github.com/nokia/pattern-clustering/wiki/Overview
+.. _Installation: https://github.com/nokia/pattern-clustering/wiki/Installation
+.. _Tests: https://github.com/nokia/pattern-clustering/wiki/Tests
+.. _Tutorial: https://github.com/nokia/pattern-clustering/wiki/Tutorial
+.. _Configuration: https://github.com/nokia/pattern-clustering/wiki/Configuration
+.. _Packaging: https://github.com/nokia/pattern-clustering/wiki/Packaging
+
+For more information, feel free to visit the wiki_:
+
+- Overview_
+- Installation_
+- Tests_
+- Tutorial_ 
+- Configuration_
+- Packaging_
+
 -------
-Credits
+Acks
 -------
 
-This package was created with Cookiecutter_ and the `francois-durand/package_helper_2`_ project template.
+The skeleton package was created with Cookiecutter_ and the `francois-durand/package_helper_2`_ project template.
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`francois-durand/package_helper_2`: https://github.com/francois-durand/package_helper_2
