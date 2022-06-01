@@ -6,7 +6,7 @@ on: [push]
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
 
       - name: Checkout
@@ -17,8 +17,12 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          # Only use the current version of python as we'll need with the libboost_python*.so lib
-          python-version: "3.x"
+          # Only use python version matching libboost_python*.so lib
+          # 3.8 for ubuntu-20.04
+          # 3.10 for ubuntu-22.04
+          # ...
+          # Unfortunately, 3.x does not work for ubuntu-latest
+          python-version: "3.8"
 
       - name: Install boost
         run:
