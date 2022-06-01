@@ -1,0 +1,23 @@
+﻿pattern\_clustering
+===================
+
+.. automodule:: pattern_clustering
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
