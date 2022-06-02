@@ -32,22 +32,23 @@ jobs:
         pip install setuptools wheel twine
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    # https://github.com/marketplace/actions/python-wheels-manylinux-build
-    # https://github.com/pypa/manylinux we use manylinux_2_24 to be Debian-based.
-    # Debian stretch provides libboost-python-dev for python-3.5 https://packages.debian.org/stretch/amd64/libboost-python1.62-dev/filelist
-    - name: Build manylinux Python wheels
-      uses: RalfG/python-wheels-manylinux-build@v0.4.2-manylinux_2_24_x86_64
-      with:
-        python-versions: "cp35-cp35m"
-        build-requirements: "pybgl"
-        system-packages: "libboost-dev libboost-python-dev"
-        # For yum-based distributions:
-        #system-packages: "boost-devel boost-python3-devel"
+#    # https://github.com/marketplace/actions/python-wheels-manylinux-build
+#    # https://github.com/pypa/manylinux we use manylinux_2_24 to be Debian-based.
+#    # Debian stretch provides libboost-python-dev for python-3.5 https://packages.debian.org/stretch/amd64/libboost-python1.62-dev/filelist
+#    - name: Build manylinux Python wheels
+#      uses: RalfG/python-wheels-manylinux-build@v0.4.2-manylinux_2_24_x86_64
+#      with:
+#        python-versions: "cp35-cp35m"
+#        build-requirements: "pybgl"
+#        system-packages: "libboost-dev libboost-python-dev"
+#        # For yum-based distributions:
+#        #system-packages: "boost-devel boost-python3-devel"
 
     - name: Build and publish on PyPI
       env:
         TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
         TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       run: |
-        python setup.py sdist bdist_wheel
-        twine upload dist/*-manylinux*.whl
+        python setup.py sdist 
+        twine upload dist/*
+
