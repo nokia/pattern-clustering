@@ -30,6 +30,15 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install setuptools wheel twine
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    # https://github.com/marketplace/actions/python-wheels-manylinux-build
+    - name: Build manylinux Python wheels
+      uses: RalfG/python-wheels-manylinux-build@v0.4.2-manylinux2014_x86_64
+      with:
+        python-versions: "cp38-cp38m"
+        build-requirements: "pybgl"
+        system-packages: "libboost-dev libboost-python-dev"
 
     - name: Build and publish on PyPI
       env:
@@ -37,4 +46,4 @@ jobs:
         TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       run: |
         python setup.py sdist bdist_wheel
-        twine upload dist/*
+        twine upload dist/*-manylinux*.whl
