@@ -33,13 +33,16 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     # https://github.com/marketplace/actions/python-wheels-manylinux-build
+    # https://github.com/pypa/manylinux we use manylinux_2_24 to be Debian-based.
+    # Debian stretch provides libboost-python-dev for python-3.5 https://packages.debian.org/stretch/amd64/libboost-python1.62-dev/filelist
     - name: Build manylinux Python wheels
-      uses: RalfG/python-wheels-manylinux-build@v0.4.2-manylinux2014_x86_64
+      uses: RalfG/python-wheels-manylinux-build@v0.4.2-manylinux_2_24_x86_64
       with:
-        python-versions: "cp38-cp38m"
+        python-versions: "cp35-cp35m"
         build-requirements: "pybgl"
-        #system-packages: "libboost-dev libboost-python-dev"
-        system-packages: "boost-devel boost-python3-devel"
+        system-packages: "libboost-dev libboost-python-dev"
+        # For yum-based distributions:
+        #system-packages: "boost-devel boost-python3-devel"
 
     - name: Build and publish on PyPI
       env:
