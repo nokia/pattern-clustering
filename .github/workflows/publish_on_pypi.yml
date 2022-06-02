@@ -38,7 +38,8 @@ jobs:
       with:
         python-versions: "cp38-cp38m"
         build-requirements: "pybgl"
-        system-packages: "libboost-dev libboost-python-dev"
+        #system-packages: "libboost-dev libboost-python-dev"
+        system-packages: "boost-devel boost-python3-devel"
 
     - name: Build and publish on PyPI
       env:
