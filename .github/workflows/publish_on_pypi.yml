@@ -3,9 +3,11 @@
 
 name: publish on PyPI
 
-on:
-  release:
-    types: [created]
+#on:
+#  release:
+#    types: [created]
+
+on: [push]
 
 jobs:
   deploy:
