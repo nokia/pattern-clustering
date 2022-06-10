@@ -178,7 +178,7 @@ def clustered_lines_to_html(
         row_to_html: `Callback(int, str) -> str` mapping
             the row (line number) and the line content with the
             corresponding HTML rendering of the line.
-            See also `siva.html.RowFormatter`.
+            See also `RowFormatter`.
         line_to_html: `Callback(int, str) -> str` mapping
             the row (line number) and the line content with the
             corresponding HTML rendering of the line.
