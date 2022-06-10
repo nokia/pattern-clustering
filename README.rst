@@ -16,7 +16,7 @@ Pattern clustering
         :alt: Documentation Status
 
 
-.. image:: https://codecov.io/gh/nokia/pattern_clustering/branch/main/graphs/badge.svg
+.. image:: https://codecov.io/gh/nokia/pattern-clustering/branch/main/graphs/badge.svg
         :target: https://codecov.io/gh/nokia/pattern-clustering/branch/main/graphs
         :alt: Code Coverage
 
