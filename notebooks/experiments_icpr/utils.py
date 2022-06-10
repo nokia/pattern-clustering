@@ -48,7 +48,7 @@ def to_logmine_params(pattern_collection: dict):
     return [
         '"<%s>:/%s/"' % (
             name,
-            re.replace("(", "\(").replace(")", "\)").replace("[", "\[").replace("]", "\]")
+            re.replace("(", "\\(").replace(")", "\\)").replace("[", "\\[").replace("]", "\\]")
         )
         for name, re in pattern_collection.items()
     ]
