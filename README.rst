@@ -8,11 +8,11 @@ Pattern clustering
         :alt: PyPI Status
 
 .. image:: https://github.com/nokia/pattern-clustering/workflows/build/badge.svg?branch=main
-        :target: https://github.com/nokia/pattern_clustering/actions?query=workflow%3Abuild
+        :target: https://github.com/nokia/pattern-clustering/actions?query=workflow%3Abuild
         :alt: Build Status
 
 .. image:: https://github.com/nokia/pattern-clustering/workflows/docs/badge.svg?branch=main
-        :target: https://github.com/nokia/pattern_clustering/actions?query=workflow%3Adocs
+        :target: https://github.com/nokia/pattern-clustering/actions?query=workflow%3Adocs
         :alt: Documentation Status
 
 
