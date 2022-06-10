@@ -21,12 +21,7 @@ from sklearn.metrics import adjusted_rand_score
 
 from pybgl.html import html
 from pybgl.regexp import compile_dfa
-from siva.clustering_html import clustered_lines_to_html
-from siva.greedy_inference import greedy_re_inference
-from siva.language_density import language_density
-from siva.pattern import make_dfa_any
-from siva.pattern_automaton import PatternAutomaton
-from siva.pc_boost import pattern_clustering
+from pattern_clustering import PatternAutomaton, clustered_lines_to_html, make_dfa_any, language_density, pattern_clustering
 
 TIME = "time"
 PA = "parsing accuracy"
@@ -38,7 +33,6 @@ LM = "LogMine"
 DR = "Drain"
 
 PATH_TO_DRAIN_CONFIG = "./drain3config.ini"
-
 
 # _____________________________________________________________________________
 #                  PATTERN COLLECTION
