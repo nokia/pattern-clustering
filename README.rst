@@ -17,7 +17,7 @@ Pattern clustering
 
 
 .. image:: https://codecov.io/gh/nokia/pattern_clustering/branch/main/graphs/badge.svg
-        :target: https://codecov.io/gh/nokia/pattern_clustering/tree/main
+        :target: https://codecov.io/gh/nokia/pattern-clustering/branch/main
         :alt: Code Coverage
 
 
