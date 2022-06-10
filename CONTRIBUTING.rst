@@ -15,7 +15,7 @@ Types of Contributions
 Report Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://github.com/nokia/pattern_clustering/issues.
+Report bugs at https://github.com/nokia/pattern-clustering/issues.
 
 If you are reporting a bug, please include:
 
@@ -45,7 +45,7 @@ articles, and such.
 Submit Feedback
 ~~~~~~~~~~~~~~~
 
-The best way to send feedback is to file an issue at https://github.com/nokia/pattern_clustering/issues.
+The best way to send feedback is to file an issue at https://github.com/nokia/pattern-clustering/issues.
 
 If you are proposing a feature:
 
@@ -57,12 +57,12 @@ If you are proposing a feature:
 Get Started!
 ------------
 
-Ready to contribute? Here's how to set up `pattern_clustering` for local development.
+Ready to contribute? Here's how to set up `pattern-clustering` for local development.
 
-1. Fork the `pattern_clustering` repo on GitHub.
+1. Fork the `pattern-clustering` repo on GitHub.
 2. Clone your fork locally::
 
-    $ git clone git@github.com:your_name_here/pattern_clustering.git
+    $ git clone git@github.com:your_name_here/pattern-clustering.git
 
 3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
 
@@ -103,7 +103,7 @@ Before you submit a pull request, check that it meets these guidelines:
    your new functionality into a function with a docstring, and add the
    feature to the list in README.rst.
 3. The pull request should work for Python 3.6, 3.7 and 3.8. Check
-   https://github.com/nokia/pattern_clustering/actions?query=workflow%3Abuild
+   https://github.com/nokia/pattern-clustering/actions?query=workflow%3Abuild
    and make sure that the tests pass for all supported Python versions.
 
 Tips
