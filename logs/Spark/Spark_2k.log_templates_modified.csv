@@ -1,7 +1,6 @@
 EventId,EventTemplate
 E1,attempt_<*>: Committed
-E2,"Block <*> stored as bytes in memory (estimated size <*>, free <*>)"
-E3,"Block <*> stored as values in memory (estimated size <*>, free <*>)"
+E2,"Block <*> stored as <*> in memory (estimated size <*>, free <*>)"
 E4,Changing modify acls to: <*>
 E5,Changing view acls to: <*>
 E6,Connecting to driver: spark://<*>
@@ -11,11 +10,7 @@ E9,Finished task <*> in stage <*> (TID <*>). <*> bytes result sent to driver
 E10,Found block rdd_<*> locally
 E11,Got assigned task <*>
 E12,Input split: hdfs://<*>
-E13,"mapred.job.id is deprecated. Instead, use mapreduce.job.id"
-E14,"mapred.task.id is deprecated. Instead, use mapreduce.task.attempt.id"
-E15,"mapred.task.is.map is deprecated. Instead, use mapreduce.task.ismap"
-E16,"mapred.task.partition is deprecated. Instead, use mapreduce.task.partition"
-E17,"mapred.tip.id is deprecated. Instead, use mapreduce.task.id"
+E13,"<*> is deprecated. Instead, use <*>"
 E18,MemoryStore started with capacity <*> GB
 E19,"Partition rdd_<*> not found, computing it"
 E20,Reading broadcast variable <*> took <*> ms
@@ -31,7 +26,6 @@ E29,Started reading broadcast variable <*>
 E30,Starting executor ID <*> on host <*>
 E31,Starting remoting
 E32,Successfully registered with driver
-E33,Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port <*>.
-E34,Successfully started service 'sparkExecutorActorSystem' on port <*>.
+E33,Successfully started service <*> on port <*>.
 E35,"Times: total = <*>, boot = <*>, init = <*>, finish = <*>"
 E36,Trying to register BlockManager

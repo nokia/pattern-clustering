@@ -100,12 +100,9 @@ E98,<*>-deviceDeltaY is deprecated for NSScrollWheel. Please use -scrollingDelta
 E99,"<<<< FigByteStream >>>> FigByteStreamStatsLogOneRead: ByteStream read of <*> bytes @ <*> took <*>.<*> <*> to complete, <*> reads >= <*> sec."
 E100,<<<< MediaValidator >>>> mv_<*>: Unrecognized codec <*>.(null). Failed codec specific check.
 E101,<<<< MediaValidator >>>> mv_LookupCodecSupport: Unrecognized codec <*>
-E102,<IMMacNotificationCenterManager: <*>>:    NC Disabled: NO
-E103,<IMMacNotificationCenterManager: <*>>:   DND Enabled: NO
-E104,<IMMacNotificationCenterManager: <*>>:   DND Enabled: YES
+E103,<IMMacNotificationCenterManager: <*>>:   <*>
 E105,<IMMacNotificationCenterManager: <*>>: notification observer: com.apple.FaceTime   notification: __CFNotification <*> {name = _NSDoNotDisturbEnabledNotification}
-E106,<IMMacNotificationCenterManager: <*>>: Updating enabled: NO   (Topics: ( ))
-E107,<IMMacNotificationCenterManager: <*>>: Updating enabled: YES   (Topics: (<*>))
+E107,<IMMacNotificationCenterManager: <*>>: Updating enabled: <*>   (Topics: (<*>))
 E108,after trim url = https://www.google.com/_/chrome/newtab?rlz=<*>_<*>&espv=<*>&ie=UTF-<*>
 E109,AirPort: Link Down on awdl0. Reason <*> (Unspecified).
 E110,AirPort: Link Down on en0. Reason <*> (Disassociated because station leaving).
@@ -122,8 +119,7 @@ E120,AppleCamIn::systemWakeCall - messageType = <*>
 E121,AppleCamIn::wakeEventHandlerThread
 E122,AppleThunderboltGenericHAL::earlyWake - complete - took <*> milliseconds
 E123,"arp_client_transmit(<*>) failed, Network is down (<*>)"
-E124,ARPT: <*>.<*>: AirPort_<*>::platformWoWEnable: WWEN[disable]
-E125,ARPT: <*>.<*>: AirPort_<*>::platformWoWEnable: WWEN[enable]
+E124,ARPT: <*>.<*>: AirPort_<*>::platformWoWEnable: <*>
 E126,ARPT: <*>.<*>: AirPort_<*>::powerChange: System Sleep
 E127,ARPT: <*>.<*>: AirPort_<*>::powerChange: System Wake - Full Wake/ Dark Wake / Maintenance wake
 E128,ARPT: <*>.<*>: AirPort_<*>::syncPowerState: WWEN[enabled]
@@ -132,11 +128,7 @@ E130,ARPT: <*>.<*>: AQM agg results <*> len hi/lo: <*> <*> BAbitmap(<*>-<*>) <*>
 E131,ARPT: <*>.<*>: ARPT: Wake Reason: Wake on Scan offload
 E132,ARPT: <*>.<*>: ARPT: Wake Reason: Wake on TCP Timeout
 E133,ARPT: <*>.<*>: framerdy <*> bmccmd <*> framecnt <*>
-E134,"ARPT: <*>.<*>: IOPMPowerSource Information: onSleep,  SleepType: Normal Sleep,  'ExternalConnected': No, 'TimeRemaining': <*>,"
-E135,"ARPT: <*>.<*>: IOPMPowerSource Information: onSleep,  SleepType: Normal Sleep,  'ExternalConnected': Yes, 'TimeRemaining': <*>,"
-E136,"ARPT: <*>.<*>: IOPMPowerSource Information: onSleep,  SleepType: Standby,  'ExternalConnected': No, 'TimeRemaining': <*>,"
-E137,"ARPT: <*>.<*>: IOPMPowerSource Information: onWake,  SleepType: Normal Sleep,  'ExternalConnected': No, 'TimeRemaining': <*>,"
-E138,"ARPT: <*>.<*>: IOPMPowerSource Information: onWake,  SleepType: Normal Sleep,  'ExternalConnected': Yes, 'TimeRemaining': <*>,"
+E134,"ARPT: <*>.<*>: IOPMPowerSource Information: <*>,  SleepType: <*>,  'ExternalConnected': <*>, 'TimeRemaining': <*>,"
 E139,ARPT: <*>.<*>: wl0: leaveModulePoweredForOffloads: Wi-Fi will stay on.
 E140,"ARPT: <*>.<*>: wl0: MDNS: <*> SRV Recs, <*> TXT Recs"
 E141,ARPT: <*>.<*>: wl0: MDNS: IPV4 Addr: <*>
@@ -161,9 +153,7 @@ E159,BuildActDeviceEntry enter
 E160,BuildActDeviceEntry exit
 E161,button report: <*>
 E162,Captive: [CNInfoNetworkActive:<*>] en0: SSID 'CalVisitor' making interface primary (cache indicates network not captive)
-E163,Captive: CNPluginHandler en0: Authenticated
-E164,Captive: CNPluginHandler en0: Evaluating
-E165,Captive: CNPluginHandler en0: Inactive
+E163,Captive: CNPluginHandler en0: <*>
 E166,"CCDataTap::profileRemoved, Owner: <*>, Name: <*>"
 E167,CCFile::captureLog
 E168,"CCFile::captureLog Received Capture notice id: <*>, reason = RoamFail:sts:<NUM>_rsn:<NUM>"
@@ -215,8 +205,7 @@ E213,Error in CoreDragRemoveTrackingHandler: <*>
 E214,Error returned from iconservicesagent: (null)
 E215,extension com.apple.ncplugin.WorldClock -> (null)
 E216,FA||Url||taskID[<*>] dealloc
-E217,Failed to connect (titleField) outlet from (MMSessionPickerChoosenRowView) to (NSTextField): missing setter or instance variable
-E218,Failed to connect (view) outlet from (NSApplication) to (NSColorPickerGridView): missing setter or instance variable
+E217,Failed to connect (<*>) outlet from (<*>) to (<*>): missing setter or instance variable
 E219,Failed to stop a scan - central is not powered on: <*>
 E220,full wake promotion (reason <*>) <*> ms
 E221,full wake request (reason <*>) <*> ms
@@ -256,18 +245,10 @@ E254,kern_open_file_for_direct_io took <*> ms
 E255,kern_open_file_for_direct_io(<*>)
 E256,KeychainGetICDPStatus: keychain: <*>
 E257,KeychainGetICDPStatus: status: off
-E258,Location icon should now be in state 'Active'
-E259,Location icon should now be in state 'Inactive'
-E260,mDNS_DeregisterInterface: Frequent transitions for interface awdl0 (<*>)
-E261,mDNS_DeregisterInterface: Frequent transitions for interface en0 (<*>)
-E262,mDNS_RegisterInterface: Frequent transitions for interface awdl0 (<*>)
-E263,mDNS_RegisterInterface: Frequent transitions for interface en0 (<*>)
-E264,network changed: <*>(<*>!:<*>) DNS+ Proxy+ SMB
-E265,network changed: <*>(<*>) DNS- Proxy-
-E266,network changed: <*>(<*>:<*>) <*>(<*>) DNS Proxy SMB
-E267,network changed: <*>(<*>:<*>) <*>(<*>) DNS! Proxy SMB
-E268,network changed: DNS*
-E269,network changed: DNS* Proxy
+E258,Location icon should now be in state <*>
+E260,mDNS_DeregisterInterface: Frequent transitions for interface <*> (<*>)
+E262,mDNS_RegisterInterface: Frequent transitions for interface <*> (<*>)
+E265,network changed: <*>(<*>) <*>
 E270,"NETWORK: no response from server, reachability, <*>, queryRetries, <*>"
 E271,"NETWORK: requery, <*>, <*>, <*>, <*>, <*>, items, fQueryRetries, <*>, fLastRetryTimestamp, <*>.<*>"
 E272,"network_reachability_changed : network is not reachable, netbiosd is shutting down"
@@ -276,8 +257,7 @@ E274,no sleep images for WillPowerOffWithImages
 E275,"NSURLSession/NSURLConnection HTTP load failed (kCFStreamErrorDomainSSL, <*>)"
 E276,nw_<*>_post_new_ifstate successfully changed NAT64 ifstate from <*> to <*>
 E277,"nw_path_evaluator_start_helper_connection net_helper_path_evaluation_start failed, dumping backtrace: [<*>_<*>] libnetcore-<*>.<*>.<*> <*>   libsystem_network.dylib             <*> __nw_create_backtrace_string + <*> <*>   libsystem_network.dylib             <*> nw_path_evaluator_start_helper_connection + <*> <*>   libdispatch.dylib                   <*> _dispatch_call_block_and_release + <*> <*>   libdispatch.dylib                   <*> _dispatch_client_callout + <*> <*>   libdispatch.dylib                   <*> _dispatch_queue_drain + <*> <*>   libdispatch.dylib                   <*> _dispatch_queue_invoke + <*> <*>   libdispatch.dylib                   <*> _dispatch_root_queue_drain + <*> <*>   libdispatch.dylib                   <*> _dispatch_worker_<*> + <*> <*>   libsystem_pthread.dylib             <*> _pthread_wqthread + <*> <*>   libsystem_pthread.dylib             <*> start_wqthread + <*>"
-E278,objc[<*>]: Class TSUAtomicLRUCache is implemented in both /Library/QuickLook/iWork.qlgenerator/Contents/MacOS/iWork and /System/Library/PrivateFrameworks/OfficeImport.framework/Versions/A/OfficeImport. One of the two will be used. Which one is undefined.
-E279,objc[<*>]: Class TSUCustomFormatData is implemented in both /Library/QuickLook/iWork.qlgenerator/Contents/MacOS/iWork and /System/Library/PrivateFrameworks/OfficeImport.framework/Versions/A/OfficeImport. One of the two will be used. Which one is undefined.
+E278,objc[<*>]: Class <*> is implemented in both <*> and <*>. One of the two will be used. Which one is undefined.
 E280,"Opened file <*>, size <*>, extents <*>, maxio <*> ssd <*>"
 E281,"Page bounds {{<*>, <*>}, {<*>, <*>}}"
 E282,"pages <*>, wire <*>, act <*>, inact <*>, cleaned <*> spec <*>, zf <*>, throt <*>, compr <*>, xpmapped <*>"
@@ -286,9 +266,7 @@ E284,payload Data <*> <*>
 E285,"PBRequester failed with Error Error Domain=NSURLErrorDomain Code=<*> ""The Internet connection appears to be offline."" UserInfo={NSUnderlyingError=<*> {Error Domain=kCFErrorDomainCFNetwork Code=<*> ""The Internet connection appears to be offline."" UserInfo={NSErrorFailingURLStringKey=<*>, NSErrorFailingURLKey=<*>, _kCFStreamErrorCodeKey=<*>, _kCFStreamErrorDomainKey=<*>, NSLocalizedDescription=The Internet connection appears to be offline.}}, NSErrorFailingURLStringKey=<*>, NSErrorFailingURLKey=<*>, _kCFStreamErrorDomainKey=<*>, _kCFStreamErrorCodeKey=<*>, NSLocalizedDescription=The Internet connection appears to be offline.}"
 E286,"PBRequester failed with Error Error Domain=NSURLErrorDomain Code=<*> ""The request timed out."" UserInfo={NSUnderlyingError=<*> {Error Domain=kCFErrorDomainCFNetwork Code=<*> ""The request timed out."" UserInfo={NSErrorFailingURLStringKey=<*>, NSErrorFailingURLKey=<*>, _kCFStreamErrorCodeKey=<*>, _kCFStreamErrorDomainKey=<*>, NSLocalizedDescription=The request timed out.}}, NSErrorFailingURLStringKey=<*>, NSErrorFailingURLKey=<*>, _kCFStreamErrorDomainKey=<*>, _kCFStreamErrorCodeKey=<*>, NSLocalizedDescription=The request timed out.}"
 E287,Peripheral manager is not powered on
-E288,"PM response took <*> ms (<*>, powerd)"
-E289,"PM response took <*> ms (<*>, QQ)"
-E290,"PM response took <*> ms (<*>, WeChat)"
+E288,"PM response took <*> ms (<*>)"
 E291,PMStats: Hibernate read took <*> ms
 E292,"polled file major <*>, minor <*>, blocksize <*>, pollers <*>"
 E293,Previous sleep cause: <*>
@@ -333,10 +311,7 @@ E331,USBMSC Identifier (non-unique): <*>
 E332,"VDCAssistant:  Found a camera (<*>) , but was not able to start it up (<*> -- (os/kern) successful)"
 E333,vm_compressor_fastwake_warmup (<*> - <*>) - starting
 E334,vm_compressor_fastwake_warmup completed - took <*> msecs
-E335,Wake reason: ?
-E336,Wake reason: ARPT (Network)
-E337,Wake reason: EC.SleepTimer (SleepTimer)
-E338,Wake reason: RTC (Alarm)
+E335,Wake reason: <*>
 E339,wake time set <*> s
 E340,WARNING: hibernate_page_list_setall skipped <*> xpmapped pages
 E341,WARNING: Type1 font data isn't in the correct format required by the Adobe Type <*> Font Format specification.

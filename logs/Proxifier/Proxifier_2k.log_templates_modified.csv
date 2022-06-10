@@ -1,6 +1,5 @@
 EventId,EventTemplate
-E1,<*>:<*> open through proxy <*>:<*> SOCKS5
-E2,<*>:<*> open through proxy <*>:<*> HTTPS
+E1,<*>:<*> open through proxy <*>:<*> <*>
 E3,<*>:<*> error : Could not connect to proxy <*>:<*> - Could not resolve <*> error <*>
 E4,<*>:<*> error : Could not connect to proxy <*>:<*> - connection attempt failed with error <*>
 E5,"<*>:<*> error : Could not connect through proxy <*>:<*> - Proxy server cannot establish a connection with the target, status code <*>"

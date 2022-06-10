@@ -6,9 +6,7 @@ E4,<*> floating point alignment exceptions
 E5,<*> L3 EDRAM error(s) (dcr <*>) detected and corrected
 E6,<*> L3 EDRAM error(s) (dcr <*>) detected and corrected over <*> seconds
 E7,<*> microseconds spent in the rbs signal handler during <*> calls. <*> microseconds was the maximum time for a single instance of a correctable ddr.
-E8,<*> torus receiver x+ input pipe error(s) (dcr <*>) detected and corrected
-E9,<*> torus receiver y+ input pipe error(s) (dcr <*>) detected and corrected
-E10,<*> torus receiver z+ input pipe error(s) (dcr <*>) detected and corrected
+E8,<*> torus receiver <*> input pipe error(s) (dcr <*>) detected and corrected
 E11,<*> torus sender z- retransmission error(s) (dcr <*>) detected and corrected over <*> seconds
 E12,"<*> total interrupts. 0 critical input interrupts. <*> microseconds total spent on critical input interrupts, <*> microseconds max time in a critical input interrupt."
 E13,<*> tree receiver <*> in re-synch state event(s) (dcr <*>) detected
@@ -42,17 +40,14 @@ E40,ciod: pollControlDescriptors: Detected the debugger died.
 E41,"ciod: Received signal <*>, code=<*>, errno=<*>, address=<*>"
 E42,ciod: Z coordinate <*> exceeds physical dimension <*> at line <*> of node map file /<*>
 E43,core configuration register: <*>
-E44,critical input interrupt (unit=<*> bit=<*>): warning for torus y+ wire
-E45,critical input interrupt (unit=<*> bit=<*>): warning for torus z- wire
-E46,"critical input interrupt (unit=<*> bit=<*>): warning for torus z+ wire, suppressing further interrupts of same type"
-E47,"critical input interrupt (unit=<*> bit=<*>): warning for tree C1 wire, suppressing further interrupts of same type"
+E44,critical input interrupt (unit=<*> bit=<*>): warning for torus <*> wire
+E46,"critical input interrupt (unit=<*> bit=<*>): warning for <*>, suppressing further interrupts of same type"
 E48,critical input interrupt enable...<*>
 E49,data address space................<*>
 E50,data address: <*>
 E51,data cache search parity error detected. attempting to correct
 E52,data storage interrupt
-E53,data store interrupt caused by dcbf.........<*>
-E54,data store interrupt caused by icbi.........<*>
+E53,data store interrupt caused by <*>.........<*>
 E55,data TLB error interrupt
 E56,dbcr0=<*> dbsr=<*> ccr0=<*>
 E57,debug interrupt enable............<*>
@@ -93,8 +88,7 @@ E91,"Node card status: ALERT <*>, ALERT <*>, ALERT <*>, ALERT <*> is (are) activ
 E92,Node card status: no ALERTs are active. Clock Mode is Low. Clock Select is Midplane. Phy JTAG Reset is asserted. ASIC JTAG Reset is asserted. Temperature Mask is not active. No temperature error. Temperature Limit Error Latch is clear. PGOOD IS NOT ASSERTED. PGOOD ERROR LATCH IS ACTIVE. MPGOOD IS NOT OK. MPGOOD ERROR LATCH IS ACTIVE. The <*>.<*> volt rail is OK. The <*>.<*> volt rail is OK.
 E93,"Node card VPD check: U<*> node in processor card slot J<*> do not match. VPD ecid <*>, found <*>"
 E94,NodeCard is not fully functional
-E95,"PrepareForService shutting down Node card(mLctn(<*>), mCardSernum(<*>), mLp(<*>), mIp(<*>), mType(<*>)) as part of Service Action <*>"
-E96,"PrepareForService shutting down NodeCard(mLctn(<*>), mCardSernum(<*>), mLp(<*>), mIp(<*>), mType(<*>)) as part of Service Action <*>"
+E95,"PrepareForService shutting down <*>(mLctn(<*>), mCardSernum(<*>), mLp(<*>), mIp(<*>), mType(<*>)) as part of Service Action <*>"
 E97,"problem state (<*>=sup,<*>=usr).......<*>"
 E98,program interrupt
 E99,program interrupt: fp cr field .............<*>

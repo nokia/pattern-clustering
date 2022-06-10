@@ -1,8 +1,7 @@
 EventId,EventTemplate
 E1,<*> failures on node MININT-<*>
 E2,Added attempt_<*> to list of failed maps
-E3,Added filter AM_PROXY_FILTER (class=org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter) to context mapreduce
-E4,Added filter AM_PROXY_FILTER (class=org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter) to context static
+E3,Added filter AM_PROXY_FILTER (class=org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter) to context <*>
 E5,Added global filter 'safety' (class=org.apache.hadoop.http.HttpServer2$QuotingInputFilter)
 E6,Adding #<*> tokens and #<*> secret keys for NM use for launching container
 E7,Adding job token for job_<*> to jobTokenSecretManager
@@ -12,14 +11,7 @@ E10,Address change detected. Old: <*>/<*>:<*> New: <*>:<*>
 E11,After Scheduling: PendingReds:<*> ScheduledMaps:<*> ScheduledReds:<*> AssignedMaps:<*> AssignedReds:<*> CompletedMaps:<*> CompletedReds:0 ContAlloc:<*> ContRel:<*> HostLocal:<*> RackLocal:<*>
 E12,All maps assigned. Ramping up all remaining reduces:<*>
 E13,Assigned container container_<*> to attempt_<*>
-E14,attempt_<*> TaskAttempt Transitioned from ASSIGNED to RUNNING
-E15,attempt_<*> TaskAttempt Transitioned from FAIL_CONTAINER_CLEANUP to FAIL_TASK_CLEANUP
-E16,attempt_<*> TaskAttempt Transitioned from FAIL_TASK_CLEANUP to FAILED
-E17,attempt_<*> TaskAttempt Transitioned from NEW to UNASSIGNED
-E18,attempt_<*> TaskAttempt Transitioned from RUNNING to FAIL_CONTAINER_CLEANUP
-E19,attempt_<*> TaskAttempt Transitioned from RUNNING to SUCCESS_CONTAINER_CLEANUP
-E20,attempt_<*> TaskAttempt Transitioned from SUCCESS_CONTAINER_CLEANUP to SUCCEEDED
-E21,attempt_<*> TaskAttempt Transitioned from UNASSIGNED to ASSIGNED
+E14,attempt_<*> TaskAttempt Transitioned from <*> to <*>
 E22,ATTEMPT_START task_<*>
 E23,Auth successful for job_<*> (auth:SIMPLE)
 E24,Before Scheduling: PendingReds:<*> ScheduledMaps:<*> ScheduledReds:<*> AssignedMaps:<*> AssignedReds:<*> CompletedMaps:<*> CompletedReds:<*> ContAlloc:<*> ContRel:<*> HostLocal:<*> RackLocal:<*>
@@ -52,9 +44,7 @@ E50,IPC Server listener on <*>: starting
 E51,IPC Server Responder: starting
 E52,Jetty bound to port <*>
 E53,jetty-6.1.26
-E54,job_<*>Job Transitioned from INITED to SETUP
-E55,job_<*>Job Transitioned from NEW to INITED
-E56,job_<*>Job Transitioned from SETUP to RUNNING
+E54,job_<*>Job Transitioned from <*> to <*>
 E57,JOB_CREATE job_<*>
 E58,JVM with ID : jvm_<*> asked for a task
 E59,JVM with ID: jvm_<*> given task: <*>_<*>
@@ -100,9 +90,7 @@ E98,Starting Socket Reader #<*> for port <*>
 E99,Task cleanup failed for attempt attempt_<*>
 E100,Task succeeded with attempt attempt_<*>
 E101,Task: attempt_<*> - exited : java.net.NoRouteToHostException: No Route to Host from  MININT-<*>/<*> to <*>:<*> failed on socket timeout exception: java.net.NoRouteToHostException: No route to host: no further information; For more details see:  http://wiki.apache.org/hadoop/NoRouteToHost
-E102,task_<*> Task Transitioned from NEW to SCHEDULED
-E103,task_<*> Task Transitioned from RUNNING to SUCCEEDED
-E104,task_<*> Task Transitioned from SCHEDULED to RUNNING
+E102,task_<*> Task Transitioned from <*> to <*>
 E105,TaskAttempt: [attempt_<*>] using containerId: [container_<*>_<*>_<*>_<*> on NM: [<*>:<*>]
 E106,The job-conf file on the remote FS is <*>
 E107,The job-jar file on the remote FS is hdfs://<*>

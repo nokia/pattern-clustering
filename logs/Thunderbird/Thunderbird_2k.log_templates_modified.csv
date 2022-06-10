@@ -1,7 +1,6 @@
 EventId,EventTemplate
 E1,(C) <*>-<*> Netfilter core team
-E2,(root) CMD (/projects/tbird/temps/get_temps <*>)
-E3,(root) CMD (run-parts /etc/cron.hourly)
+E2,(root) CMD (<*>)
 E4,(supports <*>)
 E5,... autorun DONE.
 E6,[ib_sm_sweep.c:1455]: No topology change
@@ -10,8 +9,7 @@ E8,[ib_sm_sweep.c:1831]: ********************** NEW SWEEP ********************
 E9,<*> (Release Date: <*> <*>)
 E10,<*> (v001 DELL PE BKC <*> MSFT <*>) @ <*>
 E11,<*> <*>.<*> <*>/<*>/<*> <*>:<*>:<*> ak Exp $
-E12,"<*> AUX port at <*>,<*> irq <*>"
-E13,"<*> KBD port at <*>,<*> irq <*>"
+E13,"<*> <*> port at <*>,<*> irq <*>"
 E14,<*>.<*>.<*>-ioctl (<*><*><*>) initialised: #<*>#@#<*>#
 E15,"<*>: from=root, size=<*>, class=<*>, nrcpts=<*>, msgid=<<*>>, relay=#<*>#@localhost"
 E16,"<*>: to=root, ctladdr=root (0/0), delay=<*>:<*>:<*>, xdelay=<*>:<*>:<*>, mailer=relay, pri=<*>, relay=[<*>] [<*>], dsn=<*>.<*>.<*>, stat=Deferred: Connection refused by [<*>]"
@@ -98,9 +96,7 @@ E96,PS/<*> mouse device common for all mice
 E97,Reading included configuration file: <*> [file=<*>] [line=<*>]
 E98,Received SNMP packet(s) from #<*>#
 E99,registered new driver hiddev
-E100,registered new driver hub
-E101,registered new driver usbfs
-E102,registered new driver usbhid
+E100,registered new driver <*>
 E103,Registered protocol family <*>
 E104,Registering netfilter hooks
 E105,Registering secondary module capability

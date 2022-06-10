@@ -26,9 +26,7 @@ E24,Link in reset
 E25,Link ok
 E26,Linkerror event interval expired
 E27,NIFF: node node-<*> detected a failed network connection on network <*> via interface alt0
-E28,NIFF: node node-<*> has detected an available network connection on network <*> via interface alt0
-E29,NIFF: node node-<*> has detected an available network connection on network <*> via interface ee0
-E30,NIFF: node node-<*> has detected an available network connection on network <*> via interface scip0
+E28,NIFF: node node-<*> has detected an available network connection on network <*> via interface <*>
 E31,normal
 E32,not responding
 E33,not-responding
