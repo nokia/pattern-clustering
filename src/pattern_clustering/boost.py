@@ -15,7 +15,7 @@ import multiprocessing, string, sys
 try:
     # Import from C++
     # Naming convention: symbols from pc_boost are prefixed by _ to prevent
-    # them to clash with those from siva.
+    # them to clash with those from the python module.
     from pattern_clustering.pattern_clustering import PatternAutomaton as _PatternAutomaton
     from pattern_clustering.pattern_clustering import pattern_distance as _pattern_distance
     from pattern_clustering.pattern_clustering import pattern_clustering as _pattern_clustering
@@ -41,7 +41,7 @@ class PcBoostEnv:
                 with the corresponding Automaton.
         Args:
             names: A `list(str)` such that each string corresponds to
-                a pattern name defined in `siva.pattern`.
+                a pattern name defined in `pattern_clustering.pattern`.
             alphabet: The set of characters supported by the crafted
                 Automaton instances.
         """
@@ -79,7 +79,7 @@ def make_pattern_automaton(w, map_name_dfa, make_mg=None):
     Returns:
         The `PatternAutomaton` C++ instance.
     """
-    # Transform python siva.PatternAutomaton to a C++ pattern_clustering.PatternAutomaton
+    # Transform python PatternAutomaton to a C++ PatternAutomaton
     g = PatternAutomaton(w, map_name_dfa, make_mg)
     map_name_id = {k: i for (i, k) in enumerate(sorted(map_name_dfa.keys()))}
     n = len(w) + 1
@@ -178,7 +178,7 @@ def make_pattern_automata(
         The corresponding list of pattern automata.
     """
 
-    # Transform python siva.PatternAutomaton to  a C++ pattern_clustering.PatternAutomaton
+    # Transform python PatternAutomaton to a C++ PatternAutomaton
     def to_pc_boost_pattern_automaton(g: PatternAutomaton):
         map_name_id = {k: i for (i, k) in enumerate(sorted(map_name_dfa.keys()))}
         n = len(g.w) + 1
@@ -238,7 +238,7 @@ def pattern_clustering_without_preprocess(
 
 def group_by_identical_pa(pas: list, are_equal: callable = None) -> dict:
     """
-    Group matching `siva.PatternAutomaton` instances.
+    Group matching `PatternAutomaton` python instances.
     Args:
         pas: A `list(PatternAutomaton)` instance.
         are_equal: A `callable(PatternAutomaton, PatternAutomaton) -> bool`
