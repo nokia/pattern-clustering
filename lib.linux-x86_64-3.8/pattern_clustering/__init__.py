@@ -14,6 +14,7 @@ __license__    = "Nokia"
 __version__    = "0.2.0"
 
 from .boost import *
+from .html import *
 from .language_density import *
 from .multi_grep import *
 from .pattern_automaton import *
