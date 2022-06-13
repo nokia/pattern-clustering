@@ -15,7 +15,7 @@ from pybgl.automaton import *
 from pybgl.deterministic_inclusion import deterministic_inclusion
 from pybgl.dijkstra_shortest_paths import dijkstra_shortest_path, make_path
 from pybgl.property_map import make_assoc_property_map, make_func_property_map
-from .multi_grep import MultiGrepFonctorUltimate, multi_grep
+from .multi_grep import *
 
 # PatternAutomaton may possibly drop some arcs, e.g. "spaces" arcs
 class PatternAutomaton(Automaton):
@@ -44,10 +44,9 @@ class PatternAutomaton(Automaton):
                 `PatternAutomaton`, but the position of spaces in the original lines will be lost.
         """
         if filtered_patterns is None:
-            #  filtered_patterns = {"spaces"} # This will pose problem to transform PA to regexp
             filtered_patterns = set()
         if not make_mg:
-            make_mg = MultiGrepFonctorUltimate
+            make_mg = MultiGrepFonctorLargest
         mg = make_mg()
 
         # Add vertices

@@ -166,8 +166,7 @@ def clustered_lines_to_html(
     line_to_html           = None,
     skip_line              = None,
     show_caption     :bool = True,
-    map_cluster_name :dict = None,
-    display_by_cluster: bool = False,
+    map_cluster_name :dict = None
 ) -> str:
     """
     Export a list of clustered `str` to HTML.
