@@ -16,6 +16,7 @@ from pattern_clustering.regexp        import make_map_name_dfa
 W = "1.2.3.4 5.6.7.8"
 NAMES = ["int", "float", "ipv4"]
 MAP_NAME_DFA = make_map_name_dfa(NAMES)
+assert set(MAP_NAME_DFA.keys()) == set(NAMES)
 
 def test_multi_grep_all():
     fonctor = MultiGrepFonctorAll()
