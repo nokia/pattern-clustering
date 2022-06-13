@@ -36,13 +36,6 @@ def test_multi_grep_largest():
         "ipv4" : ["1.2.3.4", "5.6.7.8"],
     }
 
-def test_multi_grep_ultimate():
-    fonctor = MultiGrepFonctorUltimate()
-    multi_grep(W, MAP_NAME_DFA, fonctor)
-    assert multi_grep_fonctor_to_dict(W, fonctor) == {
-        "ipv4" : ["1.2.3.4", "5.6.7.8"],
-    }
-
 def test_multi_grep_patterns_delims():
     map_word_expected = {
         "!222aaa111zzb" : {
