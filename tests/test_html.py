@@ -10,7 +10,7 @@ __email__      = "marc-olivier.buob@nokia-bell-labs.com"
 __copyright__  = "Copyright (C) 2020, Nokia"
 __license__    = "Nokia"
 
-from pattern_clustering import colors_to_html, html, make_html_colors, fill_colored_slices
+from pattern_clustering import colors_to_html, html, make_html_colors, clustered_lines_to_html
 
 def test_make_html_colors():
     for n in range(1, 5):
@@ -19,40 +19,23 @@ def test_make_html_colors():
 
 def test_colors_to_html():
     colors = make_html_colors(5)
-    html(colors_to_html(colors, i_to_label = lambda i: "color %d" % i))
+    assert colors_to_html(colors, i_to_label = lambda i: f"color {i}")
 
-def test_fill_colored_slices1():
-    l = [(1, (0, 10)),]
-    obtained = fill_colored_slices(l)
-    expected = [
-        (1, (0, 10)),
-        (None, (10, None)),
-    ]
-    assert obtained == expected
-
-def test_fill_colored_slices2():
-    l = [(1, (5, 10)),]
-    obtained = fill_colored_slices(l)
-    expected = [
-        (None, (0, 5)),
-        (1, (5, 10)),
-        (None, (10, None)),
-    ]
-    assert obtained == expected
-
-def test_fill_colored_slices3():
-    l = [
-        (1, (10, 15)),
-        (2, (20, 25))
-    ]
-    obtained = fill_colored_slices(l)
-    expected = [
-        (None, (0, 10)),
-        (1, (10, 15)),
-        (None, (15, 20)),
-        (2, (20, 25)),
-        (None, (25, None)),
-    ]
-    print(obtained)
-    print(expected)
-    assert obtained == expected
+def test_clustered_lines_to_html():
+    num_clusters = 2
+    num_lines = 5
+    assert clustered_lines_to_html(
+        [
+            f"line{i}"
+            for i in range(num_lines)
+        ],
+        {
+            i : i % num_clusters
+            for i in range(num_lines)
+        },
+        show_caption=True,
+        map_cluster_name={
+            k : f"cluster {k % num_clusters}"
+            for k in range(num_clusters)
+        }
+    )
