@@ -10,19 +10,23 @@ __email__ = "marc-olivier.buob@nokia-bell-labs.com, maxime.raynal@nokia.com"
 __copyright__ = "Copyright (C) 2022, Nokia"
 __license__ = "Nokia"
 
-from pattern_clustering.regexp import make_map_name_dfa
-from pattern_clustering.pattern_automaton import *
+from pprint import pformat
+from pybgl.ipynb import in_ipynb, ipynb_display_graph
+from pattern_clustering import *
 
 NAMES = ["float", "int", "ipv4", "spaces", "uint"]
 MAP_NAME_DFA = make_map_name_dfa(NAMES)
 
-def test_pattern_automaton():
+def test_pattern_automaton_largest():
     w = "11.22.33.44 55.66 789"
-    g = PatternAutomaton(w, MAP_NAME_DFA)
-    assert initial(g) == 0
-    assert is_final(len(w), g)
-    assert num_vertices(g) == 6
-    assert num_edges(g) == 7
+    for (make_mg, num_vertices_expected, num_edges_expected) in [
+        (MultiGrepFonctorLargest, 14, 26)
+    ]:
+        g = PatternAutomaton(w, MAP_NAME_DFA, make_mg)
+        assert initial(g) == 0
+        assert is_final(len(w), g)
+        assert num_vertices(g) == num_vertices_expected, f"{pformat(locals())}"
+        assert num_edges(g) == num_edges_expected, f"{pformat(locals())}"
 
 def test_pattern_automaton_empty_word():
     w = ""
@@ -39,39 +43,48 @@ def test_pattern_automaton_equals():
     assert g1 == g3
 
 def test_pattern_automaton_get_slice():
+    NAMES = ["float", "int", "ipv4", "spaces", "uint"]
+    MAP_NAME_DFA = make_map_name_dfa(NAMES)
+
     w = "10   abc  1.2.3.4  de 56.78"
-    g = PatternAutomaton(w, MAP_NAME_DFA)
+    g = PatternAutomaton(w, MAP_NAME_DFA, MultiGrepFonctorLargest)
     types = {label(e, g) for e in sorted(edges(g))}
     expected = {"ipv4", "int", "float", "any", "spaces", "uint"}
     assert types == expected
-    slices = [g.get_slice(e) for e in sorted(edges(g))]
-    expected = [
-        (0, 2),    # float
-        (0, 2),    # int
-        (0, 2),    # uint
+    obtained = {g.get_slice(e) for e in sorted(edges(g))}
+    if in_ipynb():
+        ipynb_display_graph(g)
+    expected = {
+        (0, 2),    # float, int, uint
         (2, 5),    # spaces
         (5, 8),    # any
         (8, 10),   # spaces
-        (10, 17),  # ipv4
+        (10, 11),  # int, uint
+        (11, 12),  # any
+        (12, 13),  # int, uint
+        (10, 13),  # float
+        (13, 14),  # any
+        (14, 15),  # int, uint
+        (12, 15),  # float
+        (15, 16),  # any
+        (16, 17),  # int, uint
+        (14, 17),  # float
         (17, 19),  # spaces
         (19, 21),  # any
         (21, 22),  # spaces
-        (22, 27)   # float
-    ]
-    assert slices == expected
-    obtained = [g.get_infix(e) for e in sorted(edges(g))]
-    print(obtained)
-    expected = [
-        "10",       # float
-        "10",       # int
-        "10",       # uint
-        "   ",      # spaces
-        "abc",      # any
-        "  ",       # spaces
+        (22, 24),  # uint, int
+        (24, 25),  # any
+        (25, 27),  # int, uint
+        (22, 27),  # float
+        (10, 17),  # ipv4
+    }
+    assert obtained == expected, f"get_slices: {pformat(locals())}"
+    obtained = {g.get_infix(e) for e in sorted(edges(g))}
+    expected = {
+        "1", "2", "3", "4", "10", "56", "78", #int, uint
+        ".", "abc", "de", # any
+        " ", "  ", "   ", # spaces
         "1.2.3.4",  # ipv4
-        "  ",       # spaces
-        "de",       # any
-        " ",        # spaces
-        "56.78"     # float
-    ]
-    assert obtained == expected
+        "1.2", "2.3", "3.4", "56.78",  # float
+    }
+    assert obtained == expected, f"get_infix: {pformat(locals())}"
