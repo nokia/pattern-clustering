@@ -10,12 +10,13 @@ __email__      = "maxime.raynal@nokia.com, marc-olivier.buob@nokia-bell-labs.com
 __copyright__  = "Copyright (C) 2022, Nokia"
 __license__    = "Nokia"
 
+import string
 from collections        import defaultdict
 from pybgl.automaton    import Automaton, BOTTOM, finals, initial, is_final
 
 def language_density(
     g        :Automaton,
-    alphabet :set,
+    alphabet :set = None,
     n_max    :int = 30,
     series   :callable = None
 ) -> float:
@@ -31,6 +32,8 @@ def language_density(
     Returns:
         A `float` in [0.0, 1.0] corresponding to the language density of `g` according to `alphabet`.
     """
+    if not alphabet:
+        alphabet = set(string.printable)
     if series is None:
         def series(k):
             return 1 / (2 ** k)
