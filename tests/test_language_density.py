@@ -13,10 +13,9 @@ __license__ = "Nokia"
 from pprint import pformat
 from pattern_clustering import PatternAutomaton, language_density, make_map_name_dfa
 
-NAMES = ["float", "int", "ipv4", "spaces", "uint"]
-MAP_NAME_DFA = make_map_name_dfa(NAMES)
-
 def test_language_density():
+    names = ["float", "int", "ipv4", "spaces", "uint"]
+    map_name_dfa = make_map_name_dfa(names)
     map_name_expected = {
         "float": 0.053171883656509704,
         "int": 0.053157894736842064,
@@ -25,7 +24,7 @@ def test_language_density():
         "uint": 0.05263157894736826,
     }
     map_name_obtained = dict()
-    for (name, g) in MAP_NAME_DFA.items():
+    for (name, g) in map_name_dfa.items():
         if name in map_name_expected:
             map_name_obtained[name] = language_density(g)
     assert map_name_obtained == map_name_expected, f"test_language_density: {pformat(locals())}"
