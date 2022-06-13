@@ -24,7 +24,8 @@ def test_language_density():
         "spaces": 0.010101010101010102,
         "uint": 0.05263157894736826,
     }
+    map_name_obtained = dict()
     for (name, g) in MAP_NAME_DFA.items():
-        obtained = language_density(g)
-        expected = map_name_expected[name]
-        assert obtained == expected, f"test_language_density: {pformat(locals())}"
+        if name in map_name_expected:
+            map_name_obtained[name] = language_density(g)
+    assert map_name_obtained == map_name_expected, f"test_language_density: {pformat(locals())}"
