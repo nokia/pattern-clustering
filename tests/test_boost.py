@@ -43,4 +43,4 @@ def test_pattern_distance():
         normalized = True
     )
     expected = 0.007259624900493844
-    assert obtained == expected, f"pformat(locals())"
+    assert obtained == expected, f"{pformat(locals())}"
