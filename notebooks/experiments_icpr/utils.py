@@ -22,7 +22,7 @@ from sklearn.metrics import adjusted_rand_score
 
 from pybgl.html import html
 from pybgl.regexp import compile_dfa
-from pattern_clustering import PatternAutomaton, clustered_lines_to_html, make_dfa_any, language_density, pattern_clustering, MultiGrepFonctorLargest
+from pattern_clustering import PatternAutomaton, clustered_lines_to_html, make_dfa_any, language_density, pattern_clustering, MultiGrepFunctorLargest
 
 TIME = "time"
 PA = "parsing accuracy"
@@ -418,7 +418,7 @@ def evaluate_fast_pattern_clustering(
         map_name_dfa,
         map_name_density,
         max_dist,
-        make_mg=MultiGrepFonctorLargest,
+        make_mg=MultiGrepFunctorLargest,
 ):
     start = time()
     with open(file_path, 'r') as f:
@@ -459,7 +459,7 @@ def eval_on_all_logs_and_save(
         max_dist_logmine_list,
         drain_params_list,
         logmine_repo_path,
-        multigrep_functor=MultiGrepFonctorLargest,
+        multigrep_functor=MultiGrepFunctorLargest,
         logmine_regexps=None,
         alphabet=set(string.printable)
 

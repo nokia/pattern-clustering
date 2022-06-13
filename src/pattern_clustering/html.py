@@ -58,7 +58,7 @@ def colors_to_html(colors :list, i_to_label, join :str = "&nbsp;"):
 
 class RowFormatter:
     """
-    Fonctor used to format row (line number) of a file.
+    Functor used to format row (line number) of a file.
     """
     def __init__(self, pmap_color :ReadPropertyMap = None, fmt_row :str = "%3s"):
         """

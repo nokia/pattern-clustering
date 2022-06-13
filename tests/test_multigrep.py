@@ -19,7 +19,7 @@ MAP_NAME_DFA = make_map_name_dfa(NAMES)
 assert set(MAP_NAME_DFA.keys()) == set(NAMES)
 
 def test_multi_grep_all():
-    fonctor = MultiGrepFonctorAll()
+    fonctor = MultiGrepFunctorAll()
     multi_grep(W, MAP_NAME_DFA, fonctor)
     assert multi_grep_fonctor_to_dict(W, fonctor) == {
         "int"  : ["1", "2", "3", "4", "5", "6", "7", "8"],
@@ -28,7 +28,7 @@ def test_multi_grep_all():
     }
 
 def test_multi_grep_largest():
-    fonctor = MultiGrepFonctorLargest()
+    fonctor = MultiGrepFunctorLargest()
     multi_grep(W, MAP_NAME_DFA, fonctor)
     assert multi_grep_fonctor_to_dict(W, fonctor) == {
         "int"  : ["1", "2", "3", "4", "5", "6", "7", "8"],
@@ -63,7 +63,7 @@ def test_multi_grep_patterns_delims():
     map_name_dfa = make_map_name_dfa(names)
 
     for (word, expected) in map_word_expected.items():
-        functor = MultiGrepFonctorLargest()
+        functor = MultiGrepFunctorLargest()
         multi_grep_with_delimiters(
             word, map_name_dfa, functor,
             is_pattern_separator = lambda name: name in separators

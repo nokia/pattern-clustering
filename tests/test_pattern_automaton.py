@@ -20,7 +20,7 @@ MAP_NAME_DFA = make_map_name_dfa(NAMES)
 def test_pattern_automaton_largest():
     w = "11.22.33.44 55.66 789"
     for (make_mg, num_vertices_expected, num_edges_expected) in [
-        (MultiGrepFonctorLargest, 14, 26)
+        (MultiGrepFunctorLargest, 14, 26)
     ]:
         g = PatternAutomaton(w, MAP_NAME_DFA, make_mg)
         assert initial(g) == 0
@@ -47,7 +47,7 @@ def test_pattern_automaton_get_slice():
     MAP_NAME_DFA = make_map_name_dfa(NAMES)
 
     w = "10   abc  1.2.3.4  de 56.78"
-    g = PatternAutomaton(w, MAP_NAME_DFA, MultiGrepFonctorLargest)
+    g = PatternAutomaton(w, MAP_NAME_DFA, MultiGrepFunctorLargest)
     types = {label(e, g) for e in sorted(edges(g))}
     expected = {"ipv4", "int", "float", "any", "spaces", "uint"}
     assert types == expected

@@ -91,7 +91,7 @@ def multi_grep_with_delimiters(
         for (name, dfa) in map_name_dfa.items()
         if is_pattern_separator(name)
     }
-    functor_delimiters = MultiGrepFonctorLargest()
+    functor_delimiters = MultiGrepFunctorLargest()
     multi_grep(word, map_name_dfa_separator, functor_delimiters)
 
     js = {0} | {
@@ -124,10 +124,10 @@ def multi_grep_with_delimiters(
     )
 
 
-class MultiGrepFonctor:
+class MultiGrepFunctor:
     def __call__(self, i, j, k, w):
         """
-        Fonctor method.
+        Functor method.
         Args:
             i: `int` corresponding to a DFA identifier.
             j: `int` corresponding to the beginning of a substring caught by Automaton `i`.
@@ -146,9 +146,9 @@ class MultiGrepFonctor:
         raise NotImplementedError
 
 
-class MultiGrepFonctorAll(MultiGrepFonctor):
+class MultiGrepFunctorAll(MultiGrepFunctor):
     """
-    `MultiGrepFonctorAll` catches (for each pattern Pi and for each index `j`) each substring `w[j:k]` matching Pi.
+    `MultiGrepFunctorAll` catches (for each pattern Pi and for each index `j`) each substring `w[j:k]` matching Pi.
     """
 
     def __init__(self):
@@ -161,9 +161,9 @@ class MultiGrepFonctorAll(MultiGrepFonctor):
         return self.map_i_jk
 
 
-class MultiGrepFonctorLargest(MultiGrepFonctor):
+class MultiGrepFunctorLargest(MultiGrepFunctor):
     """
-    `MultiGrepFonctorLargest` catches (for each pattern Pi and for each index j)
+    `MultiGrepFunctorLargest` catches (for each pattern Pi and for each index j)
     the largest w[j:k] matching Pi.
     """
 
@@ -190,9 +190,9 @@ class MultiGrepFonctorLargest(MultiGrepFonctor):
         return result
 
 
-class MultiGrepFonctorGreedy(MultiGrepFonctorLargest):
+class MultiGrepFunctorGreedy(MultiGrepFunctorLargest):
     """
-    `MultiGrepFonctorGreedy` catches (for each pattern Pi and for each index j)
+    `MultiGrepFunctorGreedy` catches (for each pattern Pi and for each index j)
     the largest  w[j′:k] matching Pi and s.t.  j′ < j.
     """
 
@@ -221,12 +221,12 @@ def make_patterns_inclusions(map_name_dfa: dict) -> set:
     return pattern_inclusions
 
 
-def multi_grep_fonctor_to_dict(w: str, fonctor: MultiGrepFonctor) -> dict:
+def multi_grep_fonctor_to_dict(w: str, fonctor: MultiGrepFunctor) -> dict:
     """
-    Convert a `MultiGrepFonctor` to a `dict`.
+    Convert a `MultiGrepFunctor` to a `dict`.
     Args:
         w: The input `str`.
-        fonctor: A `MultiGrepFonctor` instance (after populating it with `multi_grep`).
+        fonctor: A `MultiGrepFunctor` instance (after populating it with `multi_grep`).
     Returns:
         The `dict{str : list(str)} mapping each pattern names with the list of matching
         substrings of `w` (according to `fonctor`).
@@ -237,12 +237,12 @@ def multi_grep_fonctor_to_dict(w: str, fonctor: MultiGrepFonctor) -> dict:
     }
 
 
-def multi_grep_fonctor_to_string(w: str, fonctor: MultiGrepFonctor) -> str:
+def multi_grep_fonctor_to_string(w: str, fonctor: MultiGrepFunctor) -> str:
     """
-    Convert a `MultiGrepFonctor` to a `str`.
+    Convert a `MultiGrepFunctor` to a `str`.
     Args:
         w: The input `str`.
-        fonctor: A `MultiGrepFonctor` instance (after populating it with `multi_grep`).
+        fonctor: A `MultiGrepFunctor` instance (after populating it with `multi_grep`).
     Returns:
         The `str` representation of `fonctor`.
     """
@@ -252,11 +252,11 @@ def multi_grep_fonctor_to_string(w: str, fonctor: MultiGrepFonctor) -> str:
     ])
 
 
-def print_multi_grep_fonctor(w: str, fonctor: MultiGrepFonctor):
+def print_multi_grep_fonctor(w: str, fonctor: MultiGrepFunctor):
     """
-    Print a `MultiGrepFonctor` to a `str`.
+    Print a `MultiGrepFunctor` to a `str`.
     Args:
         w: The input `str`.
-        fonctor: A `MultiGrepFonctor` instance (after populating it with `multi_grep`).
+        fonctor: A `MultiGrepFunctor` instance (after populating it with `multi_grep`).
     """
     print(multi_grep_fonctor_to_string(w, fonctor))
