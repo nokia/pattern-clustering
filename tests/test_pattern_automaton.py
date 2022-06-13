@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env pytest
 # -*- coding: utf-8 -*-
 #
 # This file is part of the pattern-clustering project.

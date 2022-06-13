@@ -1,20 +1,16 @@
-#!/usr/bin/env python3
+#!/usr/bin/env pytest
 # -*- coding: utf-8 -*-
 #
 # This file is part of the pattern-clustering project.
 # https://github.com/nokia/pattern-clustering
 
-__author__ = "Marc-Olivier Buob, Maxime Raynal"
-__maintainer__ = "Marc-Olivier Buob, Maxime Raynal"
-__email__ = "marc-olivier.buob@nokia-bell-labs.com, maxime.raynal@nokia.com"
-__copyright__ = "Copyright (C) 2022, Nokia"
-__license__ = "Nokia"
+__author__     = "Maxime Raynal, Marc-Olivier Buob"
+__maintainer__ = "Maxime Raynal, Marc-Olivier Buob"
+__email__      = "{maxime.raynal,marc-olivier.buob}@nokia.com"
+__copyright__  = "Copyright (C) 2020, Nokia"
+__license__    = "Nokia"
 
-from pattern_clustering.multi_grep    import (
-    MultiGrepFonctorAll, MultiGrepFonctorLargest, MultiGrepFonctorUltimate,
-    multi_grep, multi_grep_with_delimiters,
-    print_multi_grep_fonctor, multi_grep_fonctor_to_dict,
-)
+from pattern_clustering.multi_grep    import *
 from pattern_clustering.regexp        import make_map_name_dfa
 
 W = "1.2.3.4 5.6.7.8"
@@ -24,7 +20,6 @@ MAP_NAME_DFA = make_map_name_dfa(NAMES)
 def test_multi_grep_all():
     fonctor = MultiGrepFonctorAll()
     multi_grep(W, MAP_NAME_DFA, fonctor)
-    print_multi_grep_fonctor(W, fonctor)
     assert multi_grep_fonctor_to_dict(W, fonctor) == {
         "int"  : ["1", "2", "3", "4", "5", "6", "7", "8"],
         "float": ["1", "1.2", "2", "2.3", "3", "3.4", "4", "5", "5.6", "6", "6.7", "7", "7.8", "8"],
@@ -34,7 +29,6 @@ def test_multi_grep_all():
 def test_multi_grep_largest():
     fonctor = MultiGrepFonctorLargest()
     multi_grep(W, MAP_NAME_DFA, fonctor)
-    print_multi_grep_fonctor(W, fonctor)
     assert multi_grep_fonctor_to_dict(W, fonctor) == {
         "int"  : ["1", "2", "3", "4", "5", "6", "7", "8"],
         "float": ["1.2", "2.3", "3.4", "5.6", "6.7", "7.8"],
@@ -44,12 +38,11 @@ def test_multi_grep_largest():
 def test_multi_grep_ultimate():
     fonctor = MultiGrepFonctorUltimate()
     multi_grep(W, MAP_NAME_DFA, fonctor)
-    print_multi_grep_fonctor(W, fonctor)
     assert multi_grep_fonctor_to_dict(W, fonctor) == {
         "ipv4" : ["1.2.3.4", "5.6.7.8"],
     }
 
-def test_multi_grep_with_delimiters():
+def test_multi_grep_patterns_delims():
     map_word_expected = {
         "!222aaa111zzb" : {
             "word" : [(0, 13)],
