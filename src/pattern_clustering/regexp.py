@@ -104,6 +104,8 @@ def get_pattern_names() -> list:
 def make_map_name_dfa(names=None, map_name_re: dict = None) -> dict:
     if map_name_re is None:
         map_name_re = MAP_NAME_RE
+        if not names:
+            names = list(MAP_NAME_RE.keys())
     map_name_dfa = dict()
     for name in names:
         try:
