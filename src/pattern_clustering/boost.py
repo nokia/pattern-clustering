@@ -10,7 +10,7 @@ __email__ = "marc-olivier.buob@nokia-bell-labs.com, maxime.raynal@nokia.com"
 __copyright__ = "Copyright (C) 2022, Nokia"
 __license__ = "Nokia"
 
-import multiprocessing, sys
+import multiprocessing, string, sys
 
 try:
     # Import from C++
@@ -30,7 +30,7 @@ from .language_density import language_density
 from .pattern_automaton import *
 from .regexp import make_dfa_any, make_map_name_dfa
 
-class PcBoostEnv:
+class PatternClusteringEnv:
     def __init__(self, names: list = None, alphabet: set = None):
         """
         Creates the parameters required to run pattern distance
@@ -45,6 +45,8 @@ class PcBoostEnv:
             alphabet: The set of characters supported by the crafted
                 Automaton instances.
         """
+        if not alphabet:
+            alphabet = set(string.printable)
         self.alphabet = alphabet
 
         # `names` refers to types matched by MultiGrep to build pattern automata.
@@ -63,7 +65,7 @@ class PcBoostEnv:
 
     @property
     def densities(self):
-        return make_densities(self.map_name_density, self.map_name_dfa)
+        return make_densities(self.map_name_density)
 
 
 def make_pattern_automaton(w, map_name_dfa, make_mg=None):
@@ -79,6 +81,11 @@ def make_pattern_automaton(w, map_name_dfa, make_mg=None):
     """
     # Transform python PatternAutomaton to a C++ PatternAutomaton
     g = PatternAutomaton(w, map_name_dfa, make_mg)
+    if "any" not in map_name_dfa.keys():
+        # If some string is not caught by any pattern, it results to an "any" arc in
+        # in the PatternAutomaton, and the "any" pattern might not be declared in
+        # map_name_dfa.
+        map_name_dfa["any"] = make_dfa_any()
     map_name_id = {k: i for (i, k) in enumerate(sorted(map_name_dfa.keys()))}
     n = len(w) + 1
     _g = _PatternAutomaton(n, len(map_name_dfa), w)
@@ -91,27 +98,20 @@ def make_pattern_automaton(w, map_name_dfa, make_mg=None):
 
 
 # Default parameters
-PC_BOOST_ENV = PcBoostEnv(names=None, alphabet=None)
+PATTERN_CLUSTERING_ENV = PatternClusteringEnv(names=None, alphabet=None)
 
-def make_densities(
-    map_name_density: dict = None,
-    map_name_dfa: dict = None
-) -> list:
+def make_densities(map_name_density: dict = None) -> list:
     """
     Build the language density vector.
     Args:
         map_name_density: A `dict{str : double}` mapping each pattern name
             with the corresponding density.
-        map_name_dfa: A `dict{str : Automaton}` mapping each pattern name
-            with the corresponding Automaton.
     Returns:
         The corresponding densities, sorted by increasing pattern name.
     """
     if not map_name_density:
-        map_name_density = PC_BOOST_ENV.map_name_density
-    if not map_name_dfa:
-        map_name_dfa = PC_BOOST_ENV.map_name_dfa
-    return [map_name_density[name] for name in sorted(map_name_dfa.keys())]
+        map_name_density = PATTERN_CLUSTERING_ENV.map_name_density
+    return [map_name_density[name] for name in sorted(map_name_density.keys())]
 
 
 # Default parameters
@@ -141,9 +141,9 @@ def pattern_distance(
         The corresponding distance.
     """
     if not map_name_dfa:
-        map_name_dfa = PC_BOOST_ENV.map_name_dfa
+        map_name_dfa = PATTERN_CLUSTERING_ENV.map_name_dfa
     if not densities:
-        densities = PC_BOOST_ENV.densities
+        densities = PATTERN_CLUSTERING_ENV.densities
     g1 = make_pattern_automaton(w1, map_name_dfa)
     g2 = make_pattern_automaton(w2, map_name_dfa)
     return (
@@ -227,9 +227,9 @@ def pattern_clustering_without_preprocess(
         A `list(int)` mapping each line index with its corresponding cluster identifier.
     """
     if not map_name_dfa:
-        map_name_dfa = PC_BOOST_ENV.map_name_dfa
+        map_name_dfa = PATTERN_CLUSTERING_ENV.map_name_dfa
     if not densities:
-        densities = PC_BOOST_ENV.densities
+        densities = PATTERN_CLUSTERING_ENV.densities
     pattern_automata = make_pattern_automata(lines, map_name_dfa, make_mg)
     return _pattern_clustering(pattern_automata, densities, max_dist, use_async)
 
@@ -297,9 +297,9 @@ def pattern_clustering_with_preprocess(
         A `list(int)` mapping each line index with its corresponding cluster identifier.
     """
     if not map_name_dfa:
-        map_name_dfa = PC_BOOST_ENV.map_name_dfa
+        map_name_dfa = PATTERN_CLUSTERING_ENV.map_name_dfa
     if not densities:
-        densities = PC_BOOST_ENV.densities
+        densities = PATTERN_CLUSTERING_ENV.densities
     with multiprocessing.Pool(multiprocessing.cpu_count()) as pool:
         pas = pool.starmap(
             make_pattern_automaton_python,
@@ -329,4 +329,4 @@ def pattern_clustering_with_preprocess(
     return clusters
 
 
-pattern_clustering = pattern_clustering_without_preprocess
+pattern_clustering = pattern_clustering_with_preprocess
