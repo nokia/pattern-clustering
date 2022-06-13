@@ -1,5 +1,17 @@
 {
     "any": ".+?",
     "spaces": " +",
-    "letters": "[a-zA-Z]+"
+    "letters": "[a-zA-Z]+",
+    "column": ":",
+    "dash": "-",
+    "dot": "\\.",
+    "equal": "=",
+    "par_left": "\\(",
+    "par_right": "\\)",
+    "quote": "\"",
+    "slash": "/",
+    "square_brack_left": "\\[",
+    "square_brack_right": "\\]",
+    "underscore": "_",
+    "pipe": "\\|"
 }

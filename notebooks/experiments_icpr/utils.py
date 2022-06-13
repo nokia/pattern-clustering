@@ -12,6 +12,7 @@ import configparser
 import json
 import os
 import subprocess
+import string
 
 from collections import defaultdict
 from glob import glob
@@ -21,7 +22,7 @@ from sklearn.metrics import adjusted_rand_score
 
 from pybgl.html import html
 from pybgl.regexp import compile_dfa
-from pattern_clustering import PatternAutomaton, clustered_lines_to_html, make_dfa_any, language_density, pattern_clustering
+from pattern_clustering import PatternAutomaton, clustered_lines_to_html, make_dfa_any, language_density, pattern_clustering, MultiGrepFonctorLargest
 
 TIME = "time"
 PA = "parsing accuracy"
@@ -415,12 +416,9 @@ def evaluate_fast_pattern_clustering(
         ground_truth_templates,
         metrics,
         map_name_dfa,
-        make_mg,
         map_name_density,
         max_dist,
-        show_clusters=False,
-        infer_clusters=False,
-        map_name_token=None,
+        make_mg=MultiGrepFonctorLargest,
 ):
     start = time()
     with open(file_path, 'r') as f:
@@ -433,19 +431,6 @@ def evaluate_fast_pattern_clustering(
         make_mg=make_mg
     )
     clusters_as_dict = defaultdict(set)
-    if show_clusters:
-        map_row_cluster = {
-            row: cluster_id for row, cluster_id in enumerate(obtained_clusters)
-        }
-        html(clustered_lines_to_html(
-            [line.strip() for line in lines],
-            map_row_cluster=map_row_cluster,
-            # line_to_html=lambda row, line: "%3d: %s" % (
-            #     map_row_cluster[row], line
-            # ),
-            display_by_cluster=True
-        ))
-
     for i, clust_id in enumerate(obtained_clusters):
         clusters_as_dict[clust_id].add(i)
     clusters_as_list = []
@@ -459,17 +444,6 @@ def evaluate_fast_pattern_clustering(
     results[TIME] = computation_time
     results[NUM_CLUSTERS] = len(clusters_as_dict)
 
-    if map_name_token is not None:
-        for cluster in clusters_as_list:
-            pas = [
-                PatternAutomaton(lines[i], map_name_dfa, make_mg)
-                for i in cluster
-            ]
-            template = greedy_re_inference(pas, map_name_density)
-            print("".join(
-                "%s%s" % (map_name_token[a], "" if not b else "(*opt*)")
-                for a, b, _ in template
-            ))
     return results
 
 
@@ -478,15 +452,17 @@ def eval_on_all_logs_and_save(
         output_path,
         metrics,
         templates_dict,
-        map_name_dfa,
-        multigrep_functor,
-        map_name_density,
+        fundamental_collection,
+        basic_collection,
+        specific_collection,
         max_dist_pc_list,
         max_dist_logmine_list,
         drain_params_list,
-        map_name_re,
         logmine_repo_path,
-        logmine_regexps=None
+        multigrep_functor=MultiGrepFonctorLargest,
+        logmine_regexps=None,
+        alphabet=set(string.printable)
+
 ):
     result = defaultdict(lambda: defaultdict(dict))
     for sim_th in [a for a, b in drain_params_list]:
@@ -494,8 +470,23 @@ def eval_on_all_logs_and_save(
             result[DR][log_name][sim_th] = dict()
 
     for log_name in templates_dict:
-
         file_path = root_log_path + log_name + "/" + log_name + "_2k.log"
+
+        pc_collection = {**fundamental_collection, **basic_collection}
+        dr_lm_collection = basic_collection
+        if specific_collection is not None \
+           and log_name in specific_collection.keys():
+            pc_collection = {
+                **pc_collection, **specific_collection[log_name]
+            }
+            dr_lm_collection = {
+                **dr_lm_collection, **specific_collection[log_name]
+            }
+
+        map_name_dfa, map_name_density = make_map_name_dfa_densities(
+            pc_collection, alphabet
+        )
+        lm_collection = to_logmine_params(dr_lm_collection)
 
         for max_dist in max_dist_pc_list:
             result[PC][log_name][max_dist] = evaluate_fast_pattern_clustering(
@@ -503,9 +494,9 @@ def eval_on_all_logs_and_save(
                 templates_dict[log_name],
                 metrics,
                 map_name_dfa,
-                multigrep_functor,
                 map_name_density,
                 max_dist,
+                make_mg=multigrep_functor,
             )
             print(
                 f"[PC][{log_name}][{max_dist}]: {result[PC][log_name][max_dist]}"
@@ -517,7 +508,7 @@ def eval_on_all_logs_and_save(
                 templates_dict[log_name],
                 metrics,
                 max_dist=max_dist,
-                logmine_regexps=logmine_regexps
+                logmine_regexps=lm_collection
             )
             print(
                 f"[LM][{log_name}][{max_dist}]: {result[LM][log_name][max_dist]}"
@@ -528,7 +519,7 @@ def eval_on_all_logs_and_save(
                 file_path,
                 templates_dict[log_name],
                 metrics,
-                map_name_re,
+                dr_lm_collection,
                 sim_th=sim_th,
                 depth=depth
             )

@@ -331,4 +331,4 @@ def pattern_clustering_with_preprocess(
     return clusters
 
 
-pattern_clustering = pattern_clustering_with_preprocess
+pattern_clustering = pattern_clustering_without_preprocess
