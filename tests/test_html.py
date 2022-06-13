@@ -10,7 +10,7 @@ __email__      = "marc-olivier.buob@nokia-bell-labs.com"
 __copyright__  = "Copyright (C) 2020, Nokia"
 __license__    = "Nokia"
 
-from siva.html import colors_to_html, html, make_html_colors, fill_colored_slices
+from pattern_clustering import colors_to_html, html, make_html_colors, fill_colored_slices
 
 def test_make_html_colors():
     for n in range(1, 5):
