@@ -75,7 +75,7 @@ def make_pattern_automaton(w, map_name_dfa, make_mg=None):
         w: A `str` storing the string.
         map_name_dfa: A `dict{str : Automaton}` mapping each pattern name
             with the corresponding Automaton.
-        make_mg: A `MultiGrepFonctor` instance.
+        make_mg: A `MultiGrepFunctor` instance.
     Returns:
         The `PatternAutomaton` C++ instance.
     """
@@ -171,7 +171,7 @@ def make_pattern_automata(
         lines: A `list(str)` gathering the input lines.
         map_name_dfa: A `dict{str : Automaton}` mapping each pattern name
             with the corresponding Automaton.
-        make_mg: A `MultiGrepFonctor` instance.
+        make_mg: A `MultiGrepFunctor` instance.
     Returns:
         The corresponding list of pattern automata.
     """
@@ -222,7 +222,7 @@ def pattern_clustering_without_preprocess(
             be lower than 1.0.
         use_async: Pass `True` to run computations using async calls. This accelerates
             computations.
-        make_mg: A `MultiGrepFonctor` instance.
+        make_mg: A `MultiGrepFunctor` instance.
     Returns:
         A `list(int)` mapping each line index with its corresponding cluster identifier.
     """
@@ -292,7 +292,7 @@ def pattern_clustering_with_preprocess(
             be lower than 1.0.
         use_async: Pass `True` to run computations using async calls. This accelerates
             computations.
-        make_mg: A `MultiGrepFonctor` instance.
+        make_mg: A `MultiGrepFunctor` instance.
     Returns:
         A `list(int)` mapping each line index with its corresponding cluster identifier.
     """

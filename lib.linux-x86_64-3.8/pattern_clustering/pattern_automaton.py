@@ -46,7 +46,7 @@ class PatternAutomaton(Automaton):
         if filtered_patterns is None:
             filtered_patterns = set()
         if not make_mg:
-            make_mg = MultiGrepFonctorLargest
+            make_mg = MultiGrepFunctorLargest
         mg = make_mg()
 
         # Add vertices
@@ -112,16 +112,16 @@ class PatternAutomaton(Automaton):
 
     def __eq__(self, pa) -> bool:
         """
-        Equality operators. This implementation relies on the important property
-        that `PatternAutomaton` using `MultiGrepFonctorUltimate` or
-        `MultiGrepFonctorLargest` are minimal.
+        Equality operator. This implementation assumes that the PA is deterministic
+        and minimal, e.g. by using the `MultiGrepFunctorLargest` functor in
+        `PatternAutomaton.__init__`.
         Args:
             pa: A `PatternAutomaton` instance.
         Returns:
             True iff `self` matches another `PatternAutomaton` instance.
         """
         if num_vertices(self) != num_vertices(pa) or num_edges(self) != num_edges(pa):
-            # MultiGrepFonctorUltimate guarantees that two PatternAutomaton can
+            # MultiGrepFunctorLargest guarantees that two PatternAutomaton can
             # only be equal if they are of same size, because PatternAutomaton are
             # always minimal.
             return False
