@@ -10,7 +10,7 @@ __email__ = "marc-olivier.buob@nokia-bell-labs.com, maxime.raynal@nokia.com"
 __copyright__ = "Copyright (C) 2022, Nokia"
 __license__ = "Nokia"
 
-import multiprocessing, string, sys
+import multiprocessing, sys
 
 try:
     # Import from C++
@@ -45,8 +45,6 @@ class PcBoostEnv:
             alphabet: The set of characters supported by the crafted
                 Automaton instances.
         """
-        if not alphabet:
-            alphabet = set(string.printable)
         self.alphabet = alphabet
 
         # `names` refers to types matched by MultiGrep to build pattern automata.
