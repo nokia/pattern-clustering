@@ -142,3 +142,8 @@ def test_re_uint():
     assert not accepts("-123", g)
     assert not accepts("+123", g)
     assert not accepts("123.4", g)
+
+def test_make_map_name_dfa():
+    NAMES = ["int", "float", "ipv4"]
+    MAP_NAME_DFA = make_map_name_dfa(NAMES)
+    assert set(MAP_NAME_DFA.keys()) == set(NAMES)
