@@ -15,9 +15,8 @@ Pattern clustering
         :target: https://github.com/nokia/pattern-clustering/actions?query=workflow%3Adocs
         :alt: Documentation Status
 
-
 .. image:: https://codecov.io/gh/nokia/pattern-clustering/branch/main/graphs/badge.svg
-        :target: https://codecov.io/gh/nokia/pattern-clustering/branch/main/graphs
+        :target: https://app.codecov.io/gh/nokia/pattern-clustering
         :alt: Code Coverage
 
 
