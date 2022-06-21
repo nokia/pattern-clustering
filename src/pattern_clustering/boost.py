@@ -4,6 +4,8 @@
 # This file is part of the pattern-clustering project.
 # https://github.com/nokia/pattern-clustering
 
+"""Boost C++ functions wrapper."""
+
 __author__ = "Marc-Olivier Buob, Maxime Raynal"
 __maintainer__ = "Marc-Olivier Buob, Maxime Raynal"
 __email__ = "marc-olivier.buob@nokia-bell-labs.com, maxime.raynal@nokia.com"
@@ -31,19 +33,19 @@ from .pattern_automaton import *
 from .regexp import make_dfa_any, make_map_name_dfa
 
 class PatternClusteringEnv:
+    """
+    Stores the pattern clustering settings.
+    """
     def __init__(self, names: list = None, alphabet: set = None):
         """
         Creates the parameters required to run pattern distance
         and pattern clustering computations.
-            map_name_density: A `dict{str : double}` mapping each pattern name
-                with the corresponding density.
-            map_name_dfa: A `dict{str : Automaton}` mapping each pattern name
-                with the corresponding Automaton.
+
         Args:
-            names: A `list(str)` such that each string corresponds to
-                a pattern name defined in `pattern_clustering.pattern`.
-            alphabet: The set of characters supported by the crafted
-                Automaton instances.
+            names (list[str]): List storing the pattern names taken into account
+                (see default patterns in `pattern_clustering.pattern`).
+            alphabet (set): The set of characters supported by the crafted
+                `PatternAutomaton` instances.
         """
         if not alphabet:
             alphabet = set(string.printable)
@@ -64,18 +66,23 @@ class PatternClusteringEnv:
             self.map_name_density["any"] = language_density(make_dfa_any(alphabet), alphabet)
 
     @property
-    def densities(self):
+    def densities(self) -> list:
+        """
+        Returns:
+            The densities assigned to each pattern defined in `self.map_name_dfa`.
+        """
         return make_densities(self.map_name_density)
 
 
-def make_pattern_automaton(w, map_name_dfa, make_mg=None):
+def make_pattern_automaton(w: str, map_name_dfa: dict, make_mg=None):
     """
-    Build a `PatternAutomaton` C++ instance.
+    Builds a `PatternAutomaton` C++ instance from a input string.
+
     Args:
-        w: A `str` storing the string.
-        map_name_dfa: A `dict{str : Automaton}` mapping each pattern name
-            with the corresponding Automaton.
-        make_mg: A `MultiGrepFunctor` instance.
+        w (str): The string to convert.
+        map_name_dfa (dict): Maps each pattern name (`str`) with its corresponding `Automaton`.
+        make_mg (MultiGrepFunctor): The strategy used to build the PatternAutomaton,
+            defaults to `None`.
     Returns:
         The `PatternAutomaton` C++ instance.
     """
@@ -102,10 +109,11 @@ PATTERN_CLUSTERING_ENV = PatternClusteringEnv(names=None, alphabet=None)
 
 def make_densities(map_name_density: dict = None) -> list:
     """
-    Build the language density vector.
+    Builds the language density vector.
+
     Args:
-        map_name_density: A `dict{str : double}` mapping each pattern name
-            with the corresponding density.
+        map_name_density (dict): Maps mapping each pattern name (`str`)
+            with the corresponding density (`float`).
     Returns:
         The corresponding densities, sorted by increasing pattern name.
     """
@@ -128,14 +136,14 @@ def pattern_distance(
 ) -> float:
     """
     Compute the pattern distance between two strings.
+
     Args:
-        w1: An `str` instance.
-        w2: An `str` instance.
-        map_name_dfa: A `dict{str : Automaton}` mapping each pattern name
-            with the corresponding Automaton.
-        densities: A density vector. See `make_densities()`.
-        infinity: The infinite distance.
-        normalized: Pass `True` to get a distance in [0, 1],
+        w1 (str): The first compared string.
+        w2 (str): The second compared string.
+        map_name_dfa (dict): Maps each pattern name (`str`) with its corresponding `Automaton`.
+        densities (list): A density vector. See `make_densities()`.
+        infinity (float): The infinite distance.
+        normalized (bool): Pass `True` to get a distance in [0, 1],
             otherwise in [0, len(w1) + len(w2)]
     Returns:
         The corresponding distance.
@@ -153,9 +161,18 @@ def pattern_distance(
 
 
 # pool.starmap prevents to use a lambda.
-def make_pattern_automaton_python(w, map_name_dfa, make_mg=None):
+def make_pattern_automaton_python(w: str, map_name_dfa: dict, make_mg: MultiGrepFunctor = None):
     """
     `PatternAutomaton.__init__` wrapper.
+
+    Args:
+        w (str): The string to convert.
+        map_name_dfa (dict): Maps each pattern name (`str`) with its corresponding `Automaton`.
+        make_mg (MultiGrepFunctor): The strategy used to build the PatternAutomaton,
+            defaults to `None`.
+
+    Returns:
+        The corresponding `PatternAutomaton` python instance.
     """
     return PatternAutomaton(w, map_name_dfa, make_mg)
 
@@ -167,10 +184,10 @@ def make_pattern_automata(
 ) -> list:
     """
     Converts input lines to the `PatternAutomaton` C++ instances.
+
     Args:
-        lines: A `list(str)` gathering the input lines.
-        map_name_dfa: A `dict{str : Automaton}` mapping each pattern name
-            with the corresponding Automaton.
+        lines (list): A list gathering the input lines (`str`).
+        map_name_dfa (dict): Maps each pattern name (`str`) with its corresponding `Automaton`.
         make_mg: A `MultiGrepFunctor` instance.
     Returns:
         The corresponding list of pattern automata.
@@ -209,11 +226,11 @@ def pattern_clustering_without_preprocess(
     make_mg: callable = None
 ) -> list:
     """
-    Compute the pattern clustering of input lines.
-    You should rather use `pattern_clustering_with_preprocess` aka `pattern_clustering`
-    to accelerate computations.
+    Computes the pattern clustering of input lines without aggregating duplicated PAs.
+
     Args:
         lines: A `list(str)` gathering the input lines.
+
         map_name_dfa: A `dict{str : Automaton}` mapping each pattern name
             with the corresponding Automaton.
         densities: A density vector. See `make_densities()`.
@@ -236,16 +253,15 @@ def pattern_clustering_without_preprocess(
 
 def group_by_identical_pa(pas: list, are_equal: callable = None) -> dict:
     """
-    Group matching `PatternAutomaton` python instances.
+    Groups matching `PatternAutomaton` python instances.
+
     Args:
         pas: A `list(PatternAutomaton)` instance.
         are_equal: A `callable(PatternAutomaton, PatternAutomaton) -> bool`
-            checking whether two PAs are homomorphic. If the compared PAs
-            are minimal you may pass `None`.
+            checking whether two PAs are homomorphic (pass `None`
+            if the compared PAs are minimal to accelerate the processing).
     Returns:
-        A `dict{int : list(int)}` grouping similar PA in the same key.
-        Keys and values correspond to indices of `pas`.
-        The key always appears in the mapped values.
+        A dictionary mapping each reference PAs to the matching instances found in `pas`.
     """
     if are_equal is None:
         def are_equal(pa1, pa2):
@@ -279,9 +295,12 @@ def pattern_clustering_with_preprocess(
     make_mg: callable = None
 ) -> list:
     """
-    Compute the pattern clustering of input lines.
-    If some lines lead to the same PatternAutomata, computations are optimized to prevent
-    duplicated computations.
+    Computes the pattern clustering of input lines by grouping matching PAs.
+
+    This implies that lines having matching PatternAutomaton always fall in the same clusters
+    which accelerate the code. Sometimes, this may lead to weird cluster, especially if some
+    lines are unrelated and conform to the same `PatternAutomaton`.
+
     Args:
         lines: A `list(str)` gathering the input lines.
         map_name_dfa: A `dict{str : Automaton}` mapping each pattern name
