@@ -1,0 +1,48 @@
+pattern\_clustering.boost
+=========================
+
+.. automodule:: pattern_clustering.boost
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+   
+      group_by_identical_pa
+      make_densities
+      make_pattern_automata
+      make_pattern_automaton
+      make_pattern_automaton_python
+      pattern_clustering
+      pattern_clustering_with_preprocess
+      pattern_clustering_without_preprocess
+      pattern_distance
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+      :template: custom-class-template.rst
+      :nosignatures:
+   
+      PatternClusteringEnv
+   
+   
+
+   
+   
+   
+
+
+

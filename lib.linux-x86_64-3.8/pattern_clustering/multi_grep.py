@@ -10,6 +10,8 @@ __email__ = "marc-olivier.buob@nokia-bell-labs.com, maxime.raynal@nokia.com"
 __copyright__ = "Copyright (C) 2022, Nokia"
 __license__ = "Nokia"
 
+"""Multigrep detects pattern occurences involved in an input string"""
+
 from collections import defaultdict
 from itertools import combinations
 from pybgl.automaton import BOTTOM, initial, is_final, delta
@@ -22,16 +24,17 @@ def multi_grep(
     callback: callable = lambda name, j, k, w: None,
 ):
     """
-    Search sub-strings of a string matched by multiple patterns.
+    Searches sub-strings of a string matched by multiple patterns.
+
     Args:
-        w: A ̀`str` containing the word to process.
-        map_name_dfa: A `dict{Name : Automaton}` mapping each pattern
-            name with its corresponding DFA.
-        callback: A `callable(Name, int, int, str)` called whenever
+        w (str): The input string.
+        map_name_dfa (dict): Maps each pattern (`str`)
+            with its corresponding DFA (`pybgl.Automaton`).
+        callback (callable): A `callable(Name, int, int, str)` called whenever
             `w[j:k]` is matched by pattern `name`.
     """
 
-    def make_map_name_q_js_next():
+    def make_map_name_q_js_next() -> dict:
         return {
             name: defaultdict(set)
             for (name, g) in map_name_dfa.items()
@@ -73,17 +76,22 @@ def multi_grep_with_delimiters(
     is_pattern_right_separated: callable = lambda name: True
 ):
     """
-    Search sub-strings of a string matched by multiple patterns, possibly
+    Searches sub-strings of a string matched by multiple patterns, possibly
     delimited by a predefined collection of separator patterns.
     Args:
-        word: A ̀`str` containing the word to process.
-        map_name_dfa: A `dict{Name : Automaton}` mapping each pattern name with its corresponding DFA.
-        callback: A `callable(Name, int, int, str)` called whenever `w[j:k]` is matched by pattern `name`.
-        is_pattern_separator: A ̀`callable(Name) -> bool` return True if the pattern `name` is a separator.
-        is_pattern_left_separated: A ̀`callable(Name) -> bool` return True if the pattern `name` must be preceded by a
-            separator pattern or located at the beginning of `w`.
-        is_pattern_right_separated: A ̀`callable(Name) -> bool` return True if the pattern `name` must be followed by a
-            separator pattern or located at the end of `w`.
+        w (str): The input string.
+        map_name_dfa (dict): Maps each pattern (`str`)
+            with its corresponding DFA (`pybgl.Automaton`).
+        callback (callable): A `callable(Name, int, int, str)` called whenever
+            `w[j:k]` is matched by pattern `name`.
+        is_pattern_separator (callable): A ̀`callable(Name) -> bool` that returns `True`
+            if the pattern `name` is a separator.
+        is_pattern_left_separated (callable): A ̀`callable(Name) -> bool` that returns
+            `True` if the pattern `name` must be preceded by a separator pattern or
+            located at the beginning of `w`.
+        is_pattern_right_separated (callable): A ̀`callable(Name) -> bool` return `True`
+            if the pattern `name` must be followed by a separator pattern or located
+            at the end of `w`.
     """
     # multi_grep on separating patterns
     map_name_dfa_separator = {
@@ -125,6 +133,7 @@ def multi_grep_with_delimiters(
 
 
 class MultiGrepFunctor:
+    """Base class for handling multi_grep events"""
     def __call__(self, i, j, k, w):
         """
         Functor method.
@@ -148,7 +157,8 @@ class MultiGrepFunctor:
 
 class MultiGrepFunctorAll(MultiGrepFunctor):
     """
-    `MultiGrepFunctorAll` catches (for each pattern Pi and for each index `j`) each substring `w[j:k]` matching Pi.
+    `MultiGrepFunctorAll` catches (for each pattern Pi and for each index `j`) each substring
+    `w[j:k]` matching Pi.
     """
 
     def __init__(self):
@@ -207,29 +217,16 @@ class MultiGrepFunctorGreedy(MultiGrepFunctorLargest):
             super().__call__(i, j, k, w)
 
 
-def make_patterns_inclusions(map_name_dfa: dict) -> set:
-    pattern_inclusions = set()
-    for (i, (name_i, gi)) in enumerate(map_name_dfa.items()):
-        for (j, (name_j, gj)) in enumerate(map_name_dfa.items()):
-            if j <= i:
-                continue
-            inc_ij = deterministic_inclusion(gi, gj)
-            if inc_ij == -1:
-                pattern_inclusions.add((name_j, name_i))
-            elif inc_ij == 1:
-                pattern_inclusions.add((name_i, name_j))
-    return pattern_inclusions
-
-
 def multi_grep_fonctor_to_dict(w: str, fonctor: MultiGrepFunctor) -> dict:
     """
-    Convert a `MultiGrepFunctor` to a `dict`.
+    Converts a `MultiGrepFunctor` instance to a `dictionary.
+
     Args:
-        w: The input `str`.
-        fonctor: A `MultiGrepFunctor` instance (after populating it with `multi_grep`).
+        w (str): The input string.
+        fonctor (callable): A `MultiGrepFunctor` initialized thanks to `multi_grep`
     Returns:
-        The `dict{str : list(str)} mapping each pattern names with the list of matching
-        substrings of `w` (according to `fonctor`).
+        The dictionary mapping each pattern names (`str`) with the list of matched
+        substrings of `w` stored in `fonctor`.
     """
     return {
         name: [w[j:k] for (j, k) in slices]
@@ -239,12 +236,13 @@ def multi_grep_fonctor_to_dict(w: str, fonctor: MultiGrepFunctor) -> dict:
 
 def multi_grep_fonctor_to_string(w: str, fonctor: MultiGrepFunctor) -> str:
     """
-    Convert a `MultiGrepFunctor` to a `str`.
+    Converts a `MultiGrepFunctor` to a human readable string.
+
     Args:
-        w: The input `str`.
-        fonctor: A `MultiGrepFunctor` instance (after populating it with `multi_grep`).
+        w (str): The input string.
+        fonctor (callable): A `MultiGrepFunctor` initialized thanks to `multi_grep`
     Returns:
-        The `str` representation of `fonctor`.
+        The string representation of `fonctor`.
     """
     return "\n".join([
         "%-5s: %s" % (k, v)
@@ -254,9 +252,10 @@ def multi_grep_fonctor_to_string(w: str, fonctor: MultiGrepFunctor) -> str:
 
 def print_multi_grep_fonctor(w: str, fonctor: MultiGrepFunctor):
     """
-    Print a `MultiGrepFunctor` to a `str`.
+    Prints a `MultiGrepFunctor` instance.
+
     Args:
-        w: The input `str`.
-        fonctor: A `MultiGrepFunctor` instance (after populating it with `multi_grep`).
+        w (str): The input string.
+        fonctor (callable): A `MultiGrepFunctor` initialized thanks to `multi_grep`
     """
     print(multi_grep_fonctor_to_string(w, fonctor))

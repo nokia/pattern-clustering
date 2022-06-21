@@ -1,0 +1,6 @@
+pattern\_clustering.regexp.make\_dfa\_any
+=========================================
+
+.. currentmodule:: pattern_clustering.regexp
+
+.. autofunction:: make_dfa_any

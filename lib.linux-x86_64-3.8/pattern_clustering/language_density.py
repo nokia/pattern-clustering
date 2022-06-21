@@ -10,6 +10,8 @@ __email__      = "maxime.raynal@nokia.com, marc-olivier.buob@nokia-bell-labs.com
 __copyright__  = "Copyright (C) 2022, Nokia"
 __license__    = "Nokia"
 
+"""Language density module"""
+
 import string
 from collections        import defaultdict
 from pybgl.automaton    import Automaton, BOTTOM, finals, initial, is_final
@@ -21,14 +23,14 @@ def language_density(
     series   :callable = None
 ) -> float:
     """
-    Compute the language density of an `Automaton` for a given alphabet.
+    Computes the language density of an `Automaton` for a given alphabet.
     Args:
-        g: An `Automaton` instance.
-        alphabet: A `set(chr)` gathering the reference alphabet. You could pass `list(pybgl.automaton.alphabet(g))`
+        g (Automaton): The Automaton representing the language.
+        alphabet (set): A set gathering the characters of the alphabet. You could pass `list(pybgl.automaton.alphabet(g))`
             which computes the smallest valid alphabet in O(num_edges(g)).
-        n_max: An unsigned `int` corresponding to the maximum degree used to compute the language density.
+        n_max (int): An unsigned `int` corresponding to the maximum degree used to compute the language density.
             The greater `n_max`, the better the accuracy, but the slower the computation.
-        series: `Callback(int) -> float` returning the coefficient of a monome according to its degree.
+        series (callable): `Callback(int) -> float` returning the coefficient of a monome according to its degree.
     Returns:
         A `float` in [0.0, 1.0] corresponding to the language density of `g` according to `alphabet`.
     """

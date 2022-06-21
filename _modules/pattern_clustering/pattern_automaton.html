@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pattern_clustering.pattern_automaton &mdash; Pattern clustering 0.2.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Pattern clustering
+          </a>
+              <div class="version">
+                0.2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Pattern clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/pattern_clustering.html">API documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Pattern clustering</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>pattern_clustering.pattern_automaton</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pattern_clustering.pattern_automaton</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">#</span>
+<span class="c1"># This file is part of the pattern-clustering project.</span>
+<span class="c1"># https://github.com/nokia/pattern-clustering</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Marc-Olivier Buob, Maxime Raynal&quot;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s2">&quot;Marc-Olivier Buob, Maxime Raynal&quot;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s2">&quot;marc-olivier.buob@nokia-bell-labs.com, maxime.raynal@nokia.com&quot;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright (C) 2022, Nokia&quot;</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;Nokia&quot;</span>
+
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">pybgl.automaton</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pybgl.deterministic_inclusion</span> <span class="kn">import</span> <span class="n">deterministic_inclusion</span>
+<span class="kn">from</span> <span class="nn">pybgl.dijkstra_shortest_paths</span> <span class="kn">import</span> <span class="n">dijkstra_shortest_path</span><span class="p">,</span> <span class="n">make_path</span>
+<span class="kn">from</span> <span class="nn">pybgl.property_map</span> <span class="kn">import</span> <span class="n">make_assoc_property_map</span><span class="p">,</span> <span class="n">make_func_property_map</span>
+<span class="kn">from</span> <span class="nn">.multi_grep</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># PatternAutomaton may possibly drop some arcs, e.g. &quot;spaces&quot; arcs</span>
+<div class="viewcode-block" id="PatternAutomaton"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.pattern_automaton.PatternAutomaton.html#pattern_clustering.pattern_automaton.PatternAutomaton">[docs]</a><span class="k">class</span> <span class="nc">PatternAutomaton</span><span class="p">(</span><span class="n">Automaton</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A PatternAutomaton models a string at the pattern level using a automaton-like structure where each vertex</span>
+<span class="sd">    corresponds to a string index; each arc corresponds to an infix and its corresponding pattern.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">word</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">map_name_dfa</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="n">make_mg</span><span class="p">:</span> <span class="n">callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">filtered_patterns</span> <span class="p">:</span><span class="nb">set</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructs the `PatternAutomaton` related to an input word according</span>
+<span class="sd">        to a collection of patterns and according to a `multi_grep` strategy.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            word (str): The input string.</span>
+<span class="sd">            map_name_dfa (dict): The pattern collection mapping each pattern name (`str`)</span>
+<span class="sd">                 with its corresponding `Automaton` instance.</span>
+<span class="sd">            filtered_patterns (set): A subset (possibly empty) of `map_name_dfa.keys()` of type</span>
+<span class="sd">                that must be caught my `multi_grep`, but not reflected as arcs in the</span>
+<span class="sd">                `PatternAutomaton`. It can be used e.g. to drop spaces and get a smaller</span>
+<span class="sd">                `PatternAutomaton`, but the position of spaces in the original lines will be lost.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">filtered_patterns</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">filtered_patterns</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">make_mg</span><span class="p">:</span>
+            <span class="n">make_mg</span> <span class="o">=</span> <span class="n">MultiGrepFunctorLargest</span>
+        <span class="n">mg</span> <span class="o">=</span> <span class="n">make_mg</span><span class="p">()</span>
+
+        <span class="c1"># Add vertices</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">set_final</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">word</span>
+
+        <span class="c1"># Add edges</span>
+        <span class="n">multi_grep</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">map_name_dfa</span><span class="p">,</span> <span class="n">mg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">mg</span><span class="o">.</span><span class="n">indices</span><span class="p">():</span>
+            <span class="n">vertices_with_successors</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="n">vertices_with_predecessors</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">jks</span><span class="p">)</span> <span class="ow">in</span> <span class="n">mg</span><span class="o">.</span><span class="n">indices</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">filtered_patterns</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">for</span> <span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="ow">in</span> <span class="n">jks</span><span class="p">:</span>
+                    <span class="n">add_edge</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+                    <span class="n">vertices_with_successors</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+                    <span class="n">vertices_with_predecessors</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+            <span class="n">to_keep</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">vertices_with_successors</span> <span class="o">|</span> <span class="n">vertices_with_predecessors</span> <span class="o">|</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">})</span>
+
+            <span class="c1"># Remove isolated vertices</span>
+            <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">u</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">to_keep</span><span class="p">:</span>
+                    <span class="n">remove_vertex</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+
+            <span class="c1"># Add missing &quot;any&quot; edges</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">to_keep</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">u</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">u</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">vertices_with_predecessors</span><span class="p">:</span>
+                    <span class="n">add_edge</span><span class="p">(</span><span class="n">to_keep</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">u</span><span class="p">,</span> <span class="s2">&quot;any&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">u</span> <span class="o">!=</span> <span class="n">n</span> <span class="ow">and</span> <span class="n">u</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">vertices_with_successors</span><span class="p">:</span>
+                    <span class="n">add_edge</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">to_keep</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;any&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># The PatternAutomaton involves a single &quot;any&quot; arc</span>
+            <span class="n">to_remove</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">vertices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">u</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">}:</span>
+                    <span class="n">to_remove</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">to_remove</span><span class="p">:</span>
+                <span class="n">remove_vertex</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">):</span>
+                <span class="n">add_edge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">),</span> <span class="s2">&quot;any&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="PatternAutomaton.get_slice"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.pattern_automaton.PatternAutomaton.html#pattern_clustering.pattern_automaton.PatternAutomaton.get_slice">[docs]</a>    <span class="k">def</span> <span class="nf">get_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span> <span class="p">:</span><span class="n">EdgeDescriptor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the slice (pair of uint indices delimiting a substring) related to an edge.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            e (EdgeDescriptor): The queried edge identifier.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            The slice related to an arbitrary edge of this `PatternAutomaton` instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="n">source</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">target</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PatternAutomaton.get_infix"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.pattern_automaton.PatternAutomaton.html#pattern_clustering.pattern_automaton.PatternAutomaton.get_infix">[docs]</a>    <span class="k">def</span> <span class="nf">get_infix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="n">EdgeDescriptor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the infix (substring) related to an edge.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            e (EdgeDescriptor): The queried edge identifier.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            The infix related to an arbitrary edge of this `PatternAutomaton` instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_slice</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">[</span><span class="n">j</span><span class="p">:</span><span class="n">k</span><span class="p">]</span></div>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pa</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Equality operator.</span>
+
+<span class="sd">        This implementation assumes that the PA is deterministic and minimal,</span>
+<span class="sd">        e.g., by using the `MultiGrepFunctorLargest` functor in `PatternAutomaton.__init__`.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            pa (PatternAutomaton): The `PatternAutomaton` instance compared to `self`.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            True iff `self` matches `pa`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">num_vertices</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">!=</span> <span class="n">num_vertices</span><span class="p">(</span><span class="n">pa</span><span class="p">)</span> <span class="ow">or</span> <span class="n">num_edges</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">!=</span> <span class="n">num_edges</span><span class="p">(</span><span class="n">pa</span><span class="p">):</span>
+            <span class="c1"># MultiGrepFunctorLargest guarantees that two PatternAutomaton can</span>
+            <span class="c1"># only be equal if they are of same size, because PatternAutomaton are</span>
+            <span class="c1"># always minimal.</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="n">deterministic_inclusion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pa</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="pattern_automaton_edge_weight"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.pattern_automaton.pattern_automaton_edge_weight.html#pattern_clustering.pattern_automaton.pattern_automaton_edge_weight">[docs]</a><span class="k">def</span> <span class="nf">pattern_automaton_edge_weight</span><span class="p">(</span>
+    <span class="n">e</span><span class="p">:</span> <span class="n">EdgeDescriptor</span><span class="p">,</span>
+    <span class="n">g</span><span class="p">:</span> <span class="n">PatternAutomaton</span><span class="p">,</span>
+    <span class="n">map_name_density</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Retrieves an edge weight (density).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        e (EdgeDescriptor): The queried edge identifier.</span>
+<span class="sd">        g (PatternAutomaton): The queried PatternAutomaton instance.</span>
+<span class="sd">        map_name_density (dict): Maps each pattern name (`str)  with its</span>
+<span class="sd">            corresponding density (`float`)</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        The corresponding density.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">label</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">map_name_density</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span> <span class="k">if</span> <span class="n">map_name_density</span> <span class="k">else</span> <span class="mf">1.0</span></div>
+
+
+<div class="viewcode-block" id="pattern_automaton_to_path"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.pattern_automaton.pattern_automaton_to_path.html#pattern_clustering.pattern_automaton.pattern_automaton_to_path">[docs]</a><span class="k">def</span> <span class="nf">pattern_automaton_to_path</span><span class="p">(</span><span class="n">g</span><span class="p">:</span> <span class="n">PatternAutomaton</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the path having the lowest density (and hence describing</span>
+<span class="sd">    the best pattern-based decomposition) of an input PatternAutomaton.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        g (PatternAutomaton): The queried `PatternAutomaton` instance.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        The path minimizing the density.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">initial</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">finals</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+
+    <span class="n">pmap_vpreds</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;pmap_vpreds&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pmap_vpreds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">map_vpreds</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
+        <span class="n">pmap_vpreds</span> <span class="o">=</span> <span class="n">make_assoc_property_map</span><span class="p">(</span><span class="n">map_vpreds</span><span class="p">)</span>
+    <span class="n">pmap_vdist</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;pmap_vdist&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pmap_vdist</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">map_vdist</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">()</span>
+        <span class="n">pmap_vdist</span> <span class="o">=</span> <span class="n">make_assoc_property_map</span><span class="p">(</span><span class="n">map_vdist</span><span class="p">)</span>
+    <span class="n">pmap_eweight</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;pmap_eweight&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">map_name_density</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;map_name_density&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">pmap_eweight</span> <span class="ow">or</span> <span class="n">map_name_density</span>
+    <span class="k">if</span> <span class="n">pmap_eweight</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">pmap_eweight</span> <span class="o">=</span> <span class="n">make_func_property_map</span><span class="p">(</span>
+            <span class="n">partial</span><span class="p">(</span>
+                <span class="n">pattern_automaton_edge_weight</span><span class="p">,</span>
+                <span class="n">g</span><span class="o">=</span><span class="n">g</span><span class="p">,</span>
+                <span class="n">map_name_density</span><span class="o">=</span><span class="n">map_name_density</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="n">dijkstra_shortest_path</span><span class="p">(</span>
+        <span class="n">g</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span>
+        <span class="n">pmap_eweight</span><span class="p">,</span>
+        <span class="n">pmap_vpreds</span><span class="p">,</span>
+        <span class="n">pmap_vdist</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">make_path</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">pmap_vpreds</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Marc-Olivier Buob.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

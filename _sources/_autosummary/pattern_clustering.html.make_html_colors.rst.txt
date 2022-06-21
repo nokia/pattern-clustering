@@ -1,0 +1,6 @@
+pattern\_clustering.html.make\_html\_colors
+===========================================
+
+.. currentmodule:: pattern_clustering.html
+
+.. autofunction:: make_html_colors

@@ -1,0 +1,6 @@
+pattern\_clustering.regexp.make\_re\_ipv6
+=========================================
+
+.. currentmodule:: pattern_clustering.regexp
+
+.. autofunction:: make_re_ipv6

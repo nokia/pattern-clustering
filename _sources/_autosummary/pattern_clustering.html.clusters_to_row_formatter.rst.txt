@@ -1,0 +1,6 @@
+pattern\_clustering.html.clusters\_to\_row\_formatter
+=====================================================
+
+.. currentmodule:: pattern_clustering.html
+
+.. autofunction:: clusters_to_row_formatter

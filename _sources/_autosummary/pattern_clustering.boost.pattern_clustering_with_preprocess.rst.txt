@@ -1,0 +1,6 @@
+pattern\_clustering.boost.pattern\_clustering\_with\_preprocess
+===============================================================
+
+.. currentmodule:: pattern_clustering.boost
+
+.. autofunction:: pattern_clustering_with_preprocess

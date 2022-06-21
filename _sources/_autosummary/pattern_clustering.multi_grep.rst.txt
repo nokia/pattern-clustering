@@ -1,0 +1,23 @@
+pattern\_clustering.multi\_grep
+===============================
+
+.. automodule:: pattern_clustering.multi_grep
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

@@ -1,0 +1,41 @@
+pattern\_clustering.pattern\_automaton
+======================================
+
+.. automodule:: pattern_clustering.pattern_automaton
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+   
+      pattern_automaton_edge_weight
+      pattern_automaton_to_path
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+      :template: custom-class-template.rst
+      :nosignatures:
+   
+      PatternAutomaton
+   
+   
+
+   
+   
+   
+
+
+

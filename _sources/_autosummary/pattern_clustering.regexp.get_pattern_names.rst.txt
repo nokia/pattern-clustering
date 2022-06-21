@@ -1,0 +1,6 @@
+pattern\_clustering.regexp.get\_pattern\_names
+==============================================
+
+.. currentmodule:: pattern_clustering.regexp
+
+.. autofunction:: get_pattern_names

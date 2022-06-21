@@ -1,0 +1,6 @@
+pattern\_clustering.regexp.make\_map\_name\_dfa
+===============================================
+
+.. currentmodule:: pattern_clustering.regexp
+
+.. autofunction:: make_map_name_dfa

@@ -1,0 +1,6 @@
+pattern\_clustering.boost.group\_by\_identical\_pa
+==================================================
+
+.. currentmodule:: pattern_clustering.boost
+
+.. autofunction:: group_by_identical_pa

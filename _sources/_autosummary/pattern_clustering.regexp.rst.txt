@@ -1,0 +1,37 @@
+pattern\_clustering.regexp
+==========================
+
+.. automodule:: pattern_clustering.regexp
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+   
+      get_pattern_names
+      make_dfa_any
+      make_dfa_empty
+      make_map_name_dfa
+      make_re_hex_digit
+      make_re_ipv6
+      make_re_ipv6_strict
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

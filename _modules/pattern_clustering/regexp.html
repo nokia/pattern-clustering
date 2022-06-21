@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pattern_clustering.regexp &mdash; Pattern clustering 0.2.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Pattern clustering
+          </a>
+              <div class="version">
+                0.2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Pattern clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/pattern_clustering.html">API documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Pattern clustering</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>pattern_clustering.regexp</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pattern_clustering.regexp</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Marc-Olivier Buob&quot;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s2">&quot;Marc-Olivier Buob&quot;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s2">&quot;marc-olivier.buob@nokia-bell-labs.com&quot;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright (C) 2020, Nokia&quot;</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;Nokia&quot;</span>
+
+<span class="kn">from</span> <span class="nn">string</span> <span class="kn">import</span> <span class="n">printable</span>
+<span class="kn">from</span> <span class="nn">pybgl.automaton</span> <span class="kn">import</span> <span class="n">Automaton</span><span class="p">,</span> <span class="n">add_edge</span><span class="p">,</span> <span class="n">set_final</span>
+<span class="kn">from</span> <span class="nn">pybgl.regexp</span> <span class="kn">import</span> <span class="n">compile_dfa</span>
+
+
+<div class="viewcode-block" id="make_re_hex_digit"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.regexp.make_re_hex_digit.html#pattern_clustering.regexp.make_re_hex_digit">[docs]</a><span class="k">def</span> <span class="nf">make_re_hex_digit</span><span class="p">(</span><span class="n">lower_case</span> <span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">upper_case</span> <span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Builds the regular expression catching hexadecimal values.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        lower_case (bool): Pass `False` to discard lower case values.</span>
+<span class="sd">        upper_case (bool): Pass `False` to discard upper case values.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        The string storing the regular expression.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="sa">r</span><span class="s2">&quot;[0-9</span><span class="si">%s%s</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="p">(</span>
+        <span class="s2">&quot;a-f&quot;</span> <span class="k">if</span> <span class="n">lower_case</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;A-F&quot;</span> <span class="k">if</span> <span class="n">upper_case</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="make_re_ipv6"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.regexp.make_re_ipv6.html#pattern_clustering.regexp.make_re_ipv6">[docs]</a><span class="k">def</span> <span class="nf">make_re_ipv6</span><span class="p">(</span><span class="n">lower_case</span> <span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">upper_case</span> <span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Builds the regular expression catching IPv6 addresses.</span>
+
+<span class="sd">    Note this is not an exact match contrary to `make_re_ipv6_strict`, but</span>
+<span class="sd">    the resulting automaton is significantly faster (and should be accurate</span>
+<span class="sd">    enough for most of practical use cases).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        lower_case (bool): Pass `False` to discard lower case values.</span>
+<span class="sd">        upper_case (bool): Pass `False` to discard upper case values.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        The string storing the regular expression.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">lower_case</span> <span class="ow">or</span> <span class="n">upper_case</span>
+    <span class="n">hex4</span> <span class="o">=</span> <span class="s2">&quot;[</span><span class="si">%s%s</span><span class="s2">0-9]{0,4}&quot;</span> <span class="o">%</span> <span class="p">(</span>
+        <span class="s2">&quot;a-f&quot;</span> <span class="k">if</span> <span class="n">lower_case</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;A-F&quot;</span> <span class="k">if</span> <span class="n">upper_case</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="p">)</span>
+    <span class="n">ipv6_sep</span> <span class="o">=</span> <span class="s2">&quot;:&quot;</span>
+    <span class="k">return</span> <span class="s2">&quot;((&quot;</span> <span class="o">+</span> <span class="n">hex4</span> <span class="o">+</span> <span class="s2">&quot;)?(&quot;</span> <span class="o">+</span> <span class="n">ipv6_sep</span> <span class="o">+</span> <span class="n">hex4</span> <span class="o">+</span> <span class="s2">&quot;)+&quot;</span> <span class="o">+</span> <span class="n">ipv6_sep</span> <span class="o">+</span> <span class="n">hex4</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span></div>
+
+
+<span class="c1"># Avoid to use it (long to compile, long to compute language_density)</span>
+<div class="viewcode-block" id="make_re_ipv6_strict"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.regexp.make_re_ipv6_strict.html#pattern_clustering.regexp.make_re_ipv6_strict">[docs]</a><span class="k">def</span> <span class="nf">make_re_ipv6_strict</span><span class="p">(</span><span class="o">*</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Builds the regular expression catching IPv6 addresses.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The string storing the regular expression.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">re_seg</span> <span class="o">=</span> <span class="n">make_re_hex_digit</span><span class="p">(</span><span class="o">*</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;{1,4}&quot;</span>
+    <span class="k">return</span> <span class="s2">&quot;(</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
+        <span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="n">re_seg</span> <span class="o">+</span> <span class="s2">&quot;:){7,7}&quot;</span> <span class="o">+</span> <span class="n">re_seg</span><span class="p">,</span>  <span class="c1"># 1:2:3:4:5:6:7:8</span>
+        <span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="n">re_seg</span> <span class="o">+</span> <span class="s2">&quot;:){1,7}:&quot;</span><span class="p">,</span>  <span class="c1"># 1::                                 1:2:3:4:5:6:7::</span>
+        <span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="n">re_seg</span> <span class="o">+</span> <span class="s2">&quot;:){1,6}:&quot;</span> <span class="o">+</span> <span class="n">re_seg</span><span class="p">,</span>  <span class="c1"># 1::8               1:2:3:4:5:6::8   1:2:3:4:5:6::8</span>
+        <span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="n">re_seg</span> <span class="o">+</span> <span class="s2">&quot;:){1,5}(:&quot;</span> <span class="o">+</span> <span class="n">re_seg</span> <span class="o">+</span> <span class="s2">&quot;){1,2}&quot;</span><span class="p">,</span>  <span class="c1"># 1::7:8             1:2:3:4:5::7:8   1:2:3:4:5::8</span>
+        <span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="n">re_seg</span> <span class="o">+</span> <span class="s2">&quot;:){1,4}(:&quot;</span> <span class="o">+</span> <span class="n">re_seg</span> <span class="o">+</span> <span class="s2">&quot;){1,3}&quot;</span><span class="p">,</span>  <span class="c1"># 1::6:7:8           1:2:3:4::6:7:8   1:2:3:4::8</span>
+        <span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="n">re_seg</span> <span class="o">+</span> <span class="s2">&quot;:){1,3}(:&quot;</span> <span class="o">+</span> <span class="n">re_seg</span> <span class="o">+</span> <span class="s2">&quot;){1,4}&quot;</span><span class="p">,</span>  <span class="c1"># 1::5:6:7:8         1:2:3::5:6:7:8   1:2:3::8</span>
+        <span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="n">re_seg</span> <span class="o">+</span> <span class="s2">&quot;:){1,2}(:&quot;</span> <span class="o">+</span> <span class="n">re_seg</span> <span class="o">+</span> <span class="s2">&quot;){1,5}&quot;</span><span class="p">,</span>  <span class="c1"># 1::4:5:6:7:8       1:2::4:5:6:7:8   1:2::8</span>
+        <span class="n">re_seg</span> <span class="o">+</span> <span class="s2">&quot;:((:&quot;</span> <span class="o">+</span> <span class="n">re_seg</span> <span class="o">+</span> <span class="s2">&quot;){1,6})&quot;</span><span class="p">,</span>  <span class="c1"># 1::3:4:5:6:7:8     1::3:4:5:6:7:8   1::8</span>
+        <span class="s2">&quot;:((:&quot;</span> <span class="o">+</span> <span class="n">re_seg</span> <span class="o">+</span> <span class="s2">&quot;){1,7}|:)&quot;</span><span class="p">,</span>  <span class="c1"># ::2:3:4:5:6:7:8    ::2:3:4:5:6:7:8  ::8       ::</span>
+        <span class="c1"># fe80::7:8%eth0 fe80::7:8%1  (link-local IPv6 addresses with zone index)</span>
+        <span class="s2">&quot;fe80:(:&quot;</span> <span class="o">+</span> <span class="n">re_seg</span> <span class="o">+</span> <span class="s2">&quot;){0,4}%[0-9a-zA-Z]{1,}&quot;</span><span class="p">,</span>
+        <span class="c1"># ::255.255.255.255  ::ffff:255.255.255.255  ::ffff:0:255.255.255.255</span>
+        <span class="c1"># (IPv4-mapped IPv6 addresses and IPv4-translated addresses)</span>
+        <span class="s2">&quot;::(ffff(:0{1,4}){0,1}:){0,1}&quot;</span> <span class="o">+</span> <span class="n">RE_IPV4</span><span class="p">,</span>
+        <span class="c1">#  2001:db8:3:4::192.0.2.33  64:ff9b::192.0.2.33 (IPv4-Embedded IPv6 Address)</span>
+        <span class="s2">&quot;(re_seg:){1,4}:&quot;</span> <span class="o">+</span> <span class="n">RE_IPV4</span>
+    <span class="p">])</span></div>
+
+
+<span class="n">RE_0_32</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;(3[0-2]|[0-2]?[0-9])&quot;</span>
+<span class="n">RE_0_128</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;(12[0-8]|1[0-1][0-9]|([0-9]{1,2}))&quot;</span>
+<span class="n">RE_0_255</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;(25[0-5]|(2[0-4]|[0-1]{0,1}[0-9]){0,1}[0-9])&quot;</span>
+<span class="n">RE_ALNUM</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;[a-zA-Z0-9]+&quot;</span>
+<span class="n">RE_ANY</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;(\S|\s)+&quot;</span>  <span class="c1"># The metacharacter &quot;.&quot; is not yet supported in pybgl</span>
+<span class="n">RE_BOOL</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;0|1&quot;</span>
+<span class="n">RE_DELIMITER</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;[-+=*@~#]+&quot;</span>
+<span class="n">RE_SIGN</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;(-|[+])?&quot;</span>
+<span class="n">RE_UINT</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;[0-9]+&quot;</span>
+<span class="n">RE_INT</span> <span class="o">=</span> <span class="n">RE_SIGN</span> <span class="o">+</span> <span class="n">RE_UINT</span>
+<span class="n">RE_GENERAL_INT</span> <span class="o">=</span> <span class="n">RE_SIGN</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;[0-9]{1,3}(,[0-9]</span><span class="si">{3}</span><span class="s2">)*&quot;</span>
+<span class="n">RE_FLOAT</span> <span class="o">=</span> <span class="n">RE_SIGN</span> <span class="o">+</span> <span class="n">RE_UINT</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;([.]&quot;</span> <span class="o">+</span> <span class="n">RE_UINT</span> <span class="o">+</span> <span class="s2">&quot;)?&quot;</span>
+<span class="n">RE_APPROX_FLOAT</span> <span class="o">=</span> <span class="s2">&quot;~?&quot;</span> <span class="o">+</span> <span class="n">RE_FLOAT</span>
+<span class="n">RE_HEXA</span> <span class="o">=</span> <span class="n">make_re_hex_digit</span><span class="p">()</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;+&quot;</span>
+<span class="n">RE_IPV4</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;((&quot;</span> <span class="o">+</span> <span class="n">RE_0_255</span> <span class="o">+</span> <span class="s2">&quot;[.])</span><span class="si">{3}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">RE_0_255</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
+<span class="n">RE_IPV6</span> <span class="o">=</span> <span class="n">make_re_ipv6</span><span class="p">()</span>  <span class="c1"># make_re_ipv6_strict()</span>
+<span class="n">RE_LETTERS</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;[a-zA-Z]+&quot;</span>
+<span class="n">RE_NET_IPV4</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">RE_IPV4</span><span class="p">,</span> <span class="n">RE_0_32</span><span class="p">])</span>
+<span class="n">RE_NET_IPV6</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">RE_IPV6</span><span class="p">,</span> <span class="n">RE_0_128</span><span class="p">])</span>
+<span class="n">RE_PATH</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;(/[-/:._a-zA-Z0-9]+)&quot;</span>
+<span class="n">RE_SPACES</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;\s+&quot;</span>
+<span class="n">RE_WORD</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;\S+&quot;</span>
+
+<span class="n">MAP_NAME_RE</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;alnum&quot;</span><span class="p">:</span> <span class="n">RE_ALNUM</span><span class="p">,</span>
+    <span class="s2">&quot;any&quot;</span><span class="p">:</span> <span class="n">RE_ANY</span><span class="p">,</span>
+    <span class="s2">&quot;approx_float&quot;</span><span class="p">:</span> <span class="n">RE_APPROX_FLOAT</span><span class="p">,</span>
+    <span class="s2">&quot;bool&quot;</span><span class="p">:</span> <span class="n">RE_BOOL</span><span class="p">,</span>
+    <span class="s2">&quot;delimiter&quot;</span><span class="p">:</span> <span class="n">RE_DELIMITER</span><span class="p">,</span>
+    <span class="s2">&quot;float&quot;</span><span class="p">:</span> <span class="n">RE_FLOAT</span><span class="p">,</span>
+    <span class="s2">&quot;general_int&quot;</span><span class="p">:</span> <span class="n">RE_GENERAL_INT</span><span class="p">,</span>
+    <span class="s2">&quot;hexa&quot;</span><span class="p">:</span> <span class="n">RE_HEXA</span><span class="p">,</span>
+    <span class="s2">&quot;int&quot;</span><span class="p">:</span> <span class="n">RE_INT</span><span class="p">,</span>
+    <span class="s2">&quot;ipv4&quot;</span><span class="p">:</span> <span class="n">RE_IPV4</span><span class="p">,</span>
+    <span class="s2">&quot;ipv6&quot;</span><span class="p">:</span> <span class="n">RE_IPV6</span><span class="p">,</span>
+    <span class="s2">&quot;letters&quot;</span><span class="p">:</span> <span class="n">RE_LETTERS</span><span class="p">,</span>
+    <span class="s2">&quot;net_ipv4&quot;</span><span class="p">:</span> <span class="n">RE_NET_IPV4</span><span class="p">,</span>
+    <span class="s2">&quot;net_ipv6&quot;</span><span class="p">:</span> <span class="n">RE_NET_IPV6</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">RE_PATH</span><span class="p">,</span>
+    <span class="s2">&quot;uint&quot;</span><span class="p">:</span> <span class="n">RE_UINT</span><span class="p">,</span>
+    <span class="s2">&quot;spaces&quot;</span><span class="p">:</span> <span class="n">RE_SPACES</span><span class="p">,</span>
+    <span class="s2">&quot;word&quot;</span><span class="p">:</span> <span class="n">RE_WORD</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="get_pattern_names"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.regexp.get_pattern_names.html#pattern_clustering.regexp.get_pattern_names">[docs]</a><span class="k">def</span> <span class="nf">get_pattern_names</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Retrieve the list of patterns involved in the default pattern collection.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of string, where each string correspond to a pattern name</span>
+<span class="sd">        involved in the default pattern collection.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">MAP_NAME_RE</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="make_map_name_dfa"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.regexp.make_map_name_dfa.html#pattern_clustering.regexp.make_map_name_dfa">[docs]</a><span class="k">def</span> <span class="nf">make_map_name_dfa</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">map_name_re</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Builds a dictionary that maps a list of pattern name with the corresponding</span>
+<span class="sd">    `pybgl.Automaton` instance built according to regular expressions.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        names (list): A list of string, where each string identifies a pattern names</span>
+<span class="sd">            (by default, every keys of `map_name_re` is considered).</span>
+<span class="sd">        map_name_re (dict): Maps each pattern name (`str`) with the corresponding</span>
+<span class="sd">            regular expression (`str`).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">map_name_re</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">map_name_re</span> <span class="o">=</span> <span class="n">MAP_NAME_RE</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">names</span><span class="p">:</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">MAP_NAME_RE</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">map_name_dfa</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">regex</span> <span class="o">=</span> <span class="n">map_name_re</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+            <span class="n">map_name_dfa</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">compile_dfa</span><span class="p">(</span><span class="n">regex</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Error when processing </span><span class="si">%r</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">map_name_dfa</span></div>
+
+
+<div class="viewcode-block" id="make_dfa_empty"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.regexp.make_dfa_empty.html#pattern_clustering.regexp.make_dfa_empty">[docs]</a><span class="k">def</span> <span class="nf">make_dfa_empty</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Automaton</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Builds the `Automaton` corresponding to the empty language.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        The corresponding `Automaton`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dfa_empty</span> <span class="o">=</span> <span class="n">Automaton</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">set_final</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dfa_empty</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dfa_empty</span></div>
+
+
+<div class="viewcode-block" id="make_dfa_any"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.regexp.make_dfa_any.html#pattern_clustering.regexp.make_dfa_any">[docs]</a><span class="k">def</span> <span class="nf">make_dfa_any</span><span class="p">(</span><span class="n">alphabet</span><span class="p">:</span> <span class="nb">iter</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">separator_alphabet</span><span class="p">:</span> <span class="nb">iter</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Automaton</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Builds the DFA corresponding to the any non-separator character.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        alphabet (iter): The characters involved in the alphabet (default to `string.printable`).</span>
+<span class="sd">        separator (iter): The characters corresponding to separators (defaults to space characters).</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        The corresponding `Automaton`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">alphabet</span><span class="p">:</span>
+        <span class="n">alphabet</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">printable</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">separator_alphabet</span><span class="p">:</span>
+        <span class="n">separator_alphabet</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">}</span>
+    <span class="n">dfa_any</span> <span class="o">=</span> <span class="n">Automaton</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">set_final</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">dfa_any</span><span class="p">)</span>
+    <span class="n">restricted_alphabet</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">alphabet</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">separator_alphabet</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">restricted_alphabet</span><span class="p">:</span>
+        <span class="n">add_edge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">dfa_any</span><span class="p">)</span>
+        <span class="n">add_edge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">dfa_any</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dfa_any</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Marc-Olivier Buob.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

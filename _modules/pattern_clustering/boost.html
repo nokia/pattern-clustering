@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pattern_clustering.boost &mdash; Pattern clustering 0.2.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Pattern clustering
+          </a>
+              <div class="version">
+                0.2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Pattern clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/pattern_clustering.html">API documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Pattern clustering</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>pattern_clustering.boost</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pattern_clustering.boost</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">#</span>
+<span class="c1"># This file is part of the pattern-clustering project.</span>
+<span class="c1"># https://github.com/nokia/pattern-clustering</span>
+
+<span class="sd">&quot;&quot;&quot;Boost C++ functions wrapper.&quot;&quot;&quot;</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Marc-Olivier Buob, Maxime Raynal&quot;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s2">&quot;Marc-Olivier Buob, Maxime Raynal&quot;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s2">&quot;marc-olivier.buob@nokia-bell-labs.com, maxime.raynal@nokia.com&quot;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright (C) 2022, Nokia&quot;</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;Nokia&quot;</span>
+
+<span class="kn">import</span> <span class="nn">multiprocessing</span><span class="o">,</span> <span class="nn">string</span><span class="o">,</span> <span class="nn">sys</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># Import from C++</span>
+    <span class="c1"># Naming convention: symbols from pc_boost are prefixed by _ to prevent</span>
+    <span class="c1"># them to clash with those from the python module.</span>
+    <span class="kn">from</span> <span class="nn">pattern_clustering.pattern_clustering</span> <span class="kn">import</span> <span class="n">PatternAutomaton</span> <span class="k">as</span> <span class="n">_PatternAutomaton</span>
+    <span class="kn">from</span> <span class="nn">pattern_clustering.pattern_clustering</span> <span class="kn">import</span> <span class="n">pattern_distance</span> <span class="k">as</span> <span class="n">_pattern_distance</span>
+    <span class="kn">from</span> <span class="nn">pattern_clustering.pattern_clustering</span> <span class="kn">import</span> <span class="n">pattern_clustering</span> <span class="k">as</span> <span class="n">_pattern_clustering</span>
+    <span class="kn">from</span> <span class="nn">pattern_clustering.pattern_clustering</span> <span class="kn">import</span> <span class="n">pattern_distance_normalized</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;pattern_clustering is not yet installed and so the C++ objects cannot be imported!&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+
+<span class="kn">from</span> <span class="nn">.language_density</span> <span class="kn">import</span> <span class="n">language_density</span>
+<span class="kn">from</span> <span class="nn">.pattern_automaton</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.regexp</span> <span class="kn">import</span> <span class="n">make_dfa_any</span><span class="p">,</span> <span class="n">make_map_name_dfa</span>
+
+<div class="viewcode-block" id="PatternClusteringEnv"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.boost.PatternClusteringEnv.html#pattern_clustering.boost.PatternClusteringEnv">[docs]</a><span class="k">class</span> <span class="nc">PatternClusteringEnv</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Stores the pattern clustering settings.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">alphabet</span><span class="p">:</span> <span class="nb">set</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates the parameters required to run pattern distance</span>
+<span class="sd">        and pattern clustering computations.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            names (list[str]): List storing the pattern names taken into account</span>
+<span class="sd">                (see default patterns in `pattern_clustering.pattern`).</span>
+<span class="sd">            alphabet (set): The set of characters supported by the crafted</span>
+<span class="sd">                `PatternAutomaton` instances.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">alphabet</span><span class="p">:</span>
+            <span class="n">alphabet</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">printable</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alphabet</span> <span class="o">=</span> <span class="n">alphabet</span>
+
+        <span class="c1"># `names` refers to types matched by MultiGrep to build pattern automata.</span>
+        <span class="c1"># Thus, you should not include &quot;any&quot; to improve performance.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">names</span><span class="p">:</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;float&quot;</span><span class="p">,</span> <span class="s2">&quot;hexa&quot;</span><span class="p">,</span> <span class="s2">&quot;int&quot;</span><span class="p">,</span> <span class="s2">&quot;ipv4&quot;</span><span class="p">,</span> <span class="s2">&quot;spaces&quot;</span><span class="p">,</span> <span class="s2">&quot;uint&quot;</span><span class="p">,</span> <span class="s2">&quot;word&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">map_name_dfa</span> <span class="o">=</span> <span class="n">make_map_name_dfa</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+
+        <span class="c1"># Note that the density of &quot;any&quot; is required in the latter.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">map_name_density</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">name</span><span class="p">:</span> <span class="n">language_density</span><span class="p">(</span><span class="n">dfa</span><span class="p">,</span> <span class="n">alphabet</span><span class="p">)</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">dfa</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">map_name_dfa</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="s2">&quot;any&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">map_name_density</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">map_name_density</span><span class="p">[</span><span class="s2">&quot;any&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">language_density</span><span class="p">(</span><span class="n">make_dfa_any</span><span class="p">(</span><span class="n">alphabet</span><span class="p">),</span> <span class="n">alphabet</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">densities</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            The densities assigned to each pattern defined in `self.map_name_dfa`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">make_densities</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">map_name_density</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="make_pattern_automaton"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.boost.make_pattern_automaton.html#pattern_clustering.boost.make_pattern_automaton">[docs]</a><span class="k">def</span> <span class="nf">make_pattern_automaton</span><span class="p">(</span><span class="n">w</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">map_name_dfa</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">make_mg</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Builds a `PatternAutomaton` C++ instance from a input string.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        w (str): The string to convert.</span>
+<span class="sd">        map_name_dfa (dict): Maps each pattern name (`str`) with its corresponding `Automaton`.</span>
+<span class="sd">        make_mg (MultiGrepFunctor): The strategy used to build the PatternAutomaton,</span>
+<span class="sd">            defaults to `None`.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        The `PatternAutomaton` C++ instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Transform python PatternAutomaton to a C++ PatternAutomaton</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">PatternAutomaton</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">map_name_dfa</span><span class="p">,</span> <span class="n">make_mg</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;any&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">map_name_dfa</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="c1"># If some string is not caught by any pattern, it results to an &quot;any&quot; arc in</span>
+        <span class="c1"># in the PatternAutomaton, and the &quot;any&quot; pattern might not be declared in</span>
+        <span class="c1"># map_name_dfa.</span>
+        <span class="n">map_name_dfa</span><span class="p">[</span><span class="s2">&quot;any&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_dfa_any</span><span class="p">()</span>
+    <span class="n">map_name_id</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">map_name_dfa</span><span class="o">.</span><span class="n">keys</span><span class="p">()))}</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">_g</span> <span class="o">=</span> <span class="n">_PatternAutomaton</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">map_name_dfa</span><span class="p">),</span> <span class="n">w</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">(</span><span class="n">g</span><span class="p">):</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">source</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">target</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">map_name_id</span><span class="p">[</span><span class="n">label</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">g</span><span class="p">)]</span>
+        <span class="n">_g</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_g</span></div>
+
+
+<span class="c1"># Default parameters</span>
+<span class="n">PATTERN_CLUSTERING_ENV</span> <span class="o">=</span> <span class="n">PatternClusteringEnv</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">alphabet</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+<div class="viewcode-block" id="make_densities"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.boost.make_densities.html#pattern_clustering.boost.make_densities">[docs]</a><span class="k">def</span> <span class="nf">make_densities</span><span class="p">(</span><span class="n">map_name_density</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Builds the language density vector.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        map_name_density (dict): Maps mapping each pattern name (`str`)</span>
+<span class="sd">            with the corresponding density (`float`).</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        The corresponding densities, sorted by increasing pattern name.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">map_name_density</span><span class="p">:</span>
+        <span class="n">map_name_density</span> <span class="o">=</span> <span class="n">PATTERN_CLUSTERING_ENV</span><span class="o">.</span><span class="n">map_name_density</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">map_name_density</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">map_name_density</span><span class="o">.</span><span class="n">keys</span><span class="p">())]</span></div>
+
+
+<span class="c1"># Default parameters</span>
+<span class="n">INFINITY</span> <span class="o">=</span> <span class="mi">100000</span>
+
+
+<div class="viewcode-block" id="pattern_distance"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.boost.pattern_distance.html#pattern_clustering.boost.pattern_distance">[docs]</a><span class="k">def</span> <span class="nf">pattern_distance</span><span class="p">(</span>
+    <span class="n">w1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">w2</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">map_name_dfa</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">densities</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">infinity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">INFINITY</span><span class="p">,</span>
+    <span class="n">normalized</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the pattern distance between two strings.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        w1 (str): The first compared string.</span>
+<span class="sd">        w2 (str): The second compared string.</span>
+<span class="sd">        map_name_dfa (dict): Maps each pattern name (`str`) with its corresponding `Automaton`.</span>
+<span class="sd">        densities (list): A density vector. See `make_densities()`.</span>
+<span class="sd">        infinity (float): The infinite distance.</span>
+<span class="sd">        normalized (bool): Pass `True` to get a distance in [0, 1],</span>
+<span class="sd">            otherwise in [0, len(w1) + len(w2)]</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        The corresponding distance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">map_name_dfa</span><span class="p">:</span>
+        <span class="n">map_name_dfa</span> <span class="o">=</span> <span class="n">PATTERN_CLUSTERING_ENV</span><span class="o">.</span><span class="n">map_name_dfa</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">densities</span><span class="p">:</span>
+        <span class="n">densities</span> <span class="o">=</span> <span class="n">PATTERN_CLUSTERING_ENV</span><span class="o">.</span><span class="n">densities</span>
+    <span class="n">g1</span> <span class="o">=</span> <span class="n">make_pattern_automaton</span><span class="p">(</span><span class="n">w1</span><span class="p">,</span> <span class="n">map_name_dfa</span><span class="p">)</span>
+    <span class="n">g2</span> <span class="o">=</span> <span class="n">make_pattern_automaton</span><span class="p">(</span><span class="n">w2</span><span class="p">,</span> <span class="n">map_name_dfa</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">pattern_distance_normalized</span><span class="p">(</span><span class="n">g1</span><span class="p">,</span> <span class="n">g2</span><span class="p">,</span> <span class="n">densities</span><span class="p">,</span> <span class="n">infinity</span><span class="p">)</span> <span class="k">if</span> <span class="n">normalized</span> <span class="k">else</span>
+        <span class="n">_pattern_distance</span><span class="p">(</span><span class="n">g1</span><span class="p">,</span> <span class="n">g2</span><span class="p">,</span> <span class="n">densities</span><span class="p">,</span> <span class="n">infinity</span><span class="p">)</span>
+    <span class="p">)</span></div>
+
+
+<span class="c1"># pool.starmap prevents to use a lambda.</span>
+<div class="viewcode-block" id="make_pattern_automaton_python"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.boost.make_pattern_automaton_python.html#pattern_clustering.boost.make_pattern_automaton_python">[docs]</a><span class="k">def</span> <span class="nf">make_pattern_automaton_python</span><span class="p">(</span><span class="n">w</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">map_name_dfa</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">make_mg</span><span class="p">:</span> <span class="n">MultiGrepFunctor</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    `PatternAutomaton.__init__` wrapper.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        w (str): The string to convert.</span>
+<span class="sd">        map_name_dfa (dict): Maps each pattern name (`str`) with its corresponding `Automaton`.</span>
+<span class="sd">        make_mg (MultiGrepFunctor): The strategy used to build the PatternAutomaton,</span>
+<span class="sd">            defaults to `None`.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The corresponding `PatternAutomaton` python instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">PatternAutomaton</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">map_name_dfa</span><span class="p">,</span> <span class="n">make_mg</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="make_pattern_automata"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.boost.make_pattern_automata.html#pattern_clustering.boost.make_pattern_automata">[docs]</a><span class="k">def</span> <span class="nf">make_pattern_automata</span><span class="p">(</span>
+    <span class="n">lines</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+    <span class="n">map_name_dfa</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="n">make_mg</span><span class="p">:</span> <span class="n">callable</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts input lines to the `PatternAutomaton` C++ instances.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        lines (list): A list gathering the input lines (`str`).</span>
+<span class="sd">        map_name_dfa (dict): Maps each pattern name (`str`) with its corresponding `Automaton`.</span>
+<span class="sd">        make_mg: A `MultiGrepFunctor` instance.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        The corresponding list of pattern automata.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Transform python PatternAutomaton to a C++ PatternAutomaton</span>
+    <span class="k">def</span> <span class="nf">to_pc_boost_pattern_automaton</span><span class="p">(</span><span class="n">g</span><span class="p">:</span> <span class="n">PatternAutomaton</span><span class="p">):</span>
+        <span class="n">map_name_id</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">map_name_dfa</span><span class="o">.</span><span class="n">keys</span><span class="p">()))}</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">w</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">_g</span> <span class="o">=</span> <span class="n">_PatternAutomaton</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">map_name_dfa</span><span class="p">),</span> <span class="n">g</span><span class="o">.</span><span class="n">w</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">(</span><span class="n">g</span><span class="p">):</span>
+            <span class="n">q</span> <span class="o">=</span> <span class="n">source</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">target</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">map_name_id</span><span class="p">[</span><span class="n">label</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">g</span><span class="p">)]</span>
+            <span class="n">_g</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_g</span>
+
+    <span class="c1"># Parallelize PatternAutomata construction</span>
+    <span class="k">with</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">Pool</span><span class="p">(</span><span class="n">multiprocessing</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">())</span> <span class="k">as</span> <span class="n">pool</span><span class="p">:</span>
+        <span class="n">pas</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">starmap</span><span class="p">(</span>
+            <span class="n">make_pattern_automaton_python</span><span class="p">,</span>
+            <span class="p">[(</span><span class="n">line</span><span class="p">,</span> <span class="n">map_name_dfa</span><span class="p">,</span> <span class="n">make_mg</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">]</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="n">to_pc_boost_pattern_automaton</span><span class="p">(</span><span class="n">pa</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">pa</span> <span class="ow">in</span> <span class="n">pas</span>
+    <span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="pattern_clustering_without_preprocess"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.boost.pattern_clustering_without_preprocess.html#pattern_clustering.boost.pattern_clustering_without_preprocess">[docs]</a><span class="k">def</span> <span class="nf">pattern_clustering_without_preprocess</span><span class="p">(</span>
+    <span class="n">lines</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+    <span class="n">map_name_dfa</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">densities</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">max_dist</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">,</span>
+    <span class="n">use_async</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">make_mg</span><span class="p">:</span> <span class="n">callable</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the pattern clustering of input lines without aggregating duplicated PAs.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        lines: A `list(str)` gathering the input lines.</span>
+
+<span class="sd">        map_name_dfa: A `dict{str : Automaton}` mapping each pattern name</span>
+<span class="sd">            with the corresponding Automaton.</span>
+<span class="sd">        densities: A density vector. See `make_densities()`.</span>
+<span class="sd">        max_dist: The maximum distance between an element of a cluster and the</span>
+<span class="sd">            cluster representative. As distances are normalized, this value should</span>
+<span class="sd">            be lower than 1.0.</span>
+<span class="sd">        use_async: Pass `True` to run computations using async calls. This accelerates</span>
+<span class="sd">            computations.</span>
+<span class="sd">        make_mg: A `MultiGrepFunctor` instance.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        A `list(int)` mapping each line index with its corresponding cluster identifier.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">map_name_dfa</span><span class="p">:</span>
+        <span class="n">map_name_dfa</span> <span class="o">=</span> <span class="n">PATTERN_CLUSTERING_ENV</span><span class="o">.</span><span class="n">map_name_dfa</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">densities</span><span class="p">:</span>
+        <span class="n">densities</span> <span class="o">=</span> <span class="n">PATTERN_CLUSTERING_ENV</span><span class="o">.</span><span class="n">densities</span>
+    <span class="n">pattern_automata</span> <span class="o">=</span> <span class="n">make_pattern_automata</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">map_name_dfa</span><span class="p">,</span> <span class="n">make_mg</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_pattern_clustering</span><span class="p">(</span><span class="n">pattern_automata</span><span class="p">,</span> <span class="n">densities</span><span class="p">,</span> <span class="n">max_dist</span><span class="p">,</span> <span class="n">use_async</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="group_by_identical_pa"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.boost.group_by_identical_pa.html#pattern_clustering.boost.group_by_identical_pa">[docs]</a><span class="k">def</span> <span class="nf">group_by_identical_pa</span><span class="p">(</span><span class="n">pas</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">are_equal</span><span class="p">:</span> <span class="n">callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Groups matching `PatternAutomaton` python instances.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pas: A `list(PatternAutomaton)` instance.</span>
+<span class="sd">        are_equal: A `callable(PatternAutomaton, PatternAutomaton) -&gt; bool`</span>
+<span class="sd">            checking whether two PAs are homomorphic (pass `None`</span>
+<span class="sd">            if the compared PAs are minimal to accelerate the processing).</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        A dictionary mapping each reference PAs to the matching instances found in `pas`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">are_equal</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">are_equal</span><span class="p">(</span><span class="n">pa1</span><span class="p">,</span> <span class="n">pa2</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">pa1</span> <span class="o">==</span> <span class="n">pa2</span>
+
+    <span class="n">ref_pa_indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="n">map_refpa_pas</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">pa</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pas</span><span class="p">):</span>
+        <span class="n">ref_pai</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="n">ref_pai</span>
+                <span class="k">for</span> <span class="n">ref_pai</span> <span class="ow">in</span> <span class="n">ref_pa_indices</span>
+                <span class="k">if</span> <span class="n">are_equal</span><span class="p">(</span><span class="n">pas</span><span class="p">[</span><span class="n">ref_pai</span><span class="p">],</span> <span class="n">pa</span><span class="p">)</span>
+            <span class="p">),</span>
+            <span class="kc">None</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">ref_pai</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">map_refpa_pas</span><span class="p">[</span><span class="n">ref_pai</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ref_pa_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">map_refpa_pas</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">map_refpa_pas</span></div>
+
+
+<div class="viewcode-block" id="pattern_clustering_with_preprocess"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.boost.pattern_clustering_with_preprocess.html#pattern_clustering.boost.pattern_clustering_with_preprocess">[docs]</a><span class="k">def</span> <span class="nf">pattern_clustering_with_preprocess</span><span class="p">(</span>
+    <span class="n">lines</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+    <span class="n">map_name_dfa</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">densities</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">max_dist</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">,</span>
+    <span class="n">use_async</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">make_mg</span><span class="p">:</span> <span class="n">callable</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the pattern clustering of input lines by grouping matching PAs.</span>
+
+<span class="sd">    This implies that lines having matching PatternAutomaton always fall in the same clusters</span>
+<span class="sd">    which accelerate the code. Sometimes, this may lead to weird cluster, especially if some</span>
+<span class="sd">    lines are unrelated and conform to the same `PatternAutomaton`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        lines: A `list(str)` gathering the input lines.</span>
+<span class="sd">        map_name_dfa: A `dict{str : Automaton}` mapping each pattern name</span>
+<span class="sd">            with the corresponding Automaton.</span>
+<span class="sd">        densities: A density vector. See `make_densities()`.</span>
+<span class="sd">        max_dist: The maximum distance between an element of a cluster and the</span>
+<span class="sd">            cluster representative. As distances are normalized, this value should</span>
+<span class="sd">            be lower than 1.0.</span>
+<span class="sd">        use_async: Pass `True` to run computations using async calls. This accelerates</span>
+<span class="sd">            computations.</span>
+<span class="sd">        make_mg: A `MultiGrepFunctor` instance.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        A `list(int)` mapping each line index with its corresponding cluster identifier.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">map_name_dfa</span><span class="p">:</span>
+        <span class="n">map_name_dfa</span> <span class="o">=</span> <span class="n">PATTERN_CLUSTERING_ENV</span><span class="o">.</span><span class="n">map_name_dfa</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">densities</span><span class="p">:</span>
+        <span class="n">densities</span> <span class="o">=</span> <span class="n">PATTERN_CLUSTERING_ENV</span><span class="o">.</span><span class="n">densities</span>
+    <span class="k">with</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">Pool</span><span class="p">(</span><span class="n">multiprocessing</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">())</span> <span class="k">as</span> <span class="n">pool</span><span class="p">:</span>
+        <span class="n">pas</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">starmap</span><span class="p">(</span>
+            <span class="n">make_pattern_automaton_python</span><span class="p">,</span>
+            <span class="p">[(</span><span class="n">line</span><span class="p">,</span> <span class="n">map_name_dfa</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">]</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Group pattern automat by distinct PA. As PAs are indexed by rows,</span>
+    <span class="c1"># this indexes rows by reference row.</span>
+    <span class="n">map_refrow_rows</span> <span class="o">=</span> <span class="n">group_by_identical_pa</span><span class="p">(</span><span class="n">pas</span><span class="p">)</span>
+    <span class="n">ref_rows</span> <span class="o">=</span> <span class="p">[</span><span class="n">ref_row</span> <span class="k">for</span> <span class="n">ref_row</span> <span class="ow">in</span> <span class="n">map_refrow_rows</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+
+    <span class="c1"># Run the pattern clustering only for the reference lines.</span>
+    <span class="n">distinct_lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">lines</span><span class="p">[</span><span class="n">row</span><span class="p">]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">ref_rows</span><span class="p">]</span>
+    <span class="n">ref_clusters</span> <span class="o">=</span> <span class="n">_pattern_clustering</span><span class="p">(</span>
+        <span class="n">make_pattern_automata</span><span class="p">(</span><span class="n">distinct_lines</span><span class="p">,</span> <span class="n">map_name_dfa</span><span class="p">,</span> <span class="n">make_mg</span><span class="p">),</span>
+        <span class="n">densities</span><span class="p">,</span>
+        <span class="n">max_dist</span><span class="p">,</span>
+        <span class="n">use_async</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Map each row with its corresponding cluster</span>
+    <span class="n">clusters</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">ref_row</span><span class="p">,</span> <span class="n">cluster</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ref_rows</span><span class="p">,</span> <span class="n">ref_clusters</span><span class="p">):</span>
+        <span class="n">clusters</span><span class="p">[</span><span class="n">ref_row</span><span class="p">]</span> <span class="o">=</span> <span class="n">cluster</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">map_refrow_rows</span><span class="p">[</span><span class="n">ref_row</span><span class="p">]:</span>
+            <span class="n">clusters</span><span class="p">[</span><span class="n">row</span><span class="p">]</span> <span class="o">=</span> <span class="n">cluster</span>
+    <span class="k">return</span> <span class="n">clusters</span></div>
+
+
+<span class="n">pattern_clustering</span> <span class="o">=</span> <span class="n">pattern_clustering_with_preprocess</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Marc-Olivier Buob.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

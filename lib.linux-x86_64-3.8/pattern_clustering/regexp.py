@@ -12,14 +12,36 @@ from pybgl.automaton import Automaton, add_edge, set_final
 from pybgl.regexp import compile_dfa
 
 
-def make_re_hex_digit(lower_case: bool = True, upper_case: bool = True) -> str:
+def make_re_hex_digit(lower_case :bool = True, upper_case :bool = True) -> str:
+    """
+    Builds the regular expression catching hexadecimal values.
+
+    Args:
+        lower_case (bool): Pass `False` to discard lower case values.
+        upper_case (bool): Pass `False` to discard upper case values.
+    Returns:
+        The string storing the regular expression.
+    """
     return r"[0-9%s%s]" % (
         "a-f" if lower_case else "",
         "A-F" if upper_case else ""
     )
 
 
-def make_re_ipv6(lower_case: bool = True, upper_case: bool = True) -> str:
+def make_re_ipv6(lower_case :bool = True, upper_case :bool = True) -> str:
+    """
+    Builds the regular expression catching IPv6 addresses.
+
+    Note this is not an exact match contrary to `make_re_ipv6_strict`, but
+    the resulting automaton is significantly faster (and should be accurate
+    enough for most of practical use cases).
+
+    Args:
+        lower_case (bool): Pass `False` to discard lower case values.
+        upper_case (bool): Pass `False` to discard upper case values.
+    Returns:
+        The string storing the regular expression.
+    """
     assert lower_case or upper_case
     hex4 = "[%s%s0-9]{0,4}" % (
         "a-f" if lower_case else "",
@@ -31,6 +53,12 @@ def make_re_ipv6(lower_case: bool = True, upper_case: bool = True) -> str:
 
 # Avoid to use it (long to compile, long to compute language_density)
 def make_re_ipv6_strict(*cls, **kwargs) -> str:
+    """
+    Builds the regular expression catching IPv6 addresses.
+
+    Returns:
+        The string storing the regular expression.
+    """
     re_seg = make_re_hex_digit(*cls, **kwargs) + r"{1,4}"
     return "(%s)" % "|".join([
         "(" + re_seg + ":){7,7}" + re_seg,  # 1:2:3:4:5:6:7:8
@@ -98,10 +126,27 @@ MAP_NAME_RE = {
 
 
 def get_pattern_names() -> list:
+    """
+    Retrieve the list of patterns involved in the default pattern collection.
+
+    Returns:
+        A list of string, where each string correspond to a pattern name
+        involved in the default pattern collection.
+    """
     return list(MAP_NAME_RE.keys())
 
 
 def make_map_name_dfa(names=None, map_name_re: dict = None) -> dict:
+    """
+    Builds a dictionary that maps a list of pattern name with the corresponding
+    `pybgl.Automaton` instance built according to regular expressions.
+
+    Args:
+        names (list): A list of string, where each string identifies a pattern names
+            (by default, every keys of `map_name_re` is considered).
+        map_name_re (dict): Maps each pattern name (`str`) with the corresponding
+            regular expression (`str`).
+    """
     if map_name_re is None:
         map_name_re = MAP_NAME_RE
         if not names:
@@ -117,12 +162,25 @@ def make_map_name_dfa(names=None, map_name_re: dict = None) -> dict:
 
 
 def make_dfa_empty() -> Automaton:
+    """
+    Builds the `Automaton` corresponding to the empty language.
+    Returns:
+        The corresponding `Automaton`.
+    """
     dfa_empty = Automaton(1)
     set_final(0, dfa_empty, False)
     return dfa_empty
 
 
 def make_dfa_any(alphabet: iter = None, separator_alphabet: iter = None) -> Automaton:
+    """
+    Builds the DFA corresponding to the any non-separator character.
+    Args:
+        alphabet (iter): The characters involved in the alphabet (default to `string.printable`).
+        separator (iter): The characters corresponding to separators (defaults to space characters).
+    Returns:
+        The corresponding `Automaton`.
+    """
     if not alphabet:
         alphabet = set(printable)
     if not separator_alphabet:

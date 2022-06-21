@@ -1,0 +1,6 @@
+pattern\_clustering.html.colors\_to\_html
+=========================================
+
+.. currentmodule:: pattern_clustering.html
+
+.. autofunction:: colors_to_html

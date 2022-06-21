@@ -1,0 +1,23 @@
+pattern\_clustering.language\_density
+=====================================
+
+.. automodule:: pattern_clustering.language_density
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

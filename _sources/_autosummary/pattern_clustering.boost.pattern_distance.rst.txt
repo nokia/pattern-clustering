@@ -1,0 +1,6 @@
+pattern\_clustering.boost.pattern\_distance
+===========================================
+
+.. currentmodule:: pattern_clustering.boost
+
+.. autofunction:: pattern_distance

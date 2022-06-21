@@ -1,0 +1,6 @@
+pattern\_clustering.regexp.make\_re\_hex\_digit
+===============================================
+
+.. currentmodule:: pattern_clustering.regexp
+
+.. autofunction:: make_re_hex_digit

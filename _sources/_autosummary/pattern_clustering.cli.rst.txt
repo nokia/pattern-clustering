@@ -1,0 +1,31 @@
+pattern\_clustering.cli
+=======================
+
+.. automodule:: pattern_clustering.cli
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+   
+      main
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

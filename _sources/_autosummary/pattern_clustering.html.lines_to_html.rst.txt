@@ -1,0 +1,6 @@
+pattern\_clustering.html.lines\_to\_html
+========================================
+
+.. currentmodule:: pattern_clustering.html
+
+.. autofunction:: lines_to_html

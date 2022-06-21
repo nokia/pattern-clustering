@@ -1,0 +1,64 @@
+pattern\_clustering.pattern\_automaton.PatternAutomaton
+=======================================================
+
+.. currentmodule:: pattern_clustering.pattern_automaton
+
+.. autoclass:: PatternAutomaton
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~PatternAutomaton.accepts
+      ~PatternAutomaton.add_edge
+      ~PatternAutomaton.add_vertex
+      ~PatternAutomaton.alphabet
+      ~PatternAutomaton.delta
+      ~PatternAutomaton.delta_word
+      ~PatternAutomaton.edge
+      ~PatternAutomaton.edges
+      ~PatternAutomaton.finals
+      ~PatternAutomaton.get_infix
+      ~PatternAutomaton.get_slice
+      ~PatternAutomaton.has_edge
+      ~PatternAutomaton.has_vertex
+      ~PatternAutomaton.in_edges
+      ~PatternAutomaton.initial
+      ~PatternAutomaton.is_complete
+      ~PatternAutomaton.is_deterministic
+      ~PatternAutomaton.is_final
+      ~PatternAutomaton.is_finite
+      ~PatternAutomaton.is_initial
+      ~PatternAutomaton.label
+      ~PatternAutomaton.num_edges
+      ~PatternAutomaton.num_vertices
+      ~PatternAutomaton.out_edges
+      ~PatternAutomaton.remove_edge
+      ~PatternAutomaton.remove_vertex
+      ~PatternAutomaton.set_final
+      ~PatternAutomaton.set_initial
+      ~PatternAutomaton.sigma
+      ~PatternAutomaton.source
+      ~PatternAutomaton.target
+      ~PatternAutomaton.to_dot
+      ~PatternAutomaton.vertices
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~PatternAutomaton.adjacencies
+      ~PatternAutomaton.directed
+   
+   

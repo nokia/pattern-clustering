@@ -1,0 +1,30 @@
+pattern\_clustering.boost.PatternClusteringEnv
+==============================================
+
+.. currentmodule:: pattern_clustering.boost
+
+.. autoclass:: PatternClusteringEnv
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+   
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~PatternClusteringEnv.densities
+   
+   

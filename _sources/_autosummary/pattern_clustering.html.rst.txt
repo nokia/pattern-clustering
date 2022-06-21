@@ -1,0 +1,45 @@
+pattern\_clustering.html
+========================
+
+.. automodule:: pattern_clustering.html
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+   
+      clustered_lines_to_html
+      clusters_to_row_formatter
+      colors_to_html
+      lines_to_html
+      make_html_colors
+      values_to_colors
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+      :template: custom-class-template.rst
+      :nosignatures:
+   
+      RowFormatter
+   
+   
+
+   
+   
+   
+
+
+

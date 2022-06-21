@@ -29,16 +29,17 @@ class PatternAutomaton(Automaton):
         word: str,
         map_name_dfa: dict,
         make_mg: callable = None,
-        filtered_patterns=None
+        filtered_patterns :set = None
     ):
         """
-        Constructs the `PatternAutomaton` related to an input words according
+        Constructs the `PatternAutomaton` related to an input word according
         to a collection of patterns and according to a `multi_grep` strategy.
+
         Args:
-            word: An `str` instance.
-            map_name_dfa: A `dict{str : Automaton}` mapping each relevant type with its
-                corresponding `Automaton` instance.
-            filtered_patterns: A subset (possibly empty) of `map_name_dfa.keys()` of type
+            word (str): The input string.
+            map_name_dfa (dict): The pattern collection mapping each pattern name (`str`)
+                 with its corresponding `Automaton` instance.
+            filtered_patterns (set): A subset (possibly empty) of `map_name_dfa.keys()` of type
                 that must be caught my `multi_grep`, but not reflected as arcs in the
                 `PatternAutomaton`. It can be used e.g. to drop spaces and get a smaller
                 `PatternAutomaton`, but the position of spaces in the original lines will be lost.
@@ -91,11 +92,14 @@ class PatternAutomaton(Automaton):
             if len(word):
                 add_edge(0, len(word), "any", self)
 
-    def get_slice(self, e) -> tuple:
+    def get_slice(self, e :EdgeDescriptor) -> tuple:
         """
-        Retrieve the slice (pair of uint indices) related to an edge.
+        Retrieves the slice (pair of uint indices delimiting a substring) related to an edge.
+
+        Args:
+            e (EdgeDescriptor): The queried edge identifier.
         Returns:
-            The slice related to an arbitrary edge of this PatternAutomaton instance.
+            The slice related to an arbitrary edge of this `PatternAutomaton` instance.
         """
         j = source(e, self)
         k = target(e, self)
@@ -103,22 +107,27 @@ class PatternAutomaton(Automaton):
 
     def get_infix(self, e: EdgeDescriptor) -> str:
         """
-        Retrieve the infix (substring) related to an edge.
+        Retrieves the infix (substring) related to an edge.
+
+        Args:
+            e (EdgeDescriptor): The queried edge identifier.
         Returns:
-            The infix related to an arbitrary edge of this PatternAutomaton instance.
+            The infix related to an arbitrary edge of this `PatternAutomaton` instance.
         """
         (j, k) = self.get_slice(e)
         return self.w[j:k]
 
     def __eq__(self, pa) -> bool:
         """
-        Equality operator. This implementation assumes that the PA is deterministic
-        and minimal, e.g. by using the `MultiGrepFunctorLargest` functor in
-        `PatternAutomaton.__init__`.
+        Equality operator.
+
+        This implementation assumes that the PA is deterministic and minimal,
+        e.g., by using the `MultiGrepFunctorLargest` functor in `PatternAutomaton.__init__`.
+
         Args:
-            pa: A `PatternAutomaton` instance.
+            pa (PatternAutomaton): The `PatternAutomaton` instance compared to `self`.
         Returns:
-            True iff `self` matches another `PatternAutomaton` instance.
+            True iff `self` matches `pa`.
         """
         if num_vertices(self) != num_vertices(pa) or num_edges(self) != num_edges(pa):
             # MultiGrepFunctorLargest guarantees that two PatternAutomaton can
@@ -133,11 +142,31 @@ def pattern_automaton_edge_weight(
     g: PatternAutomaton,
     map_name_density: dict = None
 ) -> float:
+    """
+    Retrieves an edge weight (density).
+
+    Args:
+        e (EdgeDescriptor): The queried edge identifier.
+        g (PatternAutomaton): The queried PatternAutomaton instance.
+        map_name_density (dict): Maps each pattern name (`str)  with its
+            corresponding density (`float`)
+    Returns:
+        The corresponding density.
+    """
     a = label(e, g)
     return map_name_density.get(a, 1.0) if map_name_density else 1.0
 
 
 def pattern_automaton_to_path(g: PatternAutomaton, **kwargs) -> list:
+    """
+    Computes the path having the lowest density (and hence describing
+    the best pattern-based decomposition) of an input PatternAutomaton.
+
+    Args:
+        g (PatternAutomaton): The queried `PatternAutomaton` instance.
+    Returns:
+        The path minimizing the density.
+    """
     s = initial(g)
     f = finals(g)
     assert len(f) == 1

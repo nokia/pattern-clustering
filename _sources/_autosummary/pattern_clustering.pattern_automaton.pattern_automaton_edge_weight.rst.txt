@@ -1,0 +1,6 @@
+pattern\_clustering.pattern\_automaton.pattern\_automaton\_edge\_weight
+=======================================================================
+
+.. currentmodule:: pattern_clustering.pattern_automaton
+
+.. autofunction:: pattern_automaton_edge_weight

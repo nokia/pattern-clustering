@@ -1,0 +1,6 @@
+pattern\_clustering.boost.make\_pattern\_automata
+=================================================
+
+.. currentmodule:: pattern_clustering.boost
+
+.. autofunction:: make_pattern_automata

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pattern_clustering.pattern_automaton.PatternAutomaton &mdash; Pattern clustering 0.2.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="pattern_clustering.regexp" href="pattern_clustering.regexp.html" />
+    <link rel="prev" title="pattern_clustering.pattern_automaton.pattern_automaton_to_path" href="pattern_clustering.pattern_automaton.pattern_automaton_to_path.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Pattern clustering
+          </a>
+              <div class="version">
+                0.2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">Pattern clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">Modules</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="pattern_clustering.html">API documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="pattern_clustering.boost.html">pattern_clustering.boost</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pattern_clustering.cli.html">pattern_clustering.cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pattern_clustering.html.html">pattern_clustering.html</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pattern_clustering.language_density.html">pattern_clustering.language_density</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pattern_clustering.multi_grep.html">pattern_clustering.multi_grep</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="pattern_clustering.pattern_automaton.html">pattern_clustering.pattern_automaton</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.pattern_automaton.pattern_automaton_edge_weight.html">pattern_clustering.pattern_automaton.pattern_automaton_edge_weight</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.pattern_automaton.pattern_automaton_to_path.html">pattern_clustering.pattern_automaton.pattern_automaton_to_path</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pattern_clustering.pattern_automaton.PatternAutomaton</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pattern_clustering.regexp.html">pattern_clustering.regexp</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Pattern clustering</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../api.html">API</a> &raquo;</li>
+          <li><a href="pattern_clustering.html">pattern_clustering</a> &raquo;</li>
+          <li><a href="pattern_clustering.pattern_automaton.html">pattern_clustering.pattern_automaton</a> &raquo;</li>
+      <li>pattern_clustering.pattern_automaton.PatternAutomaton</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_autosummary/pattern_clustering.pattern_automaton.PatternAutomaton.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pattern-clustering-pattern-automaton-patternautomaton">
+<h1>pattern_clustering.pattern_automaton.PatternAutomaton<a class="headerlink" href="#pattern-clustering-pattern-automaton-patternautomaton" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pattern_clustering.pattern_automaton.PatternAutomaton">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PatternAutomaton</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">word</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_name_dfa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">make_mg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">callable</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filtered_patterns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">set</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pattern_clustering/pattern_automaton.html#PatternAutomaton"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pattern_clustering.pattern_automaton.PatternAutomaton" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Automaton</span></code></p>
+<p>A PatternAutomaton models a string at the pattern level using a automaton-like structure where each vertex
+corresponds to a string index; each arc corresponds to an infix and its corresponding pattern.</p>
+<p>Constructs the <cite>PatternAutomaton</cite> related to an input word according
+to a collection of patterns and according to a <cite>multi_grep</cite> strategy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>word</strong> (<em>str</em>) – The input string.</p></li>
+<li><p><strong>map_name_dfa</strong> (<em>dict</em>) – The pattern collection mapping each pattern name (<cite>str</cite>)
+with its corresponding <cite>Automaton</cite> instance.</p></li>
+<li><p><strong>filtered_patterns</strong> (<em>set</em>) – A subset (possibly empty) of <cite>map_name_dfa.keys()</cite> of type
+that must be caught my <cite>multi_grep</cite>, but not reflected as arcs in the
+<cite>PatternAutomaton</cite>. It can be used e.g. to drop spaces and get a smaller
+<cite>PatternAutomaton</cite>, but the position of spaces in the original lines will be lost.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">accepts</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_edge</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_vertex</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">alphabet</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">delta</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">delta_word</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pattern_clustering.pattern_automaton.PatternAutomaton.edge" title="pattern_clustering.pattern_automaton.PatternAutomaton.edge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge</span></code></a></p></td>
+<td><p>Retrieve the edge from a vertex u to vertex v.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">edges</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">finals</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pattern_clustering.pattern_automaton.PatternAutomaton.get_infix" title="pattern_clustering.pattern_automaton.PatternAutomaton.get_infix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_infix</span></code></a></p></td>
+<td><p>Retrieves the infix (substring) related to an edge.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pattern_clustering.pattern_automaton.PatternAutomaton.get_slice" title="pattern_clustering.pattern_automaton.PatternAutomaton.get_slice"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_slice</span></code></a></p></td>
+<td><p>Retrieves the slice (pair of uint indices delimiting a substring) related to an edge.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_edge</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_vertex</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">in_edges</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">initial</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_complete</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_deterministic</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_final</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_finite</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_initial</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">label</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_edges</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_vertices</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_edges</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_edge</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_vertex</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_final</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_initial</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">sigma</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">source</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">target</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dot</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">vertices</span></code></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">adjacencies</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">directed</span></code></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="pattern_clustering.pattern_automaton.PatternAutomaton.edge">
+<span class="sig-name descname"><span class="pre">edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">chr</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#pattern_clustering.pattern_automaton.PatternAutomaton.edge" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieve the edge from a vertex u to vertex v.
+:param u: The source of the edge.
+:param v: The target of the edge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>(e, True) if it exists a single edge from u to v,
+(None, False) otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pattern_clustering.pattern_automaton.PatternAutomaton.get_infix">
+<span class="sig-name descname"><span class="pre">get_infix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">EdgeDescriptor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/pattern_clustering/pattern_automaton.html#PatternAutomaton.get_infix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pattern_clustering.pattern_automaton.PatternAutomaton.get_infix" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves the infix (substring) related to an edge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>e</strong> (<em>EdgeDescriptor</em>) – The queried edge identifier.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The infix related to an arbitrary edge of this <cite>PatternAutomaton</cite> instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pattern_clustering.pattern_automaton.PatternAutomaton.get_slice">
+<span class="sig-name descname"><span class="pre">get_slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">EdgeDescriptor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="../_modules/pattern_clustering/pattern_automaton.html#PatternAutomaton.get_slice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pattern_clustering.pattern_automaton.PatternAutomaton.get_slice" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves the slice (pair of uint indices delimiting a substring) related to an edge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>e</strong> (<em>EdgeDescriptor</em>) – The queried edge identifier.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The slice related to an arbitrary edge of this <cite>PatternAutomaton</cite> instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pattern_clustering.pattern_automaton.pattern_automaton_to_path.html" class="btn btn-neutral float-left" title="pattern_clustering.pattern_automaton.pattern_automaton_to_path" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pattern_clustering.regexp.html" class="btn btn-neutral float-right" title="pattern_clustering.regexp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Marc-Olivier Buob.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

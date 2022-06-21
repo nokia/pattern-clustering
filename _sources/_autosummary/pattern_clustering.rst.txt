@@ -1,0 +1,37 @@
+﻿pattern\_clustering
+===================
+
+.. automodule:: pattern_clustering
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
+.. autosummary::
+   :toctree:
+   :template: custom-module-template.rst
+   :recursive:
+
+   pattern_clustering.boost
+   pattern_clustering.cli
+   pattern_clustering.html
+   pattern_clustering.language_density
+   pattern_clustering.multi_grep
+   pattern_clustering.pattern_automaton
+   pattern_clustering.pattern_clustering
+   pattern_clustering.regexp
+

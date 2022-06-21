@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pattern_clustering.boost.pattern_clustering &mdash; Pattern clustering 0.2.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="pattern_clustering.boost.pattern_clustering_with_preprocess" href="pattern_clustering.boost.pattern_clustering_with_preprocess.html" />
+    <link rel="prev" title="pattern_clustering.boost.make_pattern_automaton_python" href="pattern_clustering.boost.make_pattern_automaton_python.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Pattern clustering
+          </a>
+              <div class="version">
+                0.2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">Pattern clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">Modules</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="pattern_clustering.html">API documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="pattern_clustering.boost.html">pattern_clustering.boost</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.group_by_identical_pa.html">pattern_clustering.boost.group_by_identical_pa</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_densities.html">pattern_clustering.boost.make_densities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_pattern_automata.html">pattern_clustering.boost.make_pattern_automata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_pattern_automaton.html">pattern_clustering.boost.make_pattern_automaton</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_pattern_automaton_python.html">pattern_clustering.boost.make_pattern_automaton_python</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pattern_clustering.boost.pattern_clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.pattern_clustering_with_preprocess.html">pattern_clustering.boost.pattern_clustering_with_preprocess</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.pattern_clustering_without_preprocess.html">pattern_clustering.boost.pattern_clustering_without_preprocess</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.pattern_distance.html">pattern_clustering.boost.pattern_distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.PatternClusteringEnv.html">pattern_clustering.boost.PatternClusteringEnv</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pattern_clustering.cli.html">pattern_clustering.cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pattern_clustering.html.html">pattern_clustering.html</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pattern_clustering.language_density.html">pattern_clustering.language_density</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pattern_clustering.multi_grep.html">pattern_clustering.multi_grep</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pattern_clustering.pattern_automaton.html">pattern_clustering.pattern_automaton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pattern_clustering.regexp.html">pattern_clustering.regexp</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Pattern clustering</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../api.html">API</a> &raquo;</li>
+          <li><a href="pattern_clustering.html">pattern_clustering</a> &raquo;</li>
+          <li><a href="pattern_clustering.boost.html">pattern_clustering.boost</a> &raquo;</li>
+      <li>pattern_clustering.boost.pattern_clustering</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_autosummary/pattern_clustering.boost.pattern_clustering.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pattern-clustering-boost-pattern-clustering">
+<h1>pattern_clustering.boost.pattern_clustering<a class="headerlink" href="#pattern-clustering-boost-pattern-clustering" title="Permalink to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="pattern_clustering.boost.pattern_clustering">
+<span class="sig-name descname"><span class="pre">pattern_clustering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lines</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_name_dfa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">densities</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_dist</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_async</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">make_mg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">callable</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#pattern_clustering.boost.pattern_clustering" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the pattern clustering of input lines by grouping matching PAs.</p>
+<p>This implies that lines having matching PatternAutomaton always fall in the same clusters
+which accelerate the code. Sometimes, this may lead to weird cluster, especially if some
+lines are unrelated and conform to the same <cite>PatternAutomaton</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lines</strong> – A <cite>list(str)</cite> gathering the input lines.</p></li>
+<li><p><strong>map_name_dfa</strong> – A <cite>dict{str : Automaton}</cite> mapping each pattern name
+with the corresponding Automaton.</p></li>
+<li><p><strong>densities</strong> – A density vector. See <cite>make_densities()</cite>.</p></li>
+<li><p><strong>max_dist</strong> – The maximum distance between an element of a cluster and the
+cluster representative. As distances are normalized, this value should
+be lower than 1.0.</p></li>
+<li><p><strong>use_async</strong> – Pass <cite>True</cite> to run computations using async calls. This accelerates
+computations.</p></li>
+<li><p><strong>make_mg</strong> – A <cite>MultiGrepFunctor</cite> instance.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <cite>list(int)</cite> mapping each line index with its corresponding cluster identifier.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pattern_clustering.boost.make_pattern_automaton_python.html" class="btn btn-neutral float-left" title="pattern_clustering.boost.make_pattern_automaton_python" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pattern_clustering.boost.pattern_clustering_with_preprocess.html" class="btn btn-neutral float-right" title="pattern_clustering.boost.pattern_clustering_with_preprocess" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Marc-Olivier Buob.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
