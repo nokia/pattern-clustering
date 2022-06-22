@@ -7,22 +7,21 @@ __email__      = "{maxime.raynal, marc-olivier.buob}@nokia.com"
 __copyright__  = "Copyright (C) 2020, Nokia"
 __license__    = "Nokia"
 
-
+from pathlib import Path
 import configparser
 import json
-import os
+import tempfile
 import subprocess
 import string
 
 from collections import defaultdict
-from glob import glob
 from time import time
 from pprint import pprint
 from sklearn.metrics import adjusted_rand_score
 
 from pybgl.html import html
 from pybgl.regexp import compile_dfa
-from pattern_clustering import PatternAutomaton, clustered_lines_to_html, make_dfa_any, language_density, pattern_clustering, MultiGrepFunctorLargest
+from pattern_clustering import clustered_lines_to_html, make_dfa_any, language_density, pattern_clustering, MultiGrepFunctorLargest
 
 TIME = "time"
 PA = "parsing accuracy"
@@ -30,19 +29,18 @@ ARI = "adjusted rand index"
 NUM_CLUSTERS = "number of clusters"
 
 PC = "pattern clustering"
-LM = "LogMine"
+LM = "Logmine"
 DR = "Drain"
 
 PATH_TO_DRAIN_CONFIG = "./drain3config.ini"
 
-# _____________________________________________________________________________
-#                  PATTERN COLLECTION
-# _____________________________________________________________________________
+#---------------------------------------------------------------
+#                 PATTERN COLLECTION
+#---------------------------------------------------------------
 
-def load_pattern_collection(filename):
+def load_pattern_collection(filename: Path):
     with open(filename, 'r') as f:
-        pattern_collection = json.load(f)
-    return pattern_collection
+        return json.load(f)
 
 
 def to_logmine_params(pattern_collection: dict):
@@ -51,14 +49,11 @@ def to_logmine_params(pattern_collection: dict):
             name,
             re.replace("(", "\\(").replace(")", "\\)").replace("[", "\\[").replace("]", "\\]")
         )
-        for name, re in pattern_collection.items()
+        for (name, re) in pattern_collection.items()
     ]
 
 
-def make_map_name_dfa_densities(
-        map_name_re: dict,
-        alphabet,
-):
+def make_map_name_dfa_densities(map_name_re: dict, alphabet: set) -> tuple:
     map_name_dfa = {
         name: compile_dfa(re) if name != "any" else make_dfa_any()
         for name, re in map_name_re.items()
@@ -67,14 +62,14 @@ def make_map_name_dfa_densities(
         name: language_density(dfa, alphabet)
         for (name, dfa) in map_name_dfa.items()
     }
-    return map_name_dfa, map_name_density
+    return (map_name_dfa, map_name_density)
 
 
-# _____________________________________________________________________________
-#                  DATASET
-# _____________________________________________________________________________
+#---------------------------------------------------------------
+#                 DATASET
+#---------------------------------------------------------------
 
-def templates_from_csv(filename):
+def load_template_from_csv(filename: Path):
     letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     with open(filename, 'r') as f:
         lines = f.readlines()
@@ -88,7 +83,7 @@ def templates_from_csv(filename):
     return lines[1:]
 
 
-def get_cluster_id(line, templates_uniques):
+def get_cluster_id(line: str, templates_uniques: list):
     uniques = []
     for cluster_id, unique in enumerate(templates_uniques):
         if all(u in line for u in unique):
@@ -119,48 +114,79 @@ def get_cluster_id(line, templates_uniques):
             (line, [templates_uniques[unique] for unique in uniques])
         )
 
+def canonic_log_name(log_path: Path):
+    return log_path.with_suffix('').name.split("_2k")[0]
 
-def load_data(root_log_path, load_modified=False, verbose=False):
+def load_data(
+    log_dir: Path,
+    load_modified: bool = False,
+    verbose: bool = False
+) -> tuple:
+    def message(*cls, **kwargs):
+        if verbose:
+            print(*cls, **kwargs)
+    def make_template_path(log_name: str) -> Path:
+        suffix = "_templates_modified.csv" if load_modified else "_templates.csv"
+        return log_name.parent / (log_name.name + suffix)
+
     templates, logs = dict(), dict()
-    for template_filename in glob(
-        root_log_path + "*/*log_templates%s.csv" % (
-            "_modified" if load_modified else ""
-        )
-    ):
-        log_name = template_filename.split("/")[-1].split("_2k")[0]
-        if verbose:
-            print("Unpacking %s dataset ..." % log_name, end='')
-        templates[log_name] = templates_from_csv(template_filename)
-        if verbose:
-            print("done")
-            print("Checking %s integrity ...." % log_name, end='')
-        with open(root_log_path + log_name + "/" + log_name + "_2k.log") as f:
+    for log_path in log_dir.glob("*/*.log"):
+        log_name = canonic_log_name(log_path)
+        message(f"Loading [{log_name}] dataset (load_modified={load_modified})")
+
+        # Load the log file
+        message(f"  Loading [{log_path}] log", end="... ")
+        with open(log_path) as f:
             logs[log_name] = f.read().splitlines()
+        message("OK")
+
+        # Load the appropriate template
+        template_path = make_template_path(log_path)
+        message(f"  Loading [{template_path}] template", end="... ")
+        templates[log_name] = load_template_from_csv(template_path)
+        message("OK")
+
+        # Check if the template is compliant with the log file
+        message(f"  Checking integrity", end="... ")
         for line in logs[log_name]:
             get_cluster_id(line, templates[log_name])
-        if verbose:
-            print("OK")
-            print("")
-    return templates, logs
+        message("OK")
+    return (templates, logs)
 
 
-# _____________________________________________________________________________
-#                  CLUSTERING
-# _____________________________________________________________________________
+#---------------------------------------------------------------
+#                 CLUSTERING
+#---------------------------------------------------------------
 
-def get_ground_truth_as_list_of_sets(lines, templates):
+def get_ground_truth_as_list_of_sets(lines: list, templates: list) -> list:
     map_cluster_index = defaultdict(set)
-    for i, line in enumerate(lines):
+    for (i, line) in enumerate(lines):
         clust_id = get_cluster_id(line, templates)
         map_cluster_index[clust_id].add(i)
     return [v for v in map_cluster_index.values()]
 
 
-def get_ground_truth_as_list(lines, templates):
+def get_ground_truth_as_list(lines: list, templates: list) -> list:
     return [get_cluster_id(line, templates) for line in lines]
 
 
-def get_parsing_accuracy(obtained_clusters, lines, templates):
+def convert_to_list_of_indices(obtained_clusters, lines):
+    result = []
+    for cluster in obtained_clusters.values():
+        current_item = []
+        for line in cluster:
+            current_item += [
+                i for i, li in enumerate(lines) if li == line
+            ]
+        result.append(current_item)
+    return result
+
+
+#---------------------------------------------------------------
+#                 METRICS
+#---------------------------------------------------------------
+
+def parsing_accuracy(obtained_clusters: list, lines: list, templates: list) -> float:
     ground_truth_clusters = get_ground_truth_as_list_of_sets(lines, templates)
     obtained_clusters = [set(cluster) for cluster in obtained_clusters]
     clusters_in_common = [
@@ -169,7 +195,7 @@ def get_parsing_accuracy(obtained_clusters, lines, templates):
     return sum(len(cluster) for cluster in clusters_in_common) / len(lines)
 
 
-def get_rand_index(obtained_clusters, lines, templates):
+def adjusted_rand_index(obtained_clusters: list, lines: list, templates: list) -> float:
     ground_truth_clusters = get_ground_truth_as_list(lines, templates)
     obt_clust_as_list = [None for _ in range(len(lines))]
     for i, cluster in enumerate(obtained_clusters):
@@ -187,37 +213,25 @@ def get_rand_index(obtained_clusters, lines, templates):
 
 
 METRICS = {
-    "parsing accuracy": get_parsing_accuracy,
-    "adjusted rand index": get_rand_index
+    "parsing accuracy": parsing_accuracy,
+    "adjusted rand index": adjusted_rand_index
 }
 
 
-def convert_to_list_of_indices(obtained_clusters, lines):
-    result = []
-    for cluster in obtained_clusters.values():
-        current_item = []
-        for line in cluster:
-            current_item += [
-                i for i, li in enumerate(lines) if li == line
-            ]
-        result.append(current_item)
-    return result
-
-
-# _____________________________________________________________________________
-#                  LOGMINE
-# _____________________________________________________________________________
+#---------------------------------------------------------------
+#                 LOGMINE
+#---------------------------------------------------------------
 
 def logmine_clustering(
-        logmine_repo_path: str,
+        logmine_repo_path: Path,
         file_path: str,
         k1: float = None,
         k2: float = None,
         max_dist: float = None,
         logmine_regexps: list = None,
-        verbose=False
+        verbose: bool = False
 ):
-    call_args = [logmine_repo_path + "/logmine"]
+    call_args = [str(logmine_repo_path / "logmine")]
     if k1 is not None:
         call_args += ["-k1", str(k1)]
     if k2 is not None:
@@ -241,9 +255,9 @@ def logmine_clustering(
     return clusters
 
 
-# _____________________________________________________________________________
-#                  DRAIN
-# _____________________________________________________________________________
+#---------------------------------------------------------------
+#                 DRAIN
+#---------------------------------------------------------------
 
 def write_drain_config_file(
     map_name_re,
@@ -275,14 +289,14 @@ try:
 
     def drain_clustering(
             log_file_path: str,
-            map_name_re,
+            map_name_re: dict,
             extra_delimiters: list = ["_"],
             sim_th: float = 0.4,
             depth: int = 4,
             max_children: int = 100,
             max_clusters: int = 1024,
             path_to_config: str = PATH_TO_DRAIN_CONFIG,
-            show_clusters=False
+            show_clusters: bool = False
     ):
         write_drain_config_file(
             map_name_re,
@@ -301,24 +315,14 @@ try:
 
         with open(log_file_path, 'r') as f:
             lines = f.readlines()
+
         clusters_as_dict = defaultdict(list)
-        for i, line in enumerate(lines):
+        for (i, line) in enumerate(lines):
             cluster_id = template_miner.add_log_message(line)["cluster_id"]
             clusters_as_dict[cluster_id].append(i)
+
         if show_clusters:
-            map_row_cluster = {
-                row: cluster_id
-                for cluster_id, rows in clusters_as_dict.items()
-                for row in rows
-            }
-            html(clustered_lines_to_html(
-                [line.strip() for line in lines],
-                map_row_cluster=map_row_cluster,
-                # line_to_html=lambda row, line: "%3d: %s" % (
-                #     map_row_cluster[row], line
-                # ),
-                display_by_cluster=True
-            ))
+            display_clustering(lines, list(clusters_as_dict.values()))
         return clusters_as_dict
 except:
     print("Warning: could not load Drain")
@@ -335,19 +339,41 @@ except:
     ):
         print("Error! Drain is not installed !!(https://github.com/IBM/Drain3)")
 
-# _____________________________________________________________________________
-#                  EVALUATION PIPELINE
-# _____________________________________________________________________________
+
+#---------------------------------------------------------------
+#                 NOTEBOOK UTILITIES
+#---------------------------------------------------------------
+
+def clustering_to_html(lines: list, clusters_as_list: list) -> str:
+    map_row_cluster = {
+        row: cluster_id
+        for (cluster_id, rows) in enumerate(clusters_as_list)
+        for row in rows
+    }
+    return clustered_lines_to_html(
+        [line.strip() for line in lines],
+        map_row_cluster=map_row_cluster,
+    )
+
+
+def display_clustering(lines: list, clusters_as_list: list):
+    html(clustering_to_html(lines, clusters_as_list))
+
+
+#---------------------------------------------------------------
+#                 EVALUATION PIPELINE
+#---------------------------------------------------------------
 
 def evaluate_logmine_clustering(
-        logmine_repo_path,
-        file_path,
+        logmine_repo_path: Path,
+        file_path: Path,
         ground_truth_templates,
         metrics,
         k1=None,
         k2=None,
-        max_dist=None,
+        max_dist: float =None,
         logmine_regexps=None,
+        show_clusters: bool = False
 ):
     if logmine_regexps is None:
         logmine_regexps = []
@@ -369,21 +395,24 @@ def evaluate_logmine_clustering(
     }
     results[TIME] = computation_time
     results[NUM_CLUSTERS] = len(clusters_as_list)
+
+    if show_clusters:
+        display_clustering(lines, clusters_as_list)
     return results
 
 
 def evaluate_drain_clustering(
-    log_file_path: str,
-    ground_truth_templates,
-    metrics,
-    map_name_re,
+    log_file_path: Path,
+    ground_truth_templates: dict,
+    metrics: dict,
+    map_name_re: dict,
     extra_delimiters: list = ["_"],
     sim_th: float = 0.4,
     depth: int = 4,
     max_children: int = 100,
     max_clusters: int = 1024,
     path_to_config: str = PATH_TO_DRAIN_CONFIG,
-    show_clusters=False
+    show_clusters: bool =False
 ):
     start = time()
     clusters_as_dict = drain_clustering(
@@ -408,17 +437,21 @@ def evaluate_drain_clustering(
     }
     results[TIME] = computation_time
     results[NUM_CLUSTERS] = len(clusters_as_list)
+
+    if show_clusters:
+        display_clustering(lines, clusters_as_list)
     return results
 
 
-def evaluate_fast_pattern_clustering(
-        file_path,
-        ground_truth_templates,
-        metrics,
-        map_name_dfa,
-        map_name_density,
-        max_dist,
-        make_mg=MultiGrepFunctorLargest,
+def evaluate_pattern_clustering(
+        file_path: Path,
+        ground_truth_templates: dict,
+        metrics: dict,
+        map_name_dfa: dict,
+        map_name_density: dict,
+        max_dist: float,
+        make_mg: callable = MultiGrepFunctorLargest,
+        show_clusters: bool = False
 ):
     start = time()
     with open(file_path, 'r') as f:
@@ -444,6 +477,8 @@ def evaluate_fast_pattern_clustering(
     results[TIME] = computation_time
     results[NUM_CLUSTERS] = len(clusters_as_dict)
 
+    if show_clusters:
+        display_clustering(lines, clusters_as_list)
     return results
 
 
@@ -530,14 +565,14 @@ def eval_on_all_logs_and_save(
         json.dump(result, f)
 
 
-# _____________________________________________________________________________
-#                  RESULT EXTRACTION
-# _____________________________________________________________________________
+#---------------------------------------------------------------
+#                 RESULT EXTRACTION
+#---------------------------------------------------------------
 
 def extract_metric_with_time(
-    results,
-    algorithm,
-    metric,
+    results: dict,
+    algorithm: str,
+    metric: str,
 ):
     res_dict = dict()
     if algorithm == DR:
@@ -605,10 +640,9 @@ def get_logs_name_order(
     rev_res = {v: k for k, v in res.items()}
     return [rev_res[v] for v in sort_func(list(rev_res.keys()))]
 
-# _____________________________________________________________________________
-#                  RUNTIME EVALUATION
-# _____________________________________________________________________________
-
+#---------------------------------------------------------------
+#                 RUNTIME EVALUATION
+#---------------------------------------------------------------
 
 def eval_runtime_pc(
         file_path,
@@ -644,27 +678,27 @@ def eval_runtime_lm(
     with open(file_path, 'r') as f:
         lines = f.readlines()
     lines = lines[:min(len(lines), num_lines_to_cluster)]
-    with open("./tmp.tmp", "w") as f_tmp:
-        f_tmp.write("\n".join(lines))
 
-    start = time()
-    logmine_clustering(
-        logmine_repo_path,
-        "./tmp.tmp",
-        k1,
-        k2,
-        max_dist,
-        logmine_regexps
-    )
-    result = time() - start
-    os.remove("./tmp.tmp")
+    with tempfile.NamedTemporaryFile() as f_tmp:
+        print("\n".join(lines), file=f_tmp)
+        start = time()
+        logmine_clustering(
+            logmine_repo_path,
+            tmp.name,
+            k1,
+            k2,
+            max_dist,
+            logmine_regexps
+        )
+        result = time() - start
+
     return result
 
 
 def eval_runtime_drain(
         file_path,
-        num_lines_to_cluster,
-        map_name_re,
+        num_lines_to_cluster: int,
+        map_name_re: dict,
         extra_delimiters: list = ["_"],
         sim_th: float = 0.4,
         depth: int = 4,
@@ -675,20 +709,20 @@ def eval_runtime_drain(
     with open(file_path, 'r') as f:
         lines = f.readlines()
     lines = lines[:min(len(lines), num_lines_to_cluster)]
-    with open("./tmp.tmp", "w") as f_tmp:
-        f_tmp.write("\n".join(lines))
 
-    start = time()
-    drain_clustering(
-        "./tmp.tmp",
-        map_name_re,
-        extra_delimiters,
-        sim_th,
-        depth,
-        max_children,
-        max_clusters,
-        path_to_config
-    )
-    result = time() - start
-    os.remove("./tmp.tmp")
+    with tempfile.NamedTemporaryFile() as f_tmp:
+        print("\n".join(lines), file=f_tmp)
+        start = time()
+        drain_clustering(
+            tmp.name,
+            map_name_re,
+            extra_delimiters,
+            sim_th,
+            depth,
+            max_children,
+            max_clusters,
+            path_to_config
+        )
+        result = time() - start
+
     return result
