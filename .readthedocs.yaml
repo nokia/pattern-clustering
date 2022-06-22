@@ -7,12 +7,17 @@
 version: 2
 
 # Set the version of Python and other tools you might need
+# Install APT package as explained in:
+#  https://buildmedia.readthedocs.org/media/pdf/docs/latest/docs.pdf
 build:
   os: ubuntu-20.04
   tools:
     python: "3.8"
-  commands:
-    - sudo apt intall g++ libboost-dev libboost-python-dev pandoc
+  apt_packages:
+    - g++
+    - libboost-dev
+    - libboost-python-dev
+    - pandoc
 
 # Build documentation in the docs/ directory with Sphinx
 sphinx:
