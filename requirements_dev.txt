@@ -6,7 +6,7 @@ flake8
 tox
 coverage
 Sphinx
-sphinx_rtd_theme
+sphinx-rtd-theme
 twine
 
 pytest

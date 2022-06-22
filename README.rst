@@ -31,7 +31,7 @@ Features
 --------
 
 * Forms groups of homogeneous line using a pattern based distance, based on customizable patterns.
-* Configured by default to use common patterns (IP addresses, numeric values, etc.) 
+* Configured by default to use common patterns (IP addresses, numeric values, etc.)
 
 -------
 License
@@ -48,6 +48,7 @@ More about pattern-clustering
 .. _Installation: https://github.com/nokia/pattern-clustering/wiki/Installation
 .. _Tests: https://github.com/nokia/pattern-clustering/wiki/Tests
 .. _Tutorial: https://github.com/nokia/pattern-clustering/wiki/Tutorial
+.. _Documentation: http://pattern-clustering.readthedocs.io/
 .. _Configuration: https://github.com/nokia/pattern-clustering/wiki/Configuration
 .. _Packaging: https://github.com/nokia/pattern-clustering/wiki/Packaging
 
@@ -56,7 +57,8 @@ For more information, feel free to visit the wiki_:
 - Overview_
 - Installation_
 - Tests_
-- Tutorial_ 
+- Tutorial_
+- Documentation_
 - Configuration_
 - Packaging_
 
@@ -64,7 +66,9 @@ For more information, feel free to visit the wiki_:
 Acks
 -------
 
-The skeleton package was created with Cookiecutter_ and the `francois-durand/package_helper_2`_ project template.
+* The skeleton package was created with Cookiecutter_ and the `francois-durand/package_helper_2`_ project template.
+* The sphinx part is inspired from Sphinx-Autosummary-Recursion_.
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`francois-durand/package_helper_2`: https://github.com/francois-durand/package_helper_2
+.. _Sphinx-Autosummary-Recursion: https://github.com/JamesALeedham/Sphinx-Autosummary-Recursion
