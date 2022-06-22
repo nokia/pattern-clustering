@@ -15,6 +15,10 @@ Pattern clustering
         :target: https://github.com/nokia/pattern-clustering/actions?query=workflow%3Adocs
         :alt: Documentation Status
 
+.. image:: https://readthedocs.org/projects/pattern-clustering/badge/?version=latest
+        :target: https://pattern-clustering.readthedocs.io/en/latest/?badge=latest
+        :alt: Readthedocs Status
+
 .. image:: https://codecov.io/gh/nokia/pattern-clustering/branch/main/graphs/badge.svg
         :target: https://app.codecov.io/gh/nokia/pattern-clustering
         :alt: Code Coverage
@@ -48,7 +52,7 @@ More about pattern-clustering
 .. _Installation: https://github.com/nokia/pattern-clustering/wiki/Installation
 .. _Tests: https://github.com/nokia/pattern-clustering/wiki/Tests
 .. _Tutorial: https://github.com/nokia/pattern-clustering/wiki/Tutorial
-.. _Documentation: http://pattern-clustering.readthedocs.io/
+.. _Documentation: https://pattern-clustering.readthedocs.io/en/latest/?badge=latest 
 .. _Configuration: https://github.com/nokia/pattern-clustering/wiki/Configuration
 .. _Packaging: https://github.com/nokia/pattern-clustering/wiki/Packaging
 
