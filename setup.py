@@ -94,6 +94,6 @@ setup(
     test_suite="tests",
     tests_require=test_requirements,
     url="https://github.com/nokia/pattern-clustering",
-    version="0.2.0",
+    version='0.2.0', # Use single quotes, see https://github.com/oceanprotocol/ocean.py/issues/194
     zip_safe=False,
 )
