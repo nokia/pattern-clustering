@@ -11,7 +11,7 @@ __maintainer__ = "Marc-Olivier Buob, Maxime Raynal"
 __email__      = "marc-olivier.buob@nokia-bell-labs.com, maxime.raynal@nokia.com"
 __copyright__  = "Copyright (C) 2022, Nokia"
 __license__    = "Nokia"
-__version__    = "0.2.0"
+__version__ = '0.3.0'  # Use single quotes for bumpversion (see setup.cfg)
 
 from .boost import *
 from .html import *
