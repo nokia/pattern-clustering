@@ -27,7 +27,11 @@ sphinx:
 # formats:
 #    - pdf
 
-# Optionally declare the Python requirements required to build your docs
+# Declare the Python requirements required to build your docs
+# Install the package before building the documentation 
+# https://docs.readthedocs.io/en/stable/tutorial/index.html#making-warnings-more-visible
 python:
    install:
    - requirements: requirements_dev.txt
+   - method: pip
+     path: .
