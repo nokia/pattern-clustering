@@ -10,7 +10,7 @@ __author__     = "Marc-Olivier Buob, Maxime Raynal"
 __maintainer__ = "Marc-Olivier Buob, Maxime Raynal"
 __email__      = "marc-olivier.buob@nokia-bell-labs.com, maxime.raynal@nokia.com"
 __copyright__  = "Copyright (C) 2022, Nokia"
-__license__    = "Nokia"
+__license__    = "BSD-3"
 
 import argparse
 import sys

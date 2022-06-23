@@ -10,7 +10,7 @@ __author__     = "Marc-Olivier Buob, Maxime Raynal"
 __maintainer__ = "Marc-Olivier Buob, Maxime Raynal"
 __email__      = "marc-olivier.buob@nokia-bell-labs.com, maxime.raynal@nokia.com"
 __copyright__  = "Copyright (C) 2022, Nokia"
-__license__    = "Nokia"
+__license__    = "BSD-3"
 __version__ = '0.3.1'  # Use single quotes for bumpversion (see setup.cfg)
 
 from .boost import *

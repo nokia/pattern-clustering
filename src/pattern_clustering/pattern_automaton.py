@@ -4,11 +4,13 @@
 # This file is part of the pattern-clustering project.
 # https://github.com/nokia/pattern-clustering
 
+"""A ``PatternAutomaton`` represents a string at the pattern level."""
+
 __author__ = "Marc-Olivier Buob, Maxime Raynal"
 __maintainer__ = "Marc-Olivier Buob, Maxime Raynal"
 __email__ = "marc-olivier.buob@nokia-bell-labs.com, maxime.raynal@nokia.com"
 __copyright__ = "Copyright (C) 2022, Nokia"
-__license__ = "Nokia"
+__license__ = "BSD-3"
 
 from functools import partial
 from pybgl.automaton import *
@@ -20,8 +22,9 @@ from .multi_grep import *
 # PatternAutomaton may possibly drop some arcs, e.g. "spaces" arcs
 class PatternAutomaton(Automaton):
     """
-    A PatternAutomaton models a string at the pattern level using a automaton-like structure where each vertex
-    corresponds to a string index; each arc corresponds to an infix and its corresponding pattern.
+    A ``PatternAutomaton`` models a string at the pattern level using a automaton-like
+    structure where each vertex corresponds to a string index; each arc corresponds
+    to an infix and its corresponding pattern.
     """
 
     def __init__(
@@ -32,17 +35,18 @@ class PatternAutomaton(Automaton):
         filtered_patterns :set = None
     ):
         """
-        Constructs the `PatternAutomaton` related to an input word according
-        to a collection of patterns and according to a `multi_grep` strategy.
+        Constructs the ``PatternAutomaton`` related to an input word according
+        to a collection of patterns and according to a ``multi_grep`` strategy.
 
         Args:
             word (str): The input string.
-            map_name_dfa (dict): The pattern collection mapping each pattern name (`str`)
-                 with its corresponding `Automaton` instance.
-            filtered_patterns (set): A subset (possibly empty) of `map_name_dfa.keys()` of type
-                that must be caught my `multi_grep`, but not reflected as arcs in the
-                `PatternAutomaton`. It can be used e.g. to drop spaces and get a smaller
-                `PatternAutomaton`, but the position of spaces in the original lines will be lost.
+            map_name_dfa (dict): The pattern collection mapping each pattern name (``str``)
+                 with its corresponding ``Automaton`` instance.
+            filtered_patterns (set): A subset (possibly empty) of ``map_name_dfa.keys()``
+                keying the types that must be caught my ``multi_grep``, but not appearing
+                in the arcs involved in the ``PatternAutomaton``. It may be used for instance
+                to drop spaces and get a smaller ``PatternAutomaton``, but the position
+                of spaces in the original lines will be lost.
         """
         if filtered_patterns is None:
             filtered_patterns = set()
@@ -99,7 +103,7 @@ class PatternAutomaton(Automaton):
         Args:
             e (EdgeDescriptor): The queried edge identifier.
         Returns:
-            The slice related to an arbitrary edge of this `PatternAutomaton` instance.
+            The slice related to an arbitrary edge of this ``PatternAutomaton`` instance.
         """
         j = source(e, self)
         k = target(e, self)
@@ -112,7 +116,7 @@ class PatternAutomaton(Automaton):
         Args:
             e (EdgeDescriptor): The queried edge identifier.
         Returns:
-            The infix related to an arbitrary edge of this `PatternAutomaton` instance.
+            The infix related to an arbitrary edge of this ``PatternAutomaton`` instance.
         """
         (j, k) = self.get_slice(e)
         return self.w[j:k]
@@ -122,12 +126,13 @@ class PatternAutomaton(Automaton):
         Equality operator.
 
         This implementation assumes that the PA is deterministic and minimal,
-        e.g., by using the `MultiGrepFunctorLargest` functor in `PatternAutomaton.__init__`.
+        e.g., by using the ``MultiGrepFunctorLargest`` functor in
+        ``PatternAutomaton.__init__``.
 
         Args:
-            pa (PatternAutomaton): The `PatternAutomaton` instance compared to `self`.
+            pa (PatternAutomaton): The ``PatternAutomaton`` instance compared to ``self``.
         Returns:
-            True iff `self` matches `pa`.
+            True iff ``self`` matches ``pa``.
         """
         if num_vertices(self) != num_vertices(pa) or num_edges(self) != num_edges(pa):
             # MultiGrepFunctorLargest guarantees that two PatternAutomaton can
@@ -148,8 +153,8 @@ def pattern_automaton_edge_weight(
     Args:
         e (EdgeDescriptor): The queried edge identifier.
         g (PatternAutomaton): The queried PatternAutomaton instance.
-        map_name_density (dict): Maps each pattern name (`str)  with its
-            corresponding density (`float`)
+        map_name_density (dict): Maps each pattern name (``str``)  with its
+            corresponding density (``float``)
     Returns:
         The corresponding density.
     """
@@ -160,10 +165,10 @@ def pattern_automaton_edge_weight(
 def pattern_automaton_to_path(g: PatternAutomaton, **kwargs) -> list:
     """
     Computes the path having the lowest density (and hence describing
-    the best pattern-based decomposition) of an input PatternAutomaton.
+    the best pattern-based decomposition) of an input ``PatternAutomaton``.
 
     Args:
-        g (PatternAutomaton): The queried `PatternAutomaton` instance.
+        g (PatternAutomaton): The queried ``PatternAutomaton`` instance.
     Returns:
         The path minimizing the density.
     """
