@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pattern_clustering.cli &mdash; Pattern clustering 0.4.0 documentation</title>
+  <title>pattern_clustering.cli &mdash; Pattern clustering 0.4.1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -28,7 +28,7 @@
             <a href="../../index.html" class="icon icon-home"> Pattern clustering
           </a>
               <div class="version">
-                0.4.0
+                0.4.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -190,7 +190,7 @@
                 <span class="s2">&quot; Command-line parameters are superseded by those specified in the &quot;</span>
                 <span class="s2">&quot;configuration file.&quot;</span>
             <span class="p">)</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f_conf</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">config_filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f_conf</span><span class="p">:</span>
             <span class="n">conf</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f_conf</span><span class="p">)</span>
         <span class="n">patterns</span> <span class="o">=</span> <span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;patterns&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">patterns</span><span class="p">:</span>
