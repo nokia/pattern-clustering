@@ -1,0 +1,6 @@
+pattern\_clustering.cli.main\_pattern\_clustering\_mkconf
+=========================================================
+
+.. currentmodule:: pattern_clustering.cli
+
+.. autofunction:: main_pattern_clustering_mkconf

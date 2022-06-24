@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pattern_clustering &mdash; Pattern clustering 0.5.0 documentation</title>
+  <title>pattern_clustering.cli.main_pattern_clustering_mkconf &mdash; Pattern clustering 0.5.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="pattern_clustering.boost" href="pattern_clustering.boost.html" />
-    <link rel="prev" title="API" href="../api.html" /> 
+    <link rel="next" title="pattern_clustering.cli.main_pattern_distance" href="pattern_clustering.cli.main_pattern_distance.html" />
+    <link rel="prev" title="pattern_clustering.cli.main_pattern_clustering" href="pattern_clustering.cli.main_pattern_clustering.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,9 +50,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../authors.html">Credits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../history.html">History</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">Modules</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">API documentation</a><ul>
+<li class="toctree-l1 current"><a class="reference internal" href="pattern_clustering.html">API documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="pattern_clustering.boost.html">pattern_clustering.boost</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pattern_clustering.cli.html">pattern_clustering.cli</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="pattern_clustering.cli.html">pattern_clustering.cli</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.cli.error.html">pattern_clustering.cli.error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.cli.info.html">pattern_clustering.cli.info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.cli.main_pattern_clustering.html">pattern_clustering.cli.main_pattern_clustering</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pattern_clustering.cli.main_pattern_clustering_mkconf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.cli.main_pattern_distance.html">pattern_clustering.cli.main_pattern_distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.cli.message.html">pattern_clustering.cli.message</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.cli.warning.html">pattern_clustering.cli.warning</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="pattern_clustering.html.html">pattern_clustering.html</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pattern_clustering.language_density.html">pattern_clustering.language_density</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pattern_clustering.multi_grep.html">pattern_clustering.multi_grep</a></li>
@@ -77,7 +86,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../api.html">API</a> &raquo;</li>
-      <li>pattern_clustering</li>
+          <li><a href="pattern_clustering.html">pattern_clustering</a> &raquo;</li>
+          <li><a href="pattern_clustering.cli.html">pattern_clustering.cli</a> &raquo;</li>
+      <li>pattern_clustering.cli.main_pattern_clustering_mkconf</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -86,49 +97,22 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-pattern_clustering">
-<span id="pattern-clustering"></span><h1>pattern_clustering<a class="headerlink" href="#module-pattern_clustering" title="Permalink to this heading"></a></h1>
-<p>Top-level package for Pattern clustering.</p>
-<table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="pattern_clustering.boost.html#module-pattern_clustering.boost" title="pattern_clustering.boost"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pattern_clustering.boost</span></code></a></p></td>
-<td><p>Boost C++ functions wrapper.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pattern_clustering.cli.html#module-pattern_clustering.cli" title="pattern_clustering.cli"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pattern_clustering.cli</span></code></a></p></td>
-<td><p>Console script for pattern_clustering.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pattern_clustering.html.html#module-pattern_clustering.html" title="pattern_clustering.html"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pattern_clustering.html</span></code></a></p></td>
-<td><p>Functions used for the HTML rendering</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pattern_clustering.language_density.html#module-pattern_clustering.language_density" title="pattern_clustering.language_density"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pattern_clustering.language_density</span></code></a>(g[, ...])</p></td>
-<td><p>Computes the language density of an <code class="docutils literal notranslate"><span class="pre">Automaton</span></code> for a given alphabet.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pattern_clustering.multi_grep.html#module-pattern_clustering.multi_grep" title="pattern_clustering.multi_grep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pattern_clustering.multi_grep</span></code></a>(w, map_name_dfa)</p></td>
-<td><p>Searches sub-strings of a string matched by multiple patterns.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pattern_clustering.pattern_automaton.html#module-pattern_clustering.pattern_automaton" title="pattern_clustering.pattern_automaton"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pattern_clustering.pattern_automaton</span></code></a></p></td>
-<td><p>A <code class="docutils literal notranslate"><span class="pre">PatternAutomaton</span></code> represents a string at the pattern level.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pattern_clustering.pattern_clustering</span></code>(arg1, ...)</p></td>
-<td><p>C++ signature :</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pattern_clustering.regexp.html#module-pattern_clustering.regexp" title="pattern_clustering.regexp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pattern_clustering.regexp</span></code></a></p></td>
-<td><p>Functions used to craft automata from regular expressions.</p></td>
-</tr>
-</tbody>
-</table>
+  <section id="pattern-clustering-cli-main-pattern-clustering-mkconf">
+<h1>pattern_clustering.cli.main_pattern_clustering_mkconf<a class="headerlink" href="#pattern-clustering-cli-main-pattern-clustering-mkconf" title="Permalink to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="pattern_clustering.cli.main_pattern_clustering_mkconf">
+<span class="sig-name descname"><span class="pre">main_pattern_clustering_mkconf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pattern_clustering/cli.html#main_pattern_clustering_mkconf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pattern_clustering.cli.main_pattern_clustering_mkconf" title="Permalink to this definition"></a></dt>
+<dd><p>Console script for <code class="docutils literal notranslate"><span class="pre">pattern-clustering-mkconf</span></code>.</p>
+</dd></dl>
+
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../api.html" class="btn btn-neutral float-left" title="API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="pattern_clustering.boost.html" class="btn btn-neutral float-right" title="pattern_clustering.boost" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="pattern_clustering.cli.main_pattern_clustering.html" class="btn btn-neutral float-left" title="pattern_clustering.cli.main_pattern_clustering" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pattern_clustering.cli.main_pattern_distance.html" class="btn btn-neutral float-right" title="pattern_clustering.cli.main_pattern_distance" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

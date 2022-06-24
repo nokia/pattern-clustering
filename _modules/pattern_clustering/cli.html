@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pattern_clustering.cli &mdash; Pattern clustering 0.4.1 documentation</title>
+  <title>pattern_clustering.cli &mdash; Pattern clustering 0.5.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -28,7 +28,7 @@
             <a href="../../index.html" class="icon icon-home"> Pattern clustering
           </a>
               <div class="version">
-                0.4.1
+                0.5.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -94,8 +94,9 @@
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">optparse</span> <span class="kn">import</span> <span class="n">OptionParser</span>
 <span class="kn">from</span> <span class="nn">pattern_clustering</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">PatternClusteringEnv</span><span class="p">,</span> <span class="n">pattern_clustering_to_html</span><span class="p">,</span>
-    <span class="n">pattern_clustering_with_preprocess</span><span class="p">,</span> <span class="n">pattern_clustering_without_preprocess</span>
+    <span class="n">MAP_NAME_RE</span><span class="p">,</span> <span class="n">PatternClusteringEnv</span><span class="p">,</span> <span class="n">pattern_clustering_to_html</span><span class="p">,</span>
+    <span class="n">pattern_clustering_with_preprocess</span><span class="p">,</span> <span class="n">pattern_clustering_without_preprocess</span><span class="p">,</span>
+    <span class="n">pattern_distance</span>
 <span class="p">)</span>
 
 <div class="viewcode-block" id="message"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.cli.message.html#pattern_clustering.cli.message">[docs]</a><span class="k">def</span> <span class="nf">message</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -111,8 +112,76 @@
 <div class="viewcode-block" id="info"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.cli.info.html#pattern_clustering.cli.info">[docs]</a><span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[INFO] </span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.cli.main.html#pattern_clustering.cli.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Console script for pattern_clustering.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="main_pattern_clustering_mkconf"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.cli.main_pattern_clustering_mkconf.html#pattern_clustering.cli.main_pattern_clustering_mkconf">[docs]</a><span class="k">def</span> <span class="nf">main_pattern_clustering_mkconf</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Console script for ``pattern-clustering-mkconf``.&quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;threshold&quot;</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">,</span>
+                <span class="s2">&quot;patterns&quot;</span><span class="p">:</span> <span class="n">MAP_NAME_RE</span>
+            <span class="p">},</span>
+            <span class="n">indent</span><span class="o">=</span><span class="mi">4</span>
+        <span class="p">)</span>
+    <span class="p">)</span></div>
+
+<div class="viewcode-block" id="main_pattern_distance"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.cli.main_pattern_distance.html#pattern_clustering.cli.main_pattern_distance">[docs]</a><span class="k">def</span> <span class="nf">main_pattern_distance</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Console script for ``pattern-distance``.&quot;&quot;&quot;</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">OptionParser</span><span class="p">(</span><span class="n">usage</span><span class="o">=</span><span class="s2">&quot;usage: %prog [options] ARG1 ARG2&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s2">&quot;-c&quot;</span><span class="p">,</span> <span class="s2">&quot;--config&quot;</span><span class="p">,</span>
+        <span class="n">metavar</span> <span class="o">=</span> <span class="s2">&quot;CONFIG_FILENAME&quot;</span><span class="p">,</span>
+        <span class="nb">type</span>    <span class="o">=</span> <span class="s2">&quot;str&quot;</span><span class="p">,</span>
+        <span class="n">dest</span>    <span class="o">=</span> <span class="s2">&quot;config_filename&quot;</span><span class="p">,</span>
+        <span class="n">help</span>    <span class="o">=</span> <span class="s2">&quot;Path to the JSON configuration file. Supersedes command-line parameters.&quot;</span><span class="p">,</span>
+        <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s2">&quot;-n&quot;</span><span class="p">,</span> <span class="s2">&quot;--normalized&quot;</span><span class="p">,</span>
+        <span class="n">dest</span>    <span class="o">=</span> <span class="s2">&quot;normalized&quot;</span><span class="p">,</span>
+        <span class="n">help</span>    <span class="o">=</span> <span class="s2">&quot;Returns a distance between 0.0 and 1.0&quot;</span><span class="p">,</span>
+        <span class="n">action</span>  <span class="o">=</span> <span class="s2">&quot;store_true&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s2">&quot;-v&quot;</span><span class="p">,</span> <span class="s2">&quot;--verbose&quot;</span><span class="p">,</span>
+        <span class="n">dest</span>    <span class="o">=</span> <span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+        <span class="n">help</span>    <span class="o">=</span> <span class="s2">&quot;Verbose mode&quot;</span><span class="p">,</span>
+        <span class="n">action</span>  <span class="o">=</span> <span class="s2">&quot;store_true&quot;</span>
+    <span class="p">)</span>
+
+    <span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">args</span><span class="p">:</span>
+        <span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ignored argument: </span><span class="si">{</span><span class="n">args</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Load parameters</span>
+    <span class="n">verbose</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">verbose</span>
+    <span class="n">conf</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">config_filename</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Loading parameters from </span><span class="si">{</span><span class="n">options</span><span class="o">.</span><span class="n">config_filename</span><span class="si">}</span><span class="s2"> configuration file.&quot;</span>
+                <span class="s2">&quot; Command-line parameters are superseded by those specified in the &quot;</span>
+                <span class="s2">&quot;configuration file.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">config_filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f_conf</span><span class="p">:</span>
+            <span class="n">conf</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f_conf</span><span class="p">)</span>
+        <span class="n">patterns</span> <span class="o">=</span> <span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;patterns&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">patterns</span><span class="p">:</span>
+            <span class="n">PatternClusteringEnv</span><span class="o">.</span><span class="n">patterns</span> <span class="o">=</span> <span class="n">patterns</span>
+    <span class="k">elif</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using command-line and default parameters.&quot;</span><span class="p">)</span>
+
+    <span class="n">w1</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">w2</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">normalized</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">normalized</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Comparing</span><span class="se">\n</span><span class="s2">w1: </span><span class="si">{</span><span class="n">w1</span><span class="si">}</span><span class="se">\n</span><span class="s2">w2: </span><span class="si">{</span><span class="n">w2</span><span class="si">}</span><span class="se">\n</span><span class="s2">normalized: </span><span class="si">{</span><span class="n">normalized</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">pattern_distance</span><span class="p">(</span><span class="n">w1</span><span class="p">,</span> <span class="n">w2</span><span class="p">,</span> <span class="n">normalized</span><span class="o">=</span><span class="n">normalized</span><span class="p">))</span>
+    <span class="k">return</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="main_pattern_clustering"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.cli.main_pattern_clustering.html#pattern_clustering.cli.main_pattern_clustering">[docs]</a><span class="k">def</span> <span class="nf">main_pattern_clustering</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Console script for ``pattern-clustering``.&quot;&quot;&quot;</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">OptionParser</span><span class="p">(</span><span class="n">usage</span><span class="o">=</span><span class="s2">&quot;usage: %prog [options] INPUT_FILENAME&quot;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
         <span class="s2">&quot;-c&quot;</span><span class="p">,</span> <span class="s2">&quot;--config&quot;</span><span class="p">,</span>
@@ -236,7 +305,7 @@
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>  <span class="c1"># pragma: no cover</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">main_pattern_clustering</span><span class="p">())</span>  <span class="c1"># pragma: no cover</span>
 </pre></div>
 
            </div>

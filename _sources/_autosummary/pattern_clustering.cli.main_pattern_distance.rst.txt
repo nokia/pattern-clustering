@@ -1,0 +1,6 @@
+pattern\_clustering.cli.main\_pattern\_distance
+===============================================
+
+.. currentmodule:: pattern_clustering.cli
+
+.. autofunction:: main_pattern_distance

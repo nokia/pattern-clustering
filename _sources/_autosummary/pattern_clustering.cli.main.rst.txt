@@ -1,6 +1,0 @@
-pattern\_clustering.cli.main
-============================
-
-.. currentmodule:: pattern_clustering.cli
-
-.. autofunction:: main
