@@ -8,7 +8,7 @@ __author__ = "Marc-Olivier Buob, Maxime Raynal"
 __maintainer__ = "Marc-Olivier Buob, Maxime Raynal"
 __email__ = "marc-olivier.buob@nokia-bell-labs.com, maxime.raynal@nokia.com"
 __copyright__ = "Copyright (C) 2022, Nokia"
-__license__ = "Nokia"
+__license__ = "BSD-3"
 
 """Multigrep detects pattern occurences involved in an input string"""
 
@@ -28,10 +28,10 @@ def multi_grep(
 
     Args:
         w (str): The input string.
-        map_name_dfa (dict): Maps each pattern (`str`)
-            with its corresponding DFA (`pybgl.Automaton`).
-        callback (callable): A `callable(Name, int, int, str)` called whenever
-            `w[j:k]` is matched by pattern `name`.
+        map_name_dfa (dict): Maps each pattern (``str``)
+            with its corresponding DFA (``pybgl.Automaton``).
+        callback (callable): A ``callable(Name, int, int, str)`` called whenever
+            ``w[j:k]`` is matched by pattern ``name``.
     """
 
     def make_map_name_q_js_next() -> dict:
@@ -80,18 +80,18 @@ def multi_grep_with_delimiters(
     delimited by a predefined collection of separator patterns.
     Args:
         w (str): The input string.
-        map_name_dfa (dict): Maps each pattern (`str`)
-            with its corresponding DFA (`pybgl.Automaton`).
-        callback (callable): A `callable(Name, int, int, str)` called whenever
-            `w[j:k]` is matched by pattern `name`.
-        is_pattern_separator (callable): A ̀`callable(Name) -> bool` that returns `True`
-            if the pattern `name` is a separator.
-        is_pattern_left_separated (callable): A ̀`callable(Name) -> bool` that returns
-            `True` if the pattern `name` must be preceded by a separator pattern or
-            located at the beginning of `w`.
-        is_pattern_right_separated (callable): A ̀`callable(Name) -> bool` return `True`
-            if the pattern `name` must be followed by a separator pattern or located
-            at the end of `w`.
+        map_name_dfa (dict): Maps each pattern (``str``)
+            with its corresponding DFA (``pybgl.Automaton``).
+        callback (callable): A ``callable(Name, int, int, str)`` called whenever
+            ``w[j:k]`` is matched by pattern ``name``.
+        is_pattern_separator (callable): A ̀``callable(Name) -> bool`` that returns ``True``
+            if the pattern ``name`` is a separator.
+        is_pattern_left_separated (callable): A ̀``callable(Name) -> bool`` that returns
+            ``True`` if the pattern ``name`` must be preceded by a separator pattern or
+            located at the beginning of ``w``.
+        is_pattern_right_separated (callable): A ̀``callable(Name) -> bool`` return ``True``
+            if the pattern ``name`` must be followed by a separator pattern or located
+            at the end of ``w``.
     """
     # multi_grep on separating patterns
     map_name_dfa_separator = {
@@ -114,7 +114,7 @@ def multi_grep_with_delimiters(
         for (j, k) in jks
     }
 
-    # multi_grep on other patterns
+    # multi_grep for other patterns
     def filtered_callback(name, j, k, w):
         if is_pattern_separator(name):
             return
@@ -138,27 +138,32 @@ class MultiGrepFunctor:
         """
         Functor method.
         Args:
-            i: `int` corresponding to a DFA identifier.
-            j: `int` corresponding to the beginning of a substring caught by Automaton `i`.
-            k: `int` corresponding to the end of a substring caught by Automaton `i`.
-            w: The input `str`.
+            i: ``int`` corresponding to a DFA identifier.
+            j: ``int`` corresponding to the beginning of a substring caught by
+                the ``i``-th ``Automaton`` instance.
+            k: ``int`` corresponding to the end of a substring caught by
+                the ``i``-th ``Automaton`` instance.
+            w: The input ``str``.
         """
         raise NotImplementedError
 
     def indices(self) -> dict:
         """
-        Returns: A dict{i : [(j, k)]} where
-            `i` is an `int` corresponding to a DFA identifier.
-            `j` is an `int` corresponding to the beginning of a substring caught by Automaton `i`.
-            `k` is an `int` corresponding to the end of a substring caught by Automaton `i`.
+        Returns: A dict{i : [(j, k)]} where:
+            ``i`` is an ``int`` corresponding to a DFA identifier;
+            j is an  ``int`` corresponding to the beginning of a substring caught by
+                the ``i``-th ``Automaton`` instance;
+            k is an  ``int`` corresponding to the end of a substring caught by
+                the ``i``-th ``Automaton`` instance.
+
         """
         raise NotImplementedError
 
 
 class MultiGrepFunctorAll(MultiGrepFunctor):
     """
-    `MultiGrepFunctorAll` catches (for each pattern Pi and for each index `j`) each substring
-    `w[j:k]` matching Pi.
+    ``MultiGrepFunctorAll`` catches (for each pattern Pi and for each index ``j``)
+    each substring ``w[j:k]`` matching Pi.
     """
 
     def __init__(self):
@@ -173,7 +178,7 @@ class MultiGrepFunctorAll(MultiGrepFunctor):
 
 class MultiGrepFunctorLargest(MultiGrepFunctor):
     """
-    `MultiGrepFunctorLargest` catches (for each pattern Pi and for each index j)
+    ``MultiGrepFunctorLargest`` catches (for each pattern Pi and for each index j)
     the largest w[j:k] matching Pi.
     """
 
@@ -202,7 +207,7 @@ class MultiGrepFunctorLargest(MultiGrepFunctor):
 
 class MultiGrepFunctorGreedy(MultiGrepFunctorLargest):
     """
-    `MultiGrepFunctorGreedy` catches (for each pattern Pi and for each index j)
+    ``MultiGrepFunctorGreedy`` catches (for each pattern Pi and for each index j)
     the largest  w[j′:k] matching Pi and s.t.  j′ < j.
     """
 
@@ -219,14 +224,14 @@ class MultiGrepFunctorGreedy(MultiGrepFunctorLargest):
 
 def multi_grep_fonctor_to_dict(w: str, fonctor: MultiGrepFunctor) -> dict:
     """
-    Converts a `MultiGrepFunctor` instance to a `dictionary.
+    Converts a ``MultiGrepFunctor`` instance to a ``dictionary.
 
     Args:
         w (str): The input string.
-        fonctor (callable): A `MultiGrepFunctor` initialized thanks to `multi_grep`
+        fonctor (callable): A ``MultiGrepFunctor`` initialized thanks to ``multi_grep``.
     Returns:
-        The dictionary mapping each pattern names (`str`) with the list of matched
-        substrings of `w` stored in `fonctor`.
+        The dictionary mapping each pattern names (``str``) with the list of matched
+        substrings of ``w`` stored in ``fonctor``.
     """
     return {
         name: [w[j:k] for (j, k) in slices]
@@ -236,13 +241,13 @@ def multi_grep_fonctor_to_dict(w: str, fonctor: MultiGrepFunctor) -> dict:
 
 def multi_grep_fonctor_to_string(w: str, fonctor: MultiGrepFunctor) -> str:
     """
-    Converts a `MultiGrepFunctor` to a human readable string.
+    Converts a ``MultiGrepFunctor`` to a human readable string.
 
     Args:
         w (str): The input string.
-        fonctor (callable): A `MultiGrepFunctor` initialized thanks to `multi_grep`
+        fonctor (callable): A ``MultiGrepFunctor`` initialized thanks to ``multi_grep``.
     Returns:
-        The string representation of `fonctor`.
+        The string representation of ``fonctor``.
     """
     return "\n".join([
         "%-5s: %s" % (k, v)
@@ -252,10 +257,10 @@ def multi_grep_fonctor_to_string(w: str, fonctor: MultiGrepFunctor) -> str:
 
 def print_multi_grep_fonctor(w: str, fonctor: MultiGrepFunctor):
     """
-    Prints a `MultiGrepFunctor` instance.
+    Prints a ``MultiGrepFunctor`` instance.
 
     Args:
         w (str): The input string.
-        fonctor (callable): A `MultiGrepFunctor` initialized thanks to `multi_grep`
+        fonctor (callable): A ``MultiGrepFunctor`` initialized thanks to ``multi_grep``.
     """
     print(multi_grep_fonctor_to_string(w, fonctor))

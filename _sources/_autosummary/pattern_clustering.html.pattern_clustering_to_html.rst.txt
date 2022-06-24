@@ -1,0 +1,6 @@
+pattern\_clustering.html.pattern\_clustering\_to\_html
+======================================================
+
+.. currentmodule:: pattern_clustering.html
+
+.. autofunction:: pattern_clustering_to_html

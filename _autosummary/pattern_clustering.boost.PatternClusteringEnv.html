@@ -54,6 +54,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="pattern_clustering.boost.html">pattern_clustering.boost</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.group_by_identical_pa.html">pattern_clustering.boost.group_by_identical_pa</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_densities.html">pattern_clustering.boost.make_densities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_name_density.html">pattern_clustering.boost.make_name_density</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_pattern_automata.html">pattern_clustering.boost.make_pattern_automata</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_pattern_automaton.html">pattern_clustering.boost.make_pattern_automaton</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_pattern_automaton_python.html">pattern_clustering.boost.make_pattern_automaton_python</a></li>
@@ -93,7 +94,6 @@
           <li><a href="pattern_clustering.boost.html">pattern_clustering.boost</a> &raquo;</li>
       <li>pattern_clustering.boost.PatternClusteringEnv</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/_autosummary/pattern_clustering.boost.PatternClusteringEnv.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -105,21 +105,8 @@
 <h1>pattern_clustering.boost.PatternClusteringEnv<a class="headerlink" href="#pattern-clustering-boost-patternclusteringenv" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="pattern_clustering.boost.PatternClusteringEnv">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PatternClusteringEnv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphabet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">set</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pattern_clustering/boost.html#PatternClusteringEnv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pattern_clustering.boost.PatternClusteringEnv" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PatternClusteringEnv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pattern_clustering/boost.html#PatternClusteringEnv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pattern_clustering.boost.PatternClusteringEnv" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Stores the pattern clustering settings.</p>
-<p>Creates the parameters required to run pattern distance
-and pattern clustering computations.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>names</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – List storing the pattern names taken into account
-(see default patterns in <cite>pattern_clustering.pattern</cite>).</p></li>
-<li><p><strong>alphabet</strong> (<em>set</em>) – The set of characters supported by the crafted
-<cite>PatternAutomaton</cite> instances.</p></li>
-</ul>
-</dd>
-</dl>
 <p class="rubric">Methods</p>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
@@ -127,6 +114,20 @@ and pattern clustering computations.</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pattern_clustering.boost.PatternClusteringEnv.densities" title="pattern_clustering.boost.PatternClusteringEnv.densities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">densities</span></code></a></p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">returns</dt>
+<dd class="field-odd"><p>The densities assigned to each pattern defined in <code class="docutils literal notranslate"><span class="pre">self.map_name_dfa</span></code>.</p>
+</dd>
+</dl>
+</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pattern_clustering.boost.PatternClusteringEnv.reset" title="pattern_clustering.boost.PatternClusteringEnv.reset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code></a></p></td>
+<td><p>Reset the <code class="docutils literal notranslate"><span class="pre">PatternClusteringEnv</span></code> singleton to its default settings.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pattern_clustering.boost.PatternClusteringEnv.set_patterns" title="pattern_clustering.boost.PatternClusteringEnv.set_patterns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_patterns</span></code></a></p></td>
+<td><p>Defines the patterns used in the pattern clustering.</p></td>
+</tr>
 </tbody>
 </table>
 <p class="rubric">Attributes</p>
@@ -136,16 +137,45 @@ and pattern clustering computations.</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pattern_clustering.boost.PatternClusteringEnv.densities" title="pattern_clustering.boost.PatternClusteringEnv.densities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">densities</span></code></a></p></td>
-<td><p>Returns: The densities assigned to each pattern defined in <cite>self.map_name_dfa</cite>.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">alphabet</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">map_name_density</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">map_name_dfa</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">map_name_re</span></code></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
-<dl class="py property">
+<dl class="py method">
 <dt class="sig sig-object py" id="pattern_clustering.boost.PatternClusteringEnv.densities">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">densities</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span></em><a class="headerlink" href="#pattern_clustering.boost.PatternClusteringEnv.densities" title="Permalink to this definition"></a></dt>
-<dd><p>Returns:
-The densities assigned to each pattern defined in <cite>self.map_name_dfa</cite>.</p>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">densities</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="../_modules/pattern_clustering/boost.html#PatternClusteringEnv.densities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pattern_clustering.boost.PatternClusteringEnv.densities" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The densities assigned to each pattern defined in <code class="docutils literal notranslate"><span class="pre">self.map_name_dfa</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pattern_clustering.boost.PatternClusteringEnv.reset">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pattern_clustering/boost.html#PatternClusteringEnv.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pattern_clustering.boost.PatternClusteringEnv.reset" title="Permalink to this definition"></a></dt>
+<dd><p>Reset the <code class="docutils literal notranslate"><span class="pre">PatternClusteringEnv</span></code> singleton to its default settings.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pattern_clustering.boost.PatternClusteringEnv.set_patterns">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_patterns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map_name_re</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">iter</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pattern_clustering/boost.html#PatternClusteringEnv.set_patterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pattern_clustering.boost.PatternClusteringEnv.set_patterns" title="Permalink to this definition"></a></dt>
+<dd><p>Defines the patterns used in the pattern clustering.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>map_name_re</strong> (<em>dict</em>) – A dictionary mapping each pattern (<code class="docutils literal notranslate"><span class="pre">str</span></code>)</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

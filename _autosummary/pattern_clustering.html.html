@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="pattern_clustering.html.clustered_lines_to_html" href="pattern_clustering.html.clustered_lines_to_html.html" />
-    <link rel="prev" title="pattern_clustering.cli.main" href="pattern_clustering.cli.main.html" /> 
+    <link rel="prev" title="pattern_clustering.cli.warning" href="pattern_clustering.cli.warning.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -59,6 +59,7 @@
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.html.colors_to_html.html">pattern_clustering.html.colors_to_html</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.html.lines_to_html.html">pattern_clustering.html.lines_to_html</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.html.make_html_colors.html">pattern_clustering.html.make_html_colors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.html.pattern_clustering_to_html.html">pattern_clustering.html.pattern_clustering_to_html</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.html.values_to_colors.html">pattern_clustering.html.values_to_colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.html.RowFormatter.html">pattern_clustering.html.RowFormatter</a></li>
 </ul>
@@ -89,7 +90,6 @@
           <li><a href="pattern_clustering.html">pattern_clustering</a> &raquo;</li>
       <li>pattern_clustering.html</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/_autosummary/pattern_clustering.html.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -99,6 +99,7 @@
              
   <section id="module-pattern_clustering.html">
 <span id="pattern-clustering-html"></span><h1>pattern_clustering.html<a class="headerlink" href="#module-pattern_clustering.html" title="Permalink to this heading"></a></h1>
+<p>Functions used for the HTML rendering</p>
 <p class="rubric">Functions</p>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
@@ -107,21 +108,24 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="pattern_clustering.html.clustered_lines_to_html.html#pattern_clustering.html.clustered_lines_to_html" title="pattern_clustering.html.clustered_lines_to_html"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clustered_lines_to_html</span></code></a></p></td>
-<td><p>Export a list of clustered <cite>str</cite> to HTML.</p></td>
+<td><p>Exports a list of clustered <code class="docutils literal notranslate"><span class="pre">str</span></code> to HTML.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="pattern_clustering.html.clusters_to_row_formatter.html#pattern_clustering.html.clusters_to_row_formatter" title="pattern_clustering.html.clusters_to_row_formatter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clusters_to_row_formatter</span></code></a></p></td>
-<td><p>Builds a <cite>RowFormatter</cite> from clustering results.</p></td>
+<td><p>Builds a <code class="docutils literal notranslate"><span class="pre">RowFormatter</span></code> from clustering results.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="pattern_clustering.html.colors_to_html.html#pattern_clustering.html.colors_to_html" title="pattern_clustering.html.colors_to_html"><code class="xref py py-obj docutils literal notranslate"><span class="pre">colors_to_html</span></code></a></p></td>
-<td><p>Export a list of HTML colors to HTML strings.</p></td>
+<td><p>Exports a list of HTML colors to HTML strings.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="pattern_clustering.html.lines_to_html.html#pattern_clustering.html.lines_to_html" title="pattern_clustering.html.lines_to_html"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lines_to_html</span></code></a></p></td>
-<td><p>Exports a list of <cite>str</cite> to HTML.</p></td>
+<td><p>Exports a list of <code class="docutils literal notranslate"><span class="pre">str</span></code> to HTML.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="pattern_clustering.html.make_html_colors.html#pattern_clustering.html.make_html_colors" title="pattern_clustering.html.make_html_colors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_html_colors</span></code></a></p></td>
-<td><p>Makes a list of <cite>num_colors</cite> colors scattered over the rainbow gradient.</p></td>
+<td><p>Makes a list of <code class="docutils literal notranslate"><span class="pre">num_colors</span></code> rainbow colors.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pattern_clustering.html.values_to_colors.html#pattern_clustering.html.values_to_colors" title="pattern_clustering.html.values_to_colors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">values_to_colors</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pattern_clustering.html.pattern_clustering_to_html.html#pattern_clustering.html.pattern_clustering_to_html" title="pattern_clustering.html.pattern_clustering_to_html"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pattern_clustering_to_html</span></code></a></p></td>
+<td><p>Convert pattern_clustering results to HTML.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pattern_clustering.html.values_to_colors.html#pattern_clustering.html.values_to_colors" title="pattern_clustering.html.values_to_colors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">values_to_colors</span></code></a></p></td>
 <td><p>Maps some distinguishable values (possibly duplicated) with distinct HTML colors.</p></td>
 </tr>
 </tbody>
@@ -144,7 +148,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="pattern_clustering.cli.main.html" class="btn btn-neutral float-left" title="pattern_clustering.cli.main" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pattern_clustering.cli.warning.html" class="btn btn-neutral float-left" title="pattern_clustering.cli.warning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="pattern_clustering.html.clustered_lines_to_html.html" class="btn btn-neutral float-right" title="pattern_clustering.html.clustered_lines_to_html" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

@@ -1,0 +1,6 @@
+pattern\_clustering.cli.warning
+===============================
+
+.. currentmodule:: pattern_clustering.cli
+
+.. autofunction:: warning

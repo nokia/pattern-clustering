@@ -54,6 +54,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="pattern_clustering.boost.html">pattern_clustering.boost</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.group_by_identical_pa.html">pattern_clustering.boost.group_by_identical_pa</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_densities.html">pattern_clustering.boost.make_densities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_name_density.html">pattern_clustering.boost.make_name_density</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_pattern_automata.html">pattern_clustering.boost.make_pattern_automata</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_pattern_automaton.html">pattern_clustering.boost.make_pattern_automaton</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_pattern_automaton_python.html">pattern_clustering.boost.make_pattern_automaton_python</a></li>
@@ -93,7 +94,6 @@
           <li><a href="pattern_clustering.boost.html">pattern_clustering.boost</a> &raquo;</li>
       <li>pattern_clustering.boost.pattern_clustering</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/_autosummary/pattern_clustering.boost.pattern_clustering.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -106,27 +106,24 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="pattern_clustering.boost.pattern_clustering">
 <span class="sig-name descname"><span class="pre">pattern_clustering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lines</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_name_dfa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">densities</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_dist</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_async</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">make_mg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">callable</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#pattern_clustering.boost.pattern_clustering" title="Permalink to this definition"></a></dt>
-<dd><p>Computes the pattern clustering of input lines by grouping matching PAs.</p>
-<p>This implies that lines having matching PatternAutomaton always fall in the same clusters
-which accelerate the code. Sometimes, this may lead to weird cluster, especially if some
-lines are unrelated and conform to the same <cite>PatternAutomaton</cite>.</p>
+<dd><p>Computes the pattern clustering of input lines without aggregating duplicated PAs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>lines</strong> – A <cite>list(str)</cite> gathering the input lines.</p></li>
-<li><p><strong>map_name_dfa</strong> – A <cite>dict{str : Automaton}</cite> mapping each pattern name
+<li><p><strong>lines</strong> – A <code class="docutils literal notranslate"><span class="pre">list(str)</span></code> gathering the input lines.</p></li>
+<li><p><strong>map_name_dfa</strong> – A <code class="docutils literal notranslate"><span class="pre">dict{str</span> <span class="pre">:</span> <span class="pre">Automaton}</span></code> mapping each pattern name
 with the corresponding Automaton.</p></li>
-<li><p><strong>densities</strong> – A density vector. See <cite>make_densities()</cite>.</p></li>
+<li><p><strong>densities</strong> – A density vector. See <code class="docutils literal notranslate"><span class="pre">make_densities()</span></code>.</p></li>
 <li><p><strong>max_dist</strong> – The maximum distance between an element of a cluster and the
 cluster representative. As distances are normalized, this value should
-be lower than 1.0.</p></li>
-<li><p><strong>use_async</strong> – Pass <cite>True</cite> to run computations using async calls. This accelerates
+be between <code class="docutils literal notranslate"><span class="pre">0.0</span></code> and <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
+<li><p><strong>use_async</strong> – Pass <code class="docutils literal notranslate"><span class="pre">True</span></code> to run computations using async calls. This accelerates
 computations.</p></li>
-<li><p><strong>make_mg</strong> – A <cite>MultiGrepFunctor</cite> instance.</p></li>
+<li><p><strong>make_mg</strong> – A <code class="docutils literal notranslate"><span class="pre">MultiGrepFunctor</span></code> instance.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A <cite>list(int)</cite> mapping each line index with its corresponding cluster identifier.</p>
+<dd class="field-even"><p>A <code class="docutils literal notranslate"><span class="pre">list(int)</span></code> mapping each line index with its corresponding cluster identifier.</p>
 </dd>
 </dl>
 </dd></dl>

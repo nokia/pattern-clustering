@@ -4,25 +4,27 @@
 # This file is part of the pattern-clustering project.
 # https://github.com/nokia/pattern-clustering
 
+"""Functions used for the HTML rendering"""
+
 __author__ = "Marc-Olivier Buob"
 __maintainer__ = "Marc-Olivier Buob"
 __email__ = "marc-olivier.buob@nokia-bell-labs.com"
 __copyright__ = "Copyright (C) 2022, Nokia"
-__license__ = "Nokia"
+__license__ = "BSD-3"
 
 from collections        import defaultdict
 from pybgl.property_map import ReadPropertyMap, make_func_property_map
 
 def make_html_colors(num_colors: int, s: str = "80%", l: str = "40%") -> list:
     """
-    Makes a list of `num_colors` colors scattered over the rainbow gradient.
+    Makes a list of ``num_colors`` rainbow colors.
 
     Args:
         num_colors (int): The number of colors to generate.
         s (str): The saturation (cf HSL), e.g., "80%".
         l (str): The light (cf HSL), e.g., "40%" .
     Returns:
-        A list of `num_colors` strings containing HTML colors.
+        A list of ``num_colors`` strings containing HTML colors.
     """
     assert num_colors > 0
     return [
@@ -31,17 +33,19 @@ def make_html_colors(num_colors: int, s: str = "80%", l: str = "40%") -> list:
     ]
 
 
-def values_to_colors(values: iter, *cls, **kwargs) -> dict:
+def values_to_colors(values: iter, *args, **kwargs) -> dict:
     """
     Maps some distinguishable values (possibly duplicated) with distinct HTML colors.
     Args:
         values (iter): An iterable containing arbitrary hashable objects.
+        *args: See `make_html_colors`.
+        **kwargs: See `make_html_colors`.
     Returns:
         A dictionary mapping each distinct value with a corresponding
         HTML color.
     """
     unique_values = set(values)
-    colors = make_html_colors(len(unique_values), *cls, **kwargs)
+    colors = make_html_colors(len(unique_values), *args, **kwargs)
     return {
         value : colors[i]
         for (i, value) in enumerate(sorted(unique_values))
@@ -50,13 +54,14 @@ def values_to_colors(values: iter, *cls, **kwargs) -> dict:
 
 def colors_to_html(colors: list, i_to_label, join: str = "&nbsp;") -> str:
     """
-    Export a list of HTML colors to HTML strings.
+    Exports a list of HTML colors to HTML strings.
 
     Args:
         colors (list): The HTML colors.
-        i_to_label (callable): A `Callback(int) -> str` returning the label corresponding
-            to a given color index (according to `colors`).
-        join (str): A string used to join HTML strings related to each color, defaults to "&nbsp;".
+        i_to_label (callable): A ``Callback(int) -> str`` returning the label corresponding
+            to a given color index (according to ``colors``).
+        join (str): A string used to join HTML strings related to each color.
+            Defaults to ``"&nbsp;"``.
     Returns:
         The corresponding HTML string.
     """
@@ -75,7 +80,7 @@ class RowFormatter:
         Constructor.
 
         Args:
-            pmap_color (ReadPropertyMap): A `ReadPropertyMap{int : str}` mapping a row with
+            pmap_color (ReadPropertyMap): A ``ReadPropertyMap{int : str}`` mapping a row with
                 its corresponding color.
             fmt_row (str): Format string used to display the row.
         """
@@ -106,15 +111,15 @@ def clusters_to_row_formatter(
     map_cluster_color: dict
 ) -> RowFormatter:
     """
-    Builds a `RowFormatter` from clustering results.
+    Builds a ``RowFormatter`` from clustering results.
 
     Args:
-        map_row_cluster (dict): Maps each row (`int`) with the
+        map_row_cluster (dict): Maps each row (``int``) with the
             corresponding cluster ID (any hashable type).
         map_cluster_color (dict): Maps each cluster ID (any hashable type)
-            with the corresponding HTML color (`str`).
+            with the corresponding HTML color (``str``).
     Returns:
-        The corresponding `RowFormatter`.
+        The corresponding ``RowFormatter``.
     """
     return RowFormatter(
         make_func_property_map(
@@ -129,15 +134,15 @@ def lines_to_html(
     line_to_html: callable = None
 ) -> str:
     """
-    Exports a list of `str` to HTML.
+    Exports a list of ``str`` to HTML.
 
     Args:
         lines (list): The list of strings where each string corresponds to
             the lines of the input file.
-        skip_line (callable): A `Callback(int, str) -> bool` taking in parameters the row
-            and the line content, and returning `True` if the line is relevant.
+        skip_line (callable): A ``Callback(int, str) -> bool`` taking in parameters the row
+            and the line content, and returning ``True`` if the line is relevant.
             By default, all lines are considered.
-        line_to_html (callable): A `Callback(int, str) -> str` taking in parameters
+        line_to_html (callable): A ``Callback(int, str) -> str`` taking in parameters
             the row (line number) and the line content, and returning the
             corresponding HTML rendering.
     Returns:
@@ -164,22 +169,23 @@ def clustered_lines_to_html(
     map_cluster_name :dict = None
 ) -> str:
     """
-    Export a list of clustered `str` to HTML.
+    Exports a list of clustered ``str`` to HTML.
 
     Args:
         lines (list): The list of strings where each string corresponds to
             the lines of the input file.
-        map_row_cluster (dict): Maps each row (`int`) with the corresponding cluster ID.
-        row_to_html: `Callback(int, str) -> str` mapping the row (line number) and the line
-            content with the corresponding HTML rendering of the line. See also `RowFormatter`.
-        line_to_html (callable): A `Callback(int, str) -> str` taking in parameters
+        map_row_cluster (dict): Maps each row (``int``) with the corresponding cluster ID.
+        row_to_html: ``Callback(int, str) -> str`` mapping the row (line number) and the line
+            content with the corresponding HTML rendering of the line.
+            See also ``RowFormatter``.
+        line_to_html (callable): A ``Callback(int, str) -> str`` taking in parameters
             the row (line number) and the line content, and returning the
             corresponding HTML rendering.
-        skip_line (callable): A `Callback(int, str) -> bool` taking in parameters the row
-            and the line content, and returning `True` if the line is relevant.
+        skip_line (callable): A ``Callback(int, str) -> bool`` taking in parameters the row
+            and the line content, and returning ``True`` if the line is relevant.
             By default, all lines are considered.
-        show_caption (bool): Pass `False` to hide the caption mapping each
-            cluster with its corresponding color, defaults to `True`.
+        show_caption (bool): Pass ``False`` to hide the caption mapping each
+            cluster with its corresponding color. Defaults to ``True``.
         map_cluster_name (dict): Maps each cluster ID with its corresponding name.
     Returns:
         The corresponding HTML string.
@@ -226,3 +232,22 @@ def clustered_lines_to_html(
         )
     ])
 
+
+def pattern_clustering_to_html(lines: list, clusters: list) -> str:
+    """
+    Convert pattern_clustering results to HTML.
+
+    Args:
+        lines (list): A list of string (e.g., the lines of text stored in a log file).
+        clusters (list): A list containing where ``clusters[i]`` identifies the cluster
+            of the ``i``-th line of ``lines`` (indexed from ``0``).
+    Returns:
+        The HTML rendering of the clustering.
+    """
+    return clustered_lines_to_html(
+        lines,
+        map_row_cluster = {
+            i : cluster_id
+            for (i, cluster_id) in enumerate(clusters)
+        }
+    )

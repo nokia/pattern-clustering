@@ -59,6 +59,7 @@
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.html.colors_to_html.html">pattern_clustering.html.colors_to_html</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.html.lines_to_html.html">pattern_clustering.html.lines_to_html</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.html.make_html_colors.html">pattern_clustering.html.make_html_colors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.html.pattern_clustering_to_html.html">pattern_clustering.html.pattern_clustering_to_html</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.html.values_to_colors.html">pattern_clustering.html.values_to_colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.html.RowFormatter.html">pattern_clustering.html.RowFormatter</a></li>
 </ul>
@@ -90,7 +91,6 @@
           <li><a href="pattern_clustering.html.html">pattern_clustering.html</a> &raquo;</li>
       <li>pattern_clustering.html.clustered_lines_to_html</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/_autosummary/pattern_clustering.html.clustered_lines_to_html.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -103,23 +103,24 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="pattern_clustering.html.clustered_lines_to_html">
 <span class="sig-name descname"><span class="pre">clustered_lines_to_html</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lines</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_row_cluster</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_to_html</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_to_html</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_line</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_caption</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_cluster_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/pattern_clustering/html.html#clustered_lines_to_html"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pattern_clustering.html.clustered_lines_to_html" title="Permalink to this definition"></a></dt>
-<dd><p>Export a list of clustered <cite>str</cite> to HTML.</p>
+<dd><p>Exports a list of clustered <code class="docutils literal notranslate"><span class="pre">str</span></code> to HTML.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>lines</strong> (<em>list</em>) – The list of strings where each string corresponds to
 the lines of the input file.</p></li>
-<li><p><strong>map_row_cluster</strong> (<em>dict</em>) – Maps each row (<cite>int</cite>) with the corresponding cluster ID.</p></li>
-<li><p><strong>row_to_html</strong> – <cite>Callback(int, str) -&gt; str</cite> mapping the row (line number) and the line
-content with the corresponding HTML rendering of the line. See also <cite>RowFormatter</cite>.</p></li>
-<li><p><strong>line_to_html</strong> (<em>callable</em>) – A <cite>Callback(int, str) -&gt; str</cite> taking in parameters
+<li><p><strong>map_row_cluster</strong> (<em>dict</em>) – Maps each row (<code class="docutils literal notranslate"><span class="pre">int</span></code>) with the corresponding cluster ID.</p></li>
+<li><p><strong>row_to_html</strong> – <code class="docutils literal notranslate"><span class="pre">Callback(int,</span> <span class="pre">str)</span> <span class="pre">-&gt;</span> <span class="pre">str</span></code> mapping the row (line number) and the line
+content with the corresponding HTML rendering of the line.
+See also <code class="docutils literal notranslate"><span class="pre">RowFormatter</span></code>.</p></li>
+<li><p><strong>line_to_html</strong> (<em>callable</em>) – A <code class="docutils literal notranslate"><span class="pre">Callback(int,</span> <span class="pre">str)</span> <span class="pre">-&gt;</span> <span class="pre">str</span></code> taking in parameters
 the row (line number) and the line content, and returning the
 corresponding HTML rendering.</p></li>
-<li><p><strong>skip_line</strong> (<em>callable</em>) – A <cite>Callback(int, str) -&gt; bool</cite> taking in parameters the row
-and the line content, and returning <cite>True</cite> if the line is relevant.
+<li><p><strong>skip_line</strong> (<em>callable</em>) – A <code class="docutils literal notranslate"><span class="pre">Callback(int,</span> <span class="pre">str)</span> <span class="pre">-&gt;</span> <span class="pre">bool</span></code> taking in parameters the row
+and the line content, and returning <code class="docutils literal notranslate"><span class="pre">True</span></code> if the line is relevant.
 By default, all lines are considered.</p></li>
-<li><p><strong>show_caption</strong> (<em>bool</em>) – Pass <cite>False</cite> to hide the caption mapping each
-cluster with its corresponding color, defaults to <cite>True</cite>.</p></li>
+<li><p><strong>show_caption</strong> (<em>bool</em>) – Pass <code class="docutils literal notranslate"><span class="pre">False</span></code> to hide the caption mapping each
+cluster with its corresponding color. Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
 <li><p><strong>map_cluster_name</strong> (<em>dict</em>) – Maps each cluster ID with its corresponding name.</p></li>
 </ul>
 </dd>

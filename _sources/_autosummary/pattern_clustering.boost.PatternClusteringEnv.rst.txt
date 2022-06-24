@@ -16,6 +16,9 @@ pattern\_clustering.boost.PatternClusteringEnv
    .. autosummary::
       :nosignatures:
    
+      ~PatternClusteringEnv.densities
+      ~PatternClusteringEnv.reset
+      ~PatternClusteringEnv.set_patterns
    
    
 
@@ -25,6 +28,9 @@ pattern\_clustering.boost.PatternClusteringEnv
 
    .. autosummary::
    
-      ~PatternClusteringEnv.densities
+      ~PatternClusteringEnv.alphabet
+      ~PatternClusteringEnv.map_name_density
+      ~PatternClusteringEnv.map_name_dfa
+      ~PatternClusteringEnv.map_name_re
    
    

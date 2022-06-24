@@ -54,6 +54,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="pattern_clustering.boost.html">pattern_clustering.boost</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.group_by_identical_pa.html">pattern_clustering.boost.group_by_identical_pa</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_densities.html">pattern_clustering.boost.make_densities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_name_density.html">pattern_clustering.boost.make_name_density</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_pattern_automata.html">pattern_clustering.boost.make_pattern_automata</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_pattern_automaton.html">pattern_clustering.boost.make_pattern_automaton</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_pattern_automaton_python.html">pattern_clustering.boost.make_pattern_automaton_python</a></li>
@@ -93,7 +94,6 @@
           <li><a href="pattern_clustering.boost.html">pattern_clustering.boost</a> &raquo;</li>
       <li>pattern_clustering.boost.pattern_distance</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/_autosummary/pattern_clustering.boost.pattern_distance.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -106,17 +106,19 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="pattern_clustering.boost.pattern_distance">
 <span class="sig-name descname"><span class="pre">pattern_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_name_dfa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">densities</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infinity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalized</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/pattern_clustering/boost.html#pattern_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pattern_clustering.boost.pattern_distance" title="Permalink to this definition"></a></dt>
-<dd><p>Compute the pattern distance between two strings.</p>
+<dd><p>Computes the pattern distance between two strings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>w1</strong> (<em>str</em>) – The first compared string.</p></li>
 <li><p><strong>w2</strong> (<em>str</em>) – The second compared string.</p></li>
-<li><p><strong>map_name_dfa</strong> (<em>dict</em>) – Maps each pattern name (<cite>str</cite>) with its corresponding <cite>Automaton</cite>.</p></li>
-<li><p><strong>densities</strong> (<em>list</em>) – A density vector. See <cite>make_densities()</cite>.</p></li>
+<li><p><strong>map_name_dfa</strong> (<em>dict</em>) – Maps each pattern name (<code class="docutils literal notranslate"><span class="pre">str</span></code>) with its
+corresponding <code class="docutils literal notranslate"><span class="pre">Automaton</span></code>.</p></li>
+<li><p><strong>densities</strong> (<em>list</em>) – A density vector. See <code class="docutils literal notranslate"><span class="pre">make_densities()</span></code>.</p></li>
 <li><p><strong>infinity</strong> (<em>float</em>) – The infinite distance.</p></li>
-<li><p><strong>normalized</strong> (<em>bool</em>) – Pass <cite>True</cite> to get a distance in [0, 1],
-otherwise in [0, len(w1) + len(w2)]</p></li>
+<li><p><strong>normalized</strong> (<em>bool</em>) – Pass <code class="docutils literal notranslate"><span class="pre">True</span></code> to get a distance between <code class="docutils literal notranslate"><span class="pre">0.0</span></code> and <code class="docutils literal notranslate"><span class="pre">1.0</span></code>
+(resp. between <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">len(w1)</span> <span class="pre">+</span> <span class="pre">len(w2)</span></code>)
+if it is normalized (resp. not normalized).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

@@ -90,7 +90,6 @@
           <li><a href="pattern_clustering.regexp.html">pattern_clustering.regexp</a> &raquo;</li>
       <li>pattern_clustering.regexp.make_map_name_dfa</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/_autosummary/pattern_clustering.regexp.make_map_name_dfa.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -102,16 +101,17 @@
 <h1>pattern_clustering.regexp.make_map_name_dfa<a class="headerlink" href="#pattern-clustering-regexp-make-map-name-dfa" title="Permalink to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="pattern_clustering.regexp.make_map_name_dfa">
-<span class="sig-name descname"><span class="pre">make_map_name_dfa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_name_re</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/pattern_clustering/regexp.html#make_map_name_dfa"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pattern_clustering.regexp.make_map_name_dfa" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">make_map_name_dfa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map_name_re</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">iter</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/pattern_clustering/regexp.html#make_map_name_dfa"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pattern_clustering.regexp.make_map_name_dfa" title="Permalink to this definition"></a></dt>
 <dd><p>Builds a dictionary that maps a list of pattern name with the corresponding
-<cite>pybgl.Automaton</cite> instance built according to regular expressions.</p>
+<code class="docutils literal notranslate"><span class="pre">pybgl.Automaton</span></code> instance built according to regular expressions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>names</strong> (<em>list</em>) – A list of string, where each string identifies a pattern names
-(by default, every keys of <cite>map_name_re</cite> is considered).</p></li>
-<li><p><strong>map_name_re</strong> (<em>dict</em>) – Maps each pattern name (<cite>str</cite>) with the corresponding
-regular expression (<cite>str</cite>).</p></li>
+(by default, every keys of <code class="docutils literal notranslate"><span class="pre">map_name_re</span></code> is considered).</p></li>
+<li><p><strong>map_name_re</strong> (<em>dict</em>) – Maps each pattern name (<code class="docutils literal notranslate"><span class="pre">str</span></code>) with the corresponding
+regular expression (<code class="docutils literal notranslate"><span class="pre">str</span></code>). Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code> for the default
+pattern collection.</p></li>
 </ul>
 </dd>
 </dl>

@@ -81,11 +81,13 @@
 <span class="c1"># This file is part of the pattern-clustering project.</span>
 <span class="c1"># https://github.com/nokia/pattern-clustering</span>
 
+<span class="sd">&quot;&quot;&quot;A ``PatternAutomaton`` represents a string at the pattern level.&quot;&quot;&quot;</span>
+
 <span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Marc-Olivier Buob, Maxime Raynal&quot;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s2">&quot;Marc-Olivier Buob, Maxime Raynal&quot;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s2">&quot;marc-olivier.buob@nokia-bell-labs.com, maxime.raynal@nokia.com&quot;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright (C) 2022, Nokia&quot;</span>
-<span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;Nokia&quot;</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;BSD-3&quot;</span>
 
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
 <span class="kn">from</span> <span class="nn">pybgl.automaton</span> <span class="kn">import</span> <span class="o">*</span>
@@ -97,8 +99,9 @@
 <span class="c1"># PatternAutomaton may possibly drop some arcs, e.g. &quot;spaces&quot; arcs</span>
 <div class="viewcode-block" id="PatternAutomaton"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.pattern_automaton.PatternAutomaton.html#pattern_clustering.pattern_automaton.PatternAutomaton">[docs]</a><span class="k">class</span> <span class="nc">PatternAutomaton</span><span class="p">(</span><span class="n">Automaton</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A PatternAutomaton models a string at the pattern level using a automaton-like structure where each vertex</span>
-<span class="sd">    corresponds to a string index; each arc corresponds to an infix and its corresponding pattern.</span>
+<span class="sd">    A ``PatternAutomaton`` models a string at the pattern level using a automaton-like</span>
+<span class="sd">    structure where each vertex corresponds to a string index; each arc corresponds</span>
+<span class="sd">    to an infix and its corresponding pattern.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -109,22 +112,25 @@
         <span class="n">filtered_patterns</span> <span class="p">:</span><span class="nb">set</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Constructs the `PatternAutomaton` related to an input word according</span>
-<span class="sd">        to a collection of patterns and according to a `multi_grep` strategy.</span>
+<span class="sd">        Constructs the ``PatternAutomaton`` related to an input word according</span>
+<span class="sd">        to a collection of patterns and according to a ``multi_grep`` strategy.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            word (str): The input string.</span>
-<span class="sd">            map_name_dfa (dict): The pattern collection mapping each pattern name (`str`)</span>
-<span class="sd">                 with its corresponding `Automaton` instance.</span>
-<span class="sd">            filtered_patterns (set): A subset (possibly empty) of `map_name_dfa.keys()` of type</span>
-<span class="sd">                that must be caught my `multi_grep`, but not reflected as arcs in the</span>
-<span class="sd">                `PatternAutomaton`. It can be used e.g. to drop spaces and get a smaller</span>
-<span class="sd">                `PatternAutomaton`, but the position of spaces in the original lines will be lost.</span>
+<span class="sd">            map_name_dfa (dict): The pattern collection mapping each pattern name (``str``)</span>
+<span class="sd">                 with its corresponding ``Automaton`` instance. The ``&quot;any&quot;`` pattern is</span>
+<span class="sd">                 always ignored.</span>
+<span class="sd">            filtered_patterns (set): A subset (possibly empty) of ``map_name_dfa.keys()``</span>
+<span class="sd">                keying the types that must be caught my ``multi_grep``, but not appearing</span>
+<span class="sd">                in the arcs involved in the ``PatternAutomaton``. It may be used for instance</span>
+<span class="sd">                to drop spaces and get a smaller ``PatternAutomaton``, but the position</span>
+<span class="sd">                of spaces in the original lines will be lost.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">filtered_patterns</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">filtered_patterns</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">make_mg</span><span class="p">:</span>
             <span class="n">make_mg</span> <span class="o">=</span> <span class="n">MultiGrepFunctorLargest</span>
+        <span class="n">_map_name_dfa</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span> <span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="n">map_name_dfa</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s2">&quot;any&quot;</span><span class="p">}</span>
         <span class="n">mg</span> <span class="o">=</span> <span class="n">make_mg</span><span class="p">()</span>
 
         <span class="c1"># Add vertices</span>
@@ -176,7 +182,7 @@
 <span class="sd">        Args:</span>
 <span class="sd">            e (EdgeDescriptor): The queried edge identifier.</span>
 <span class="sd">        Returns:</span>
-<span class="sd">            The slice related to an arbitrary edge of this `PatternAutomaton` instance.</span>
+<span class="sd">            The slice related to an arbitrary edge of this ``PatternAutomaton`` instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">j</span> <span class="o">=</span> <span class="n">source</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
         <span class="n">k</span> <span class="o">=</span> <span class="n">target</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
@@ -189,7 +195,7 @@
 <span class="sd">        Args:</span>
 <span class="sd">            e (EdgeDescriptor): The queried edge identifier.</span>
 <span class="sd">        Returns:</span>
-<span class="sd">            The infix related to an arbitrary edge of this `PatternAutomaton` instance.</span>
+<span class="sd">            The infix related to an arbitrary edge of this ``PatternAutomaton`` instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_slice</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">[</span><span class="n">j</span><span class="p">:</span><span class="n">k</span><span class="p">]</span></div>
@@ -199,12 +205,13 @@
 <span class="sd">        Equality operator.</span>
 
 <span class="sd">        This implementation assumes that the PA is deterministic and minimal,</span>
-<span class="sd">        e.g., by using the `MultiGrepFunctorLargest` functor in `PatternAutomaton.__init__`.</span>
+<span class="sd">        e.g., by using the ``MultiGrepFunctorLargest`` functor in</span>
+<span class="sd">        ``PatternAutomaton.__init__``.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            pa (PatternAutomaton): The `PatternAutomaton` instance compared to `self`.</span>
+<span class="sd">            pa (PatternAutomaton): The ``PatternAutomaton`` instance compared to ``self``.</span>
 <span class="sd">        Returns:</span>
-<span class="sd">            True iff `self` matches `pa`.</span>
+<span class="sd">            True iff ``self`` matches ``pa``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">num_vertices</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">!=</span> <span class="n">num_vertices</span><span class="p">(</span><span class="n">pa</span><span class="p">)</span> <span class="ow">or</span> <span class="n">num_edges</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">!=</span> <span class="n">num_edges</span><span class="p">(</span><span class="n">pa</span><span class="p">):</span>
             <span class="c1"># MultiGrepFunctorLargest guarantees that two PatternAutomaton can</span>
@@ -225,8 +232,8 @@
 <span class="sd">    Args:</span>
 <span class="sd">        e (EdgeDescriptor): The queried edge identifier.</span>
 <span class="sd">        g (PatternAutomaton): The queried PatternAutomaton instance.</span>
-<span class="sd">        map_name_density (dict): Maps each pattern name (`str)  with its</span>
-<span class="sd">            corresponding density (`float`)</span>
+<span class="sd">        map_name_density (dict): Maps each pattern name (``str``)  with its</span>
+<span class="sd">            corresponding density (``float``)</span>
 <span class="sd">    Returns:</span>
 <span class="sd">        The corresponding density.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -237,10 +244,10 @@
 <div class="viewcode-block" id="pattern_automaton_to_path"><a class="viewcode-back" href="../../_autosummary/pattern_clustering.pattern_automaton.pattern_automaton_to_path.html#pattern_clustering.pattern_automaton.pattern_automaton_to_path">[docs]</a><span class="k">def</span> <span class="nf">pattern_automaton_to_path</span><span class="p">(</span><span class="n">g</span><span class="p">:</span> <span class="n">PatternAutomaton</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes the path having the lowest density (and hence describing</span>
-<span class="sd">    the best pattern-based decomposition) of an input PatternAutomaton.</span>
+<span class="sd">    the best pattern-based decomposition) of an input ``PatternAutomaton``.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        g (PatternAutomaton): The queried `PatternAutomaton` instance.</span>
+<span class="sd">        g (PatternAutomaton): The queried ``PatternAutomaton`` instance.</span>
 <span class="sd">    Returns:</span>
 <span class="sd">        The path minimizing the density.</span>
 <span class="sd">    &quot;&quot;&quot;</span>

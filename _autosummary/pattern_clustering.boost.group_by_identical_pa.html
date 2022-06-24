@@ -54,6 +54,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="pattern_clustering.boost.html">pattern_clustering.boost</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">pattern_clustering.boost.group_by_identical_pa</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_densities.html">pattern_clustering.boost.make_densities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_name_density.html">pattern_clustering.boost.make_name_density</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_pattern_automata.html">pattern_clustering.boost.make_pattern_automata</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_pattern_automaton.html">pattern_clustering.boost.make_pattern_automaton</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_pattern_automaton_python.html">pattern_clustering.boost.make_pattern_automaton_python</a></li>
@@ -93,7 +94,6 @@
           <li><a href="pattern_clustering.boost.html">pattern_clustering.boost</a> &raquo;</li>
       <li>pattern_clustering.boost.group_by_identical_pa</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/_autosummary/pattern_clustering.boost.group_by_identical_pa.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -106,18 +106,18 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="pattern_clustering.boost.group_by_identical_pa">
 <span class="sig-name descname"><span class="pre">group_by_identical_pa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pas</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">are_equal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">callable</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/pattern_clustering/boost.html#group_by_identical_pa"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pattern_clustering.boost.group_by_identical_pa" title="Permalink to this definition"></a></dt>
-<dd><p>Groups matching <cite>PatternAutomaton</cite> python instances.</p>
+<dd><p>Groups matching <code class="docutils literal notranslate"><span class="pre">PatternAutomaton</span></code> python instances.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>pas</strong> – A <cite>list(PatternAutomaton)</cite> instance.</p></li>
-<li><p><strong>are_equal</strong> – A <cite>callable(PatternAutomaton, PatternAutomaton) -&gt; bool</cite>
-checking whether two PAs are homomorphic (pass <cite>None</cite>
+<li><p><strong>pas</strong> – A <code class="docutils literal notranslate"><span class="pre">list(PatternAutomaton)</span></code> instance.</p></li>
+<li><p><strong>are_equal</strong> – A <code class="docutils literal notranslate"><span class="pre">callable(PatternAutomaton,</span> <span class="pre">PatternAutomaton)</span> <span class="pre">-&gt;</span> <span class="pre">bool</span></code>
+checking whether two PAs are homomorphic (pass <code class="docutils literal notranslate"><span class="pre">None</span></code>
 if the compared PAs are minimal to accelerate the processing).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A dictionary mapping each reference PAs to the matching instances found in <cite>pas</cite>.</p>
+<dd class="field-even"><p>A dictionary mapping each reference PAs to the matching instances found in <code class="docutils literal notranslate"><span class="pre">pas</span></code>.</p>
 </dd>
 </dl>
 </dd></dl>

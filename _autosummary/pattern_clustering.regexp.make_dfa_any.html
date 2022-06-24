@@ -90,7 +90,6 @@
           <li><a href="pattern_clustering.regexp.html">pattern_clustering.regexp</a> &raquo;</li>
       <li>pattern_clustering.regexp.make_dfa_any</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/_autosummary/pattern_clustering.regexp.make_dfa_any.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -103,14 +102,18 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="pattern_clustering.regexp.make_dfa_any">
 <span class="sig-name descname"><span class="pre">make_dfa_any</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alphabet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">iter</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator_alphabet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">iter</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Automaton</span></span></span><a class="reference internal" href="../_modules/pattern_clustering/regexp.html#make_dfa_any"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pattern_clustering.regexp.make_dfa_any" title="Permalink to this definition"></a></dt>
-<dd><p>Builds the DFA corresponding to the any non-separator character.
-:param alphabet: The characters involved in the alphabet (default to <cite>string.printable</cite>).
-:type alphabet: iter
-:param separator: The characters corresponding to separators (defaults to space characters).
-:type separator: iter</p>
+<dd><p>Builds the DFA corresponding to the any non-separator character.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The corresponding <cite>Automaton</cite>.</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alphabet</strong> (<em>iter</em>) – The characters involved in the alphabet.
+Default to <code class="docutils literal notranslate"><span class="pre">string.printable</span></code>).</p></li>
+<li><p><strong>separator</strong> (<em>iter</em>) – The characters corresponding to separators.
+Defaults to <code class="docutils literal notranslate"><span class="pre">{&quot;</span> <span class="pre">&quot;,</span> <span class="pre">&quot;\t&quot;,</span> <span class="pre">&quot;\n&quot;}</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The corresponding <code class="docutils literal notranslate"><span class="pre">Automaton</span></code>.</p>
 </dd>
 </dl>
 </dd></dl>

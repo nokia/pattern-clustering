@@ -20,6 +20,7 @@ pattern\_clustering.html
       colors_to_html
       lines_to_html
       make_html_colors
+      pattern_clustering_to_html
       values_to_colors
    
    

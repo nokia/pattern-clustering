@@ -59,6 +59,7 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">pattern_clustering.html.colors_to_html</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.html.lines_to_html.html">pattern_clustering.html.lines_to_html</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.html.make_html_colors.html">pattern_clustering.html.make_html_colors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.html.pattern_clustering_to_html.html">pattern_clustering.html.pattern_clustering_to_html</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.html.values_to_colors.html">pattern_clustering.html.values_to_colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.html.RowFormatter.html">pattern_clustering.html.RowFormatter</a></li>
 </ul>
@@ -90,7 +91,6 @@
           <li><a href="pattern_clustering.html.html">pattern_clustering.html</a> &raquo;</li>
       <li>pattern_clustering.html.colors_to_html</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/_autosummary/pattern_clustering.html.colors_to_html.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -103,14 +103,15 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="pattern_clustering.html.colors_to_html">
 <span class="sig-name descname"><span class="pre">colors_to_html</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_to_label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">join</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'&amp;nbsp;'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/pattern_clustering/html.html#colors_to_html"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pattern_clustering.html.colors_to_html" title="Permalink to this definition"></a></dt>
-<dd><p>Export a list of HTML colors to HTML strings.</p>
+<dd><p>Exports a list of HTML colors to HTML strings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>colors</strong> (<em>list</em>) – The HTML colors.</p></li>
-<li><p><strong>i_to_label</strong> (<em>callable</em>) – A <cite>Callback(int) -&gt; str</cite> returning the label corresponding
-to a given color index (according to <cite>colors</cite>).</p></li>
-<li><p><strong>join</strong> (<em>str</em>) – A string used to join HTML strings related to each color, defaults to “&amp;nbsp;“.</p></li>
+<li><p><strong>i_to_label</strong> (<em>callable</em>) – A <code class="docutils literal notranslate"><span class="pre">Callback(int)</span> <span class="pre">-&gt;</span> <span class="pre">str</span></code> returning the label corresponding
+to a given color index (according to <code class="docutils literal notranslate"><span class="pre">colors</span></code>).</p></li>
+<li><p><strong>join</strong> (<em>str</em>) – A string used to join HTML strings related to each color.
+Defaults to <code class="docutils literal notranslate"><span class="pre">&quot;&amp;nbsp;&quot;</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

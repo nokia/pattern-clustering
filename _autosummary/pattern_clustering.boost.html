@@ -54,6 +54,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">pattern_clustering.boost</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.group_by_identical_pa.html">pattern_clustering.boost.group_by_identical_pa</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_densities.html">pattern_clustering.boost.make_densities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_name_density.html">pattern_clustering.boost.make_name_density</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_pattern_automata.html">pattern_clustering.boost.make_pattern_automata</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_pattern_automaton.html">pattern_clustering.boost.make_pattern_automaton</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_pattern_automaton_python.html">pattern_clustering.boost.make_pattern_automaton_python</a></li>
@@ -92,7 +93,6 @@
           <li><a href="pattern_clustering.html">pattern_clustering</a> &raquo;</li>
       <li>pattern_clustering.boost</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/_autosummary/pattern_clustering.boost.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -111,31 +111,34 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="pattern_clustering.boost.group_by_identical_pa.html#pattern_clustering.boost.group_by_identical_pa" title="pattern_clustering.boost.group_by_identical_pa"><code class="xref py py-obj docutils literal notranslate"><span class="pre">group_by_identical_pa</span></code></a></p></td>
-<td><p>Groups matching <cite>PatternAutomaton</cite> python instances.</p></td>
+<td><p>Groups matching <code class="docutils literal notranslate"><span class="pre">PatternAutomaton</span></code> python instances.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="pattern_clustering.boost.make_densities.html#pattern_clustering.boost.make_densities" title="pattern_clustering.boost.make_densities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_densities</span></code></a></p></td>
 <td><p>Builds the language density vector.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pattern_clustering.boost.make_pattern_automata.html#pattern_clustering.boost.make_pattern_automata" title="pattern_clustering.boost.make_pattern_automata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_pattern_automata</span></code></a></p></td>
-<td><p>Converts input lines to the <cite>PatternAutomaton</cite> C++ instances.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="pattern_clustering.boost.make_name_density.html#pattern_clustering.boost.make_name_density" title="pattern_clustering.boost.make_name_density"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_name_density</span></code></a></p></td>
+<td><p>Builds the dictionary mapping each pattern names with the corresponding language density.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pattern_clustering.boost.make_pattern_automaton.html#pattern_clustering.boost.make_pattern_automaton" title="pattern_clustering.boost.make_pattern_automaton"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_pattern_automaton</span></code></a></p></td>
-<td><p>Builds a <cite>PatternAutomaton</cite> C++ instance from a input string.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pattern_clustering.boost.make_pattern_automata.html#pattern_clustering.boost.make_pattern_automata" title="pattern_clustering.boost.make_pattern_automata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_pattern_automata</span></code></a></p></td>
+<td><p>Converts input lines to the <code class="docutils literal notranslate"><span class="pre">PatternAutomaton</span></code> C++ instances.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pattern_clustering.boost.make_pattern_automaton_python.html#pattern_clustering.boost.make_pattern_automaton_python" title="pattern_clustering.boost.make_pattern_automaton_python"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_pattern_automaton_python</span></code></a></p></td>
-<td><p><cite>PatternAutomaton.__init__</cite> wrapper.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="pattern_clustering.boost.make_pattern_automaton.html#pattern_clustering.boost.make_pattern_automaton" title="pattern_clustering.boost.make_pattern_automaton"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_pattern_automaton</span></code></a></p></td>
+<td><p>Builds a <code class="docutils literal notranslate"><span class="pre">PatternAutomaton</span></code> C++ instance from a input string.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pattern_clustering.boost.pattern_clustering.html#pattern_clustering.boost.pattern_clustering" title="pattern_clustering.boost.pattern_clustering"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pattern_clustering</span></code></a></p></td>
-<td><p>Computes the pattern clustering of input lines by grouping matching PAs.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pattern_clustering.boost.make_pattern_automaton_python.html#pattern_clustering.boost.make_pattern_automaton_python" title="pattern_clustering.boost.make_pattern_automaton_python"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_pattern_automaton_python</span></code></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PatternAutomaton.__init__</span></code> wrapper.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pattern_clustering.boost.pattern_clustering_with_preprocess.html#pattern_clustering.boost.pattern_clustering_with_preprocess" title="pattern_clustering.boost.pattern_clustering_with_preprocess"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pattern_clustering_with_preprocess</span></code></a></p></td>
-<td><p>Computes the pattern clustering of input lines by grouping matching PAs.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pattern_clustering.boost.pattern_clustering_without_preprocess.html#pattern_clustering.boost.pattern_clustering_without_preprocess" title="pattern_clustering.boost.pattern_clustering_without_preprocess"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pattern_clustering_without_preprocess</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="pattern_clustering.boost.pattern_clustering.html#pattern_clustering.boost.pattern_clustering" title="pattern_clustering.boost.pattern_clustering"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pattern_clustering</span></code></a></p></td>
 <td><p>Computes the pattern clustering of input lines without aggregating duplicated PAs.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pattern_clustering.boost.pattern_distance.html#pattern_clustering.boost.pattern_distance" title="pattern_clustering.boost.pattern_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pattern_distance</span></code></a></p></td>
-<td><p>Compute the pattern distance between two strings.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pattern_clustering.boost.pattern_clustering_with_preprocess.html#pattern_clustering.boost.pattern_clustering_with_preprocess" title="pattern_clustering.boost.pattern_clustering_with_preprocess"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pattern_clustering_with_preprocess</span></code></a></p></td>
+<td><p>Computes the pattern clustering of input lines by grouping matching PAs.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pattern_clustering.boost.pattern_clustering_without_preprocess.html#pattern_clustering.boost.pattern_clustering_without_preprocess" title="pattern_clustering.boost.pattern_clustering_without_preprocess"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pattern_clustering_without_preprocess</span></code></a></p></td>
+<td><p>Computes the pattern clustering of input lines without aggregating duplicated PAs.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pattern_clustering.boost.pattern_distance.html#pattern_clustering.boost.pattern_distance" title="pattern_clustering.boost.pattern_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pattern_distance</span></code></a></p></td>
+<td><p>Computes the pattern distance between two strings.</p></td>
 </tr>
 </tbody>
 </table>
@@ -147,7 +150,7 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="pattern_clustering.boost.PatternClusteringEnv.html#pattern_clustering.boost.PatternClusteringEnv" title="pattern_clustering.boost.PatternClusteringEnv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PatternClusteringEnv</span></code></a></p></td>
-<td><p>Stores the pattern clustering settings.</p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>

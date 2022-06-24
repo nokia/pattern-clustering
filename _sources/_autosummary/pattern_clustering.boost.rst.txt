@@ -17,6 +17,7 @@ pattern\_clustering.boost
    
       group_by_identical_pa
       make_densities
+      make_name_density
       make_pattern_automata
       make_pattern_automaton
       make_pattern_automaton_python

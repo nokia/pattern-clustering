@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="pattern_clustering.boost.make_pattern_automaton" href="pattern_clustering.boost.make_pattern_automaton.html" />
-    <link rel="prev" title="pattern_clustering.boost.make_densities" href="pattern_clustering.boost.make_densities.html" /> 
+    <link rel="prev" title="pattern_clustering.boost.make_name_density" href="pattern_clustering.boost.make_name_density.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -54,6 +54,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="pattern_clustering.boost.html">pattern_clustering.boost</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.group_by_identical_pa.html">pattern_clustering.boost.group_by_identical_pa</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_densities.html">pattern_clustering.boost.make_densities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_name_density.html">pattern_clustering.boost.make_name_density</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">pattern_clustering.boost.make_pattern_automata</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_pattern_automaton.html">pattern_clustering.boost.make_pattern_automaton</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_pattern_automaton_python.html">pattern_clustering.boost.make_pattern_automaton_python</a></li>
@@ -93,7 +94,6 @@
           <li><a href="pattern_clustering.boost.html">pattern_clustering.boost</a> &raquo;</li>
       <li>pattern_clustering.boost.make_pattern_automata</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/_autosummary/pattern_clustering.boost.make_pattern_automata.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -106,13 +106,14 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="pattern_clustering.boost.make_pattern_automata">
 <span class="sig-name descname"><span class="pre">make_pattern_automata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lines</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_name_dfa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">make_mg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">callable</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="../_modules/pattern_clustering/boost.html#make_pattern_automata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pattern_clustering.boost.make_pattern_automata" title="Permalink to this definition"></a></dt>
-<dd><p>Converts input lines to the <cite>PatternAutomaton</cite> C++ instances.</p>
+<dd><p>Converts input lines to the <code class="docutils literal notranslate"><span class="pre">PatternAutomaton</span></code> C++ instances.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>lines</strong> (<em>list</em>) – A list gathering the input lines (<cite>str</cite>).</p></li>
-<li><p><strong>map_name_dfa</strong> (<em>dict</em>) – Maps each pattern name (<cite>str</cite>) with its corresponding <cite>Automaton</cite>.</p></li>
-<li><p><strong>make_mg</strong> – A <cite>MultiGrepFunctor</cite> instance.</p></li>
+<li><p><strong>lines</strong> (<em>list</em>) – A list gathering the input lines (<code class="docutils literal notranslate"><span class="pre">str</span></code>).</p></li>
+<li><p><strong>map_name_dfa</strong> (<em>dict</em>) – Maps each pattern name (<code class="docutils literal notranslate"><span class="pre">str</span></code>) with its
+corresponding <code class="docutils literal notranslate"><span class="pre">Automaton</span></code>.</p></li>
+<li><p><strong>make_mg</strong> – A <code class="docutils literal notranslate"><span class="pre">MultiGrepFunctor</span></code> instance.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -127,7 +128,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="pattern_clustering.boost.make_densities.html" class="btn btn-neutral float-left" title="pattern_clustering.boost.make_densities" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pattern_clustering.boost.make_name_density.html" class="btn btn-neutral float-left" title="pattern_clustering.boost.make_name_density" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="pattern_clustering.boost.make_pattern_automaton.html" class="btn btn-neutral float-right" title="pattern_clustering.boost.make_pattern_automaton" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

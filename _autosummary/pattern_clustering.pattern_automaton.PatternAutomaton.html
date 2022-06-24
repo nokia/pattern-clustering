@@ -86,7 +86,6 @@
           <li><a href="pattern_clustering.pattern_automaton.html">pattern_clustering.pattern_automaton</a> &raquo;</li>
       <li>pattern_clustering.pattern_automaton.PatternAutomaton</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/_autosummary/pattern_clustering.pattern_automaton.PatternAutomaton.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -100,20 +99,23 @@
 <dt class="sig sig-object py" id="pattern_clustering.pattern_automaton.PatternAutomaton">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PatternAutomaton</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">word</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_name_dfa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">make_mg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">callable</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filtered_patterns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">set</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pattern_clustering/pattern_automaton.html#PatternAutomaton"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pattern_clustering.pattern_automaton.PatternAutomaton" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Automaton</span></code></p>
-<p>A PatternAutomaton models a string at the pattern level using a automaton-like structure where each vertex
-corresponds to a string index; each arc corresponds to an infix and its corresponding pattern.</p>
-<p>Constructs the <cite>PatternAutomaton</cite> related to an input word according
-to a collection of patterns and according to a <cite>multi_grep</cite> strategy.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">PatternAutomaton</span></code> models a string at the pattern level using a automaton-like
+structure where each vertex corresponds to a string index; each arc corresponds
+to an infix and its corresponding pattern.</p>
+<p>Constructs the <code class="docutils literal notranslate"><span class="pre">PatternAutomaton</span></code> related to an input word according
+to a collection of patterns and according to a <code class="docutils literal notranslate"><span class="pre">multi_grep</span></code> strategy.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>word</strong> (<em>str</em>) – The input string.</p></li>
-<li><p><strong>map_name_dfa</strong> (<em>dict</em>) – The pattern collection mapping each pattern name (<cite>str</cite>)
-with its corresponding <cite>Automaton</cite> instance.</p></li>
-<li><p><strong>filtered_patterns</strong> (<em>set</em>) – A subset (possibly empty) of <cite>map_name_dfa.keys()</cite> of type
-that must be caught my <cite>multi_grep</cite>, but not reflected as arcs in the
-<cite>PatternAutomaton</cite>. It can be used e.g. to drop spaces and get a smaller
-<cite>PatternAutomaton</cite>, but the position of spaces in the original lines will be lost.</p></li>
+<li><p><strong>map_name_dfa</strong> (<em>dict</em>) – The pattern collection mapping each pattern name (<code class="docutils literal notranslate"><span class="pre">str</span></code>)
+with its corresponding <code class="docutils literal notranslate"><span class="pre">Automaton</span></code> instance. The <code class="docutils literal notranslate"><span class="pre">&quot;any&quot;</span></code> pattern is
+always ignored.</p></li>
+<li><p><strong>filtered_patterns</strong> (<em>set</em>) – A subset (possibly empty) of <code class="docutils literal notranslate"><span class="pre">map_name_dfa.keys()</span></code>
+keying the types that must be caught my <code class="docutils literal notranslate"><span class="pre">multi_grep</span></code>, but not appearing
+in the arcs involved in the <code class="docutils literal notranslate"><span class="pre">PatternAutomaton</span></code>. It may be used for instance
+to drop spaces and get a smaller <code class="docutils literal notranslate"><span class="pre">PatternAutomaton</span></code>, but the position
+of spaces in the original lines will be lost.</p></li>
 </ul>
 </dd>
 </dl>
@@ -263,7 +265,7 @@ that must be caught my <cite>multi_grep</cite>, but not reflected as arcs in the
 <dd class="field-odd"><p><strong>e</strong> (<em>EdgeDescriptor</em>) – The queried edge identifier.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The infix related to an arbitrary edge of this <cite>PatternAutomaton</cite> instance.</p>
+<dd class="field-even"><p>The infix related to an arbitrary edge of this <code class="docutils literal notranslate"><span class="pre">PatternAutomaton</span></code> instance.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -277,7 +279,7 @@ that must be caught my <cite>multi_grep</cite>, but not reflected as arcs in the
 <dd class="field-odd"><p><strong>e</strong> (<em>EdgeDescriptor</em>) – The queried edge identifier.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The slice related to an arbitrary edge of this <cite>PatternAutomaton</cite> instance.</p>
+<dd class="field-even"><p>The slice related to an arbitrary edge of this <code class="docutils literal notranslate"><span class="pre">PatternAutomaton</span></code> instance.</p>
 </dd>
 </dl>
 </dd></dl>

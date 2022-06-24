@@ -54,6 +54,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="pattern_clustering.boost.html">pattern_clustering.boost</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.group_by_identical_pa.html">pattern_clustering.boost.group_by_identical_pa</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_densities.html">pattern_clustering.boost.make_densities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_name_density.html">pattern_clustering.boost.make_name_density</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_pattern_automata.html">pattern_clustering.boost.make_pattern_automata</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pattern_clustering.boost.make_pattern_automaton.html">pattern_clustering.boost.make_pattern_automaton</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">pattern_clustering.boost.make_pattern_automaton_python</a></li>
@@ -93,7 +94,6 @@
           <li><a href="pattern_clustering.boost.html">pattern_clustering.boost</a> &raquo;</li>
       <li>pattern_clustering.boost.make_pattern_automaton_python</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/_autosummary/pattern_clustering.boost.make_pattern_automaton_python.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -106,18 +106,19 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="pattern_clustering.boost.make_pattern_automaton_python">
 <span class="sig-name descname"><span class="pre">make_pattern_automaton_python</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_name_dfa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">make_mg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">MultiGrepFunctor</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pattern_clustering/boost.html#make_pattern_automaton_python"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pattern_clustering.boost.make_pattern_automaton_python" title="Permalink to this definition"></a></dt>
-<dd><p><cite>PatternAutomaton.__init__</cite> wrapper.</p>
+<dd><p><code class="docutils literal notranslate"><span class="pre">PatternAutomaton.__init__</span></code> wrapper.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>w</strong> (<em>str</em>) – The string to convert.</p></li>
-<li><p><strong>map_name_dfa</strong> (<em>dict</em>) – Maps each pattern name (<cite>str</cite>) with its corresponding <cite>Automaton</cite>.</p></li>
-<li><p><strong>make_mg</strong> (<em>MultiGrepFunctor</em>) – The strategy used to build the PatternAutomaton,
-defaults to <cite>None</cite>.</p></li>
+<li><p><strong>map_name_dfa</strong> (<em>dict</em>) – Maps each pattern name (<code class="docutils literal notranslate"><span class="pre">str</span></code>) with its
+corresponding <code class="docutils literal notranslate"><span class="pre">Automaton</span></code>.</p></li>
+<li><p><strong>make_mg</strong> (<em>MultiGrepFunctor</em>) – The strategy used to build the PatternAutomaton.
+Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The corresponding <cite>PatternAutomaton</cite> python instance.</p>
+<dd class="field-even"><p>The corresponding <code class="docutils literal notranslate"><span class="pre">PatternAutomaton</span></code> python instance.</p>
 </dd>
 </dl>
 </dd></dl>

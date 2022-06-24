@@ -1,0 +1,6 @@
+pattern\_clustering.boost.make\_name\_density
+=============================================
+
+.. currentmodule:: pattern_clustering.boost
+
+.. autofunction:: make_name_density

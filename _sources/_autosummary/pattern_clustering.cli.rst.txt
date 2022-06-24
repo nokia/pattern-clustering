@@ -15,7 +15,11 @@ pattern\_clustering.cli
       :toctree:
       :nosignatures:
    
+      error
+      info
       main
+      message
+      warning
    
    
 
