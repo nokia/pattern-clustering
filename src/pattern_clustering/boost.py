@@ -13,6 +13,8 @@ __copyright__ = "Copyright (C) 2022, Nokia"
 __license__ = "BSD-3"
 
 import multiprocessing, string, sys
+from pprint import pformat
+from pybgl.singleton import Singleton
 
 try:
     # Import from C++
@@ -30,49 +32,82 @@ except ImportError:
 
 from .language_density import language_density
 from .pattern_automaton import *
-from .regexp import make_dfa_any, make_map_name_dfa
+from .regexp import MAP_NAME_RE, make_dfa_any, make_map_name_dfa
 
-class PatternClusteringEnv:
+def make_name_density(map_name_dfa: dict, alphabet: str) -> dict:
     """
-    Stores the pattern clustering settings.
+    Builds the dictionary mapping each pattern names with the corresponding language density.
+
+    Args:
+        map_name_dfa (dict): The pattern collection mapping each pattern name (``str``)
+             with its corresponding ``Automaton`` instance.
+        alphabet (set): A set gathering the characters of the alphabet.
+
+    Returns:
+        The corresponding mapping each pattern names (``str``) with the corresponding
+        language density (``float``).
     """
-    def __init__(self, names: list = None, alphabet: set = None):
+    map_name_density = {
+        name: language_density(dfa, alphabet)
+        for (name, dfa) in map_name_dfa.items()
+    }
+    if "any" not in map_name_density.keys():
+        map_name_density["any"] = language_density(
+            make_dfa_any(alphabet),
+            alphabet
+        )
+    return map_name_density
+
+
+class PatternClusteringEnv(metaclass=Singleton):
+    alphabet = set(string.printable)
+    map_name_re = MAP_NAME_RE
+    map_name_dfa = make_map_name_dfa(
+        ["float", "hexa", "int", "ipv4", "spaces", "uint", "word"],
+        map_name_re
+    )
+    map_name_density = make_name_density(map_name_dfa, alphabet)
+
+    @classmethod
+    def reset(cls):
         """
-        Creates the parameters required to run pattern distance
-        and pattern clustering computations.
+        Reset the ``PatternClusteringEnv`` singleton to its default settings.
+        """
+        cls.alphabet = set(string.printable)
+        cls.map_name_re = MAP_NAME_RE
+        cls.map_name_dfa = make_map_name_dfa(
+            ["float", "hexa", "int", "ipv4", "spaces", "uint", "word"],
+            cls.map_name_re
+        )
+        cls.map_name_density = make_name_density(cls.map_name_dfa, cls.alphabet)
+
+    @classmethod
+    def set_patterns(cls, map_name_re: dict, names: iter =None):
+        """
+        Defines the patterns used in the pattern clustering.
 
         Args:
-            names (list[str]): List storing the pattern names taken into account
-                (see default patterns in ``pattern_clustering.pattern``).
-            alphabet (set): The set of characters supported by the crafted
-                ``PatternAutomaton`` instances.
+            map_name_re (dict): A dictionary mapping each pattern (``str``)
         """
-        if not alphabet:
-            alphabet = set(string.printable)
-        self.alphabet = alphabet
-
-        # ``names`` refers to types matched by MultiGrep to build pattern automata.
-        # Thus, you should not include "any" to improve performance.
+        cls.map_name_re = map_name_re
         if not names:
-            names = ["float", "hexa", "int", "ipv4", "spaces", "uint", "word"]
-        self.map_name_dfa = make_map_name_dfa(names)
+            names = [k for k in map_name_re.keys() if k != "any"]
+        cls.map_name_dfa = make_map_name_dfa(names, map_name_re)
+        cls.map_name_density = make_name_density(cls.map_name_dfa, cls.alphabet)
 
-        # Note that the density of "any" is required in the latter.
-        self.map_name_density = {
-            name: language_density(dfa, alphabet)
-            for (name, dfa) in self.map_name_dfa.items()
-        }
-        if "any" not in self.map_name_density.keys():
-            self.map_name_density["any"] = language_density(make_dfa_any(alphabet), alphabet)
-
-    @property
-    def densities(self) -> list:
+    @classmethod
+    def densities(cls) -> list:
         """
         Returns:
             The densities assigned to each pattern defined in ``self.map_name_dfa``.
         """
-        return make_densities(self.map_name_density)
+        return make_densities(cls.map_name_density)
 
+    def __str__(self):
+        return "\n".join([
+            f"map_name_re = {pformat(self.map_name_re)}",
+            f"map_name_density = {pformat(self.map_name_density)}",
+        ])
 
 def make_pattern_automaton(w: str, map_name_dfa: dict, make_mg=None):
     """
@@ -105,9 +140,6 @@ def make_pattern_automaton(w: str, map_name_dfa: dict, make_mg=None):
     return _g
 
 
-# Default parameters
-PATTERN_CLUSTERING_ENV = PatternClusteringEnv(names=None, alphabet=None)
-
 def make_densities(map_name_density: dict = None) -> list:
     """
     Builds the language density vector.
@@ -119,7 +151,7 @@ def make_densities(map_name_density: dict = None) -> list:
         The corresponding densities, sorted by increasing pattern name.
     """
     if not map_name_density:
-        map_name_density = PATTERN_CLUSTERING_ENV.map_name_density
+        map_name_density = PatternClusteringEnv.map_name_density
     return [map_name_density[name] for name in sorted(map_name_density.keys())]
 
 
@@ -152,9 +184,9 @@ def pattern_distance(
         The corresponding distance.
     """
     if not map_name_dfa:
-        map_name_dfa = PATTERN_CLUSTERING_ENV.map_name_dfa
+        map_name_dfa = PatternClusteringEnv.map_name_dfa
     if not densities:
-        densities = PATTERN_CLUSTERING_ENV.densities
+        densities = PatternClusteringEnv.densities()
     g1 = make_pattern_automaton(w1, map_name_dfa)
     g2 = make_pattern_automaton(w2, map_name_dfa)
     return (
@@ -249,9 +281,9 @@ def pattern_clustering_without_preprocess(
         A ``list(int)`` mapping each line index with its corresponding cluster identifier.
     """
     if not map_name_dfa:
-        map_name_dfa = PATTERN_CLUSTERING_ENV.map_name_dfa
+        map_name_dfa = PatternClusteringEnv.map_name_dfa
     if not densities:
-        densities = PATTERN_CLUSTERING_ENV.densities
+        densities = PatternClusteringEnv.densities
     pattern_automata = make_pattern_automata(lines, map_name_dfa, make_mg)
     return _pattern_clustering(pattern_automata, densities, max_dist, use_async)
 
@@ -321,9 +353,9 @@ def pattern_clustering_with_preprocess(
         A ``list(int)`` mapping each line index with its corresponding cluster identifier.
     """
     if not map_name_dfa:
-        map_name_dfa = PATTERN_CLUSTERING_ENV.map_name_dfa
+        map_name_dfa = PatternClusteringEnv.map_name_dfa
     if not densities:
-        densities = PATTERN_CLUSTERING_ENV.densities
+        densities = PatternClusteringEnv.densities
     with multiprocessing.Pool(multiprocessing.cpu_count()) as pool:
         pas = pool.starmap(
             make_pattern_automaton_python,

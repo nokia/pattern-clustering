@@ -21,11 +21,35 @@ def test_pattern_clustering_env():
     assert env.map_name_density
     assert set(env.map_name_dfa) <= set(env.map_name_density)
 
+
+def test_pattern_clustering_env_set_patterns():
+    env = PatternClusteringEnv()
+    map_name_re = {"abc" : "abc"}
+    env.set_patterns(map_name_re)
+    obtained = env.map_name_re
+    assert obtained == map_name_re
+    pattern_names = set(map_name_re.keys())
+    obtained = set(env.map_name_density.keys())
+    assert obtained == pattern_names | {"any"}
+    obtained = set(env.map_name_dfa.keys())
+    assert obtained == pattern_names
+
+    env.reset()
+    pattern_names = {"float", "hexa", "int", "ipv4", "spaces", "uint", "word" }
+    obtained = set(env.map_name_re.keys())
+    assert obtained >= pattern_names | {"any"}
+    obtained = set(env.map_name_density.keys())
+    assert obtained == pattern_names | {"any"}
+    obtained = set(env.map_name_dfa.keys())
+    assert obtained == pattern_names
+
+
 def test_make_densities():
     map_name_density = {"a" : 0.1, "c" : 0.2, "b" : 0.3, "d" : 0.0}
     obtained = make_densities(map_name_density)
     expected = [0.1, 0.3, 0.2, 0.0]
     assert obtained == expected, f"{pformat(locals())}"
+
 
 def test_make_pattern_automaton():
     map_name_dfa = make_map_name_dfa()
@@ -35,6 +59,7 @@ def test_make_pattern_automaton():
     g2 = make_pattern_automaton(w, map_name_dfa)
     assert num_vertices(g2) == len(w) + 1
     assert num_edges(g1) == num_edges(g2) == 163
+
 
 def test_pattern_distance():
     obtained = pattern_distance(

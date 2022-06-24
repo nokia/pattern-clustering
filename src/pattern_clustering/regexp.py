@@ -150,7 +150,8 @@ def make_map_name_dfa(names=None, map_name_re: dict = None) -> dict:
         names (list): A list of string, where each string identifies a pattern names
             (by default, every keys of ``map_name_re`` is considered).
         map_name_re (dict): Maps each pattern name (``str``) with the corresponding
-            regular expression (``str``).
+            regular expression (``str``). Defaults to ``None`` for the default
+            pattern collection.
     """
     if map_name_re is None:
         map_name_re = MAP_NAME_RE
