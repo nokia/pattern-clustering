@@ -17,8 +17,9 @@ import sys
 from collections import defaultdict
 from optparse import OptionParser
 from pattern_clustering import (
-    PatternClusteringEnv, pattern_clustering_to_html,
-    pattern_clustering_with_preprocess, pattern_clustering_without_preprocess
+    MAP_NAME_RE, PatternClusteringEnv, pattern_clustering_to_html,
+    pattern_clustering_with_preprocess, pattern_clustering_without_preprocess,
+    pattern_distance
 )
 
 def message(s: str):
@@ -34,8 +35,76 @@ def error(s: str):
 def info(s: str):
     print(f"[INFO] {s}")
 
-def main():
-    """Console script for pattern_clustering."""
+def main_pattern_clustering_mkconf():
+    """Console script for ``pattern-clustering-mkconf``."""
+    print(
+        json.dumps(
+            {
+                "threshold": 0.6,
+                "patterns": MAP_NAME_RE
+            },
+            indent=4
+        )
+    )
+
+def main_pattern_distance():
+    """Console script for ``pattern-distance``."""
+    parser = OptionParser(usage="usage: %prog [options] ARG1 ARG2")
+    parser.add_option(
+        "-c", "--config",
+        metavar = "CONFIG_FILENAME",
+        type    = "str",
+        dest    = "config_filename",
+        help    = "Path to the JSON configuration file. Supersedes command-line parameters.",
+        default = None
+    )
+    parser.add_option(
+        "-n", "--normalized",
+        dest    = "normalized",
+        help    = "Returns a distance between 0.0 and 1.0",
+        action  = "store_true"
+    )
+    parser.add_option(
+        "-v", "--verbose",
+        dest    = "verbose",
+        help    = "Verbose mode",
+        action  = "store_true"
+    )
+
+    (options, args) = parser.parse_args()
+    if args:
+        warning(f"Ignored argument: {args}")
+
+    # Load parameters
+    verbose = options.verbose
+    conf = defaultdict()
+
+    if options.config_filename:
+        if verbose:
+            info(
+                f"Loading parameters from {options.config_filename} configuration file."
+                " Command-line parameters are superseded by those specified in the "
+                "configuration file."
+            )
+        with open(options.config_filename) as f_conf:
+            conf = json.load(f_conf)
+        patterns = conf.get("patterns", None)
+        if patterns:
+            PatternClusteringEnv.patterns = patterns
+    elif verbose:
+        info(f"Using command-line and default parameters.")
+
+    w1 = args[0]
+    w2 = args[1]
+    normalized = options.normalized
+    if verbose:
+        info(f"Comparing\nw1: {w1}\nw2: {w2}\nnormalized: {normalized}")
+    print(pattern_distance(w1, w2, normalized=normalized))
+    return 0
+
+
+def main_pattern_clustering():
+    """Console script for ``pattern-clustering``."""
     parser = OptionParser(usage="usage: %prog [options] INPUT_FILENAME")
     parser.add_option(
         "-c", "--config",
@@ -159,4 +228,4 @@ def main():
 
 
 if __name__ == "__main__":
-    sys.exit(main())  # pragma: no cover
+    sys.exit(main_pattern_clustering())  # pragma: no cover

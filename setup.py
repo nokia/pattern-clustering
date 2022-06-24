@@ -59,7 +59,9 @@ setup(
                 "expressions.",
     entry_points={
         "console_scripts": [
-            "pattern-clustering=pattern_clustering.cli:main",
+            "pattern-clustering-mkconf=pattern_clustering.cli:main_pattern_clustering_mkconf",
+            "pattern-clustering=pattern_clustering.cli:main_pattern_clustering",
+            "pattern-distance=pattern_clustering.cli:main_pattern_distance",
         ],
     },
     ext_modules=[
