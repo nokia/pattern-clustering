@@ -41,7 +41,8 @@ class PatternAutomaton(Automaton):
         Args:
             word (str): The input string.
             map_name_dfa (dict): The pattern collection mapping each pattern name (``str``)
-                 with its corresponding ``Automaton`` instance.
+                 with its corresponding ``Automaton`` instance. The ``"any"`` pattern is
+                 always ignored.
             filtered_patterns (set): A subset (possibly empty) of ``map_name_dfa.keys()``
                 keying the types that must be caught my ``multi_grep``, but not appearing
                 in the arcs involved in the ``PatternAutomaton``. It may be used for instance
@@ -52,6 +53,7 @@ class PatternAutomaton(Automaton):
             filtered_patterns = set()
         if not make_mg:
             make_mg = MultiGrepFunctorLargest
+        _map_name_dfa = {k : v for (k, v) in map_name_dfa.items() if k != "any"}
         mg = make_mg()
 
         # Add vertices

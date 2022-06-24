@@ -12,11 +12,11 @@ __license__ = "Nokia"
 
 import math
 from pprint import pformat
-from pattern_clustering import PatternAutomaton, language_density, make_map_name_dfa
+from pattern_clustering import MAP_NAME_RE, PatternAutomaton, language_density, make_map_name_dfa
 
 def test_language_density():
     names = ["float", "int", "ipv4", "spaces", "uint"]
-    map_name_dfa = make_map_name_dfa(names)
+    map_name_dfa = make_map_name_dfa(MAP_NAME_RE, names)
     map_name_expected = {
         "float": 0.053171883656509704,
         "int": 0.053157894736842064,

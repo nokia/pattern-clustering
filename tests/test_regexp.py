@@ -145,5 +145,5 @@ def test_re_uint():
 
 def test_make_map_name_dfa():
     NAMES = ["int", "float", "ipv4"]
-    MAP_NAME_DFA = make_map_name_dfa(NAMES)
+    MAP_NAME_DFA = make_map_name_dfa(MAP_NAME_RE, NAMES)
     assert set(MAP_NAME_DFA.keys()) == set(NAMES)

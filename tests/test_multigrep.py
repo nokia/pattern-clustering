@@ -11,11 +11,11 @@ __copyright__  = "Copyright (C) 2020, Nokia"
 __license__    = "Nokia"
 
 from pattern_clustering.multi_grep    import *
-from pattern_clustering.regexp        import make_map_name_dfa
+from pattern_clustering.regexp        import MAP_NAME_RE, make_map_name_dfa
 
 W = "1.2.3.4 5.6.7.8"
 NAMES = ["int", "float", "ipv4"]
-MAP_NAME_DFA = make_map_name_dfa(NAMES)
+MAP_NAME_DFA = make_map_name_dfa(MAP_NAME_RE, NAMES)
 assert set(MAP_NAME_DFA.keys()) == set(NAMES)
 
 def test_multi_grep_all():
@@ -60,7 +60,7 @@ def test_multi_grep_patterns_delims():
 
     names = ["word", "ipv4", "int", "float", "spaces"]
     separators = {"spaces"}
-    map_name_dfa = make_map_name_dfa(names)
+    map_name_dfa = make_map_name_dfa(MAP_NAME_RE, names)
 
     for (word, expected) in map_word_expected.items():
         functor = MultiGrepFunctorLargest()

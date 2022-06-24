@@ -63,8 +63,8 @@ class PatternClusteringEnv(metaclass=Singleton):
     alphabet = set(string.printable)
     map_name_re = MAP_NAME_RE
     map_name_dfa = make_map_name_dfa(
-        ["float", "hexa", "int", "ipv4", "spaces", "uint", "word"],
-        map_name_re
+        map_name_re,
+        ["any", "float", "hexa", "int", "ipv4", "spaces", "uint", "word"]
     )
     map_name_density = make_name_density(map_name_dfa, alphabet)
 
@@ -74,12 +74,10 @@ class PatternClusteringEnv(metaclass=Singleton):
         Reset the ``PatternClusteringEnv`` singleton to its default settings.
         """
         cls.alphabet = set(string.printable)
-        cls.map_name_re = MAP_NAME_RE
-        cls.map_name_dfa = make_map_name_dfa(
-            ["float", "hexa", "int", "ipv4", "spaces", "uint", "word"],
-            cls.map_name_re
+        cls.set_patterns(
+            MAP_NAME_RE,
+            ["any", "float", "hexa", "int", "ipv4", "spaces", "uint", "word"]
         )
-        cls.map_name_density = make_name_density(cls.map_name_dfa, cls.alphabet)
 
     @classmethod
     def set_patterns(cls, map_name_re: dict, names: iter =None):
@@ -89,10 +87,12 @@ class PatternClusteringEnv(metaclass=Singleton):
         Args:
             map_name_re (dict): A dictionary mapping each pattern (``str``)
         """
+        if "any" not in map_name_re:
+            map_name_re["any"] = MAP_NAME_RE["any"]
         cls.map_name_re = map_name_re
         if not names:
-            names = [k for k in map_name_re.keys() if k != "any"]
-        cls.map_name_dfa = make_map_name_dfa(names, map_name_re)
+            names = list(map_name_re.keys())
+        cls.map_name_dfa = make_map_name_dfa(map_name_re, names)
         cls.map_name_density = make_name_density(cls.map_name_dfa, cls.alphabet)
 
     @classmethod
@@ -107,6 +107,7 @@ class PatternClusteringEnv(metaclass=Singleton):
         return "\n".join([
             f"map_name_re = {pformat(self.map_name_re)}",
             f"map_name_density = {pformat(self.map_name_density)}",
+            f"map_name_dfa = {pformat(self.map_name_dfa)}",
         ])
 
 def make_pattern_automaton(w: str, map_name_dfa: dict, make_mg=None):
@@ -122,13 +123,10 @@ def make_pattern_automaton(w: str, map_name_dfa: dict, make_mg=None):
     Returns:
         The ``PatternAutomaton`` C++ instance.
     """
-    # Transform python PatternAutomaton to a C++ PatternAutomaton
+    # Build the python PatternAutomaton
     g = PatternAutomaton(w, map_name_dfa, make_mg)
-    if "any" not in map_name_dfa.keys():
-        # If some string is not caught by any pattern, it results to an "any" arc in
-        # in the PatternAutomaton, and the "any" pattern might not be declared in
-        # map_name_dfa.
-        map_name_dfa["any"] = make_dfa_any()
+
+    # Transform python PatternAutomaton to a C++ PatternAutomaton
     map_name_id = {k: i for (i, k) in enumerate(sorted(map_name_dfa.keys()))}
     n = len(w) + 1
     _g = _PatternAutomaton(n, len(map_name_dfa), w)
@@ -234,7 +232,7 @@ def make_pattern_automata(
     def to_pc_boost_pattern_automaton(g: PatternAutomaton):
         map_name_id = {k: i for (i, k) in enumerate(sorted(map_name_dfa.keys()))}
         n = len(g.w) + 1
-        _g = _PatternAutomaton(n, len(map_name_dfa), g.w)
+        _g = _PatternAutomaton(n, len(map_name_id), g.w)
         for e in edges(g):
             q = source(e, g)
             r = target(e, g)
@@ -283,7 +281,7 @@ def pattern_clustering_without_preprocess(
     if not map_name_dfa:
         map_name_dfa = PatternClusteringEnv.map_name_dfa
     if not densities:
-        densities = PatternClusteringEnv.densities
+        densities = PatternClusteringEnv.densities()
     pattern_automata = make_pattern_automata(lines, map_name_dfa, make_mg)
     return _pattern_clustering(pattern_automata, densities, max_dist, use_async)
 
@@ -355,7 +353,7 @@ def pattern_clustering_with_preprocess(
     if not map_name_dfa:
         map_name_dfa = PatternClusteringEnv.map_name_dfa
     if not densities:
-        densities = PatternClusteringEnv.densities
+        densities = PatternClusteringEnv.densities()
     with multiprocessing.Pool(multiprocessing.cpu_count()) as pool:
         pas = pool.starmap(
             make_pattern_automaton_python,
@@ -385,4 +383,4 @@ def pattern_clustering_with_preprocess(
     return clusters
 
 
-pattern_clustering = pattern_clustering_with_preprocess
+pattern_clustering = pattern_clustering_without_preprocess

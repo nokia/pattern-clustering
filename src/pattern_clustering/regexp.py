@@ -141,7 +141,10 @@ def get_pattern_names() -> list:
     return list(MAP_NAME_RE.keys())
 
 
-def make_map_name_dfa(names=None, map_name_re: dict = None) -> dict:
+def make_map_name_dfa(
+    map_name_re: dict = None,
+    names :iter = None
+) -> dict:
     """
     Builds a dictionary that maps a list of pattern name with the corresponding
     ``pybgl.Automaton`` instance built according to regular expressions.

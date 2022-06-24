@@ -30,18 +30,20 @@ def test_pattern_clustering_env_set_patterns():
     assert obtained == map_name_re
     pattern_names = set(map_name_re.keys())
     obtained = set(env.map_name_density.keys())
-    assert obtained == pattern_names | {"any"}
+    expected = pattern_names | {"any"}
+    assert obtained == expected
     obtained = set(env.map_name_dfa.keys())
-    assert obtained == pattern_names
+    assert obtained == expected
 
     env.reset()
     pattern_names = {"float", "hexa", "int", "ipv4", "spaces", "uint", "word" }
+    expected = pattern_names | {"any"}
     obtained = set(env.map_name_re.keys())
-    assert obtained >= pattern_names | {"any"}
+    assert obtained >= expected
     obtained = set(env.map_name_density.keys())
-    assert obtained == pattern_names | {"any"}
+    assert obtained == expected
     obtained = set(env.map_name_dfa.keys())
-    assert obtained == pattern_names
+    assert obtained == expected
 
 
 def test_make_densities():

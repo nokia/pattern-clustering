@@ -15,7 +15,7 @@ from pybgl.ipynb import in_ipynb, ipynb_display_graph
 from pattern_clustering import *
 
 NAMES = ["float", "int", "ipv4", "spaces", "uint"]
-MAP_NAME_DFA = make_map_name_dfa(NAMES)
+MAP_NAME_DFA = make_map_name_dfa(MAP_NAME_RE, NAMES)
 
 def test_pattern_automaton_largest():
     w = "11.22.33.44 55.66 789"
@@ -44,7 +44,7 @@ def test_pattern_automaton_equals():
 
 def test_pattern_automaton_get_slice():
     NAMES = ["float", "int", "ipv4", "spaces", "uint"]
-    MAP_NAME_DFA = make_map_name_dfa(NAMES)
+    MAP_NAME_DFA = make_map_name_dfa(MAP_NAME_RE, NAMES)
 
     w = "10   abc  1.2.3.4  de 56.78"
     g = PatternAutomaton(w, MAP_NAME_DFA, MultiGrepFunctorLargest)

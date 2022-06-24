@@ -233,12 +233,14 @@ def clustered_lines_to_html(
     ])
 
 
-def pattern_clustering_to_html(lines, map_row_cluster):
+def pattern_clustering_to_html(lines: list, clusters: list) -> str:
     """
     Convert pattern_clustering results to HTML.
+
     Args:
-        lines: A list of string (e.g., the lines of text stored in a log file).
-        map_row_cluster: The result returned by `pattern_clustering.pattern_clustering`.
+        lines (list): A list of string (e.g., the lines of text stored in a log file).
+        clusters (list): A list containing where ``clusters[i]`` identifies the cluster
+            of the ``i``-th line of ``lines`` (indexed from ``0``).
     Returns:
         The HTML rendering of the clustering.
     """
@@ -246,6 +248,6 @@ def pattern_clustering_to_html(lines, map_row_cluster):
         lines,
         map_row_cluster = {
             i : cluster_id
-            for (i, cluster_id) in enumerate(map_row_cluster)
+            for (i, cluster_id) in enumerate(clusters)
         }
     )
