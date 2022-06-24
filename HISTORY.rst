@@ -39,3 +39,10 @@ History
 * Bug fixes
 * Updated documentation
 
+-------------------------------------------------
+0.4.2 (2022-06-24): Added entry points 
+-------------------------------------------------
+
+* Added `pattern-distance` entry point, see `pattern-distance --help`.
+* Added `pattern-clustering-mkconf` entry point. The resulting json may be passed to `pattern-distance` and `pattern-clustering` commands.
+
