@@ -15,7 +15,7 @@ History
 * Updated tox.ini and GitHub actions, work in progress.
 
 -------------------------------------------------
-0.3.0 (2022-06-02): Bug fixes and CI improvements  
+0.3.0 (2022-06-22): Bug fixes and CI improvements  
 -------------------------------------------------
 
 * Fixed sphinx local build
@@ -24,7 +24,18 @@ History
 * Improved test suite
 
 -------------------------------------------------
-0.3.1 (2022-06-02): Bug fixes and CI improvements  
+0.3.1 (2022-06-22): Bug fixes and CI improvements  
 -------------------------------------------------
 
 * Fixed readthedoc build
+
+-------------------------------------------------
+0.4.1 (2022-06-24): Bug fixes and CI improvements  
+-------------------------------------------------
+
+* Fixed readthedoc build
+* Implemented console script (cli)
+* Reworked `PatternClusteringEnv` class
+* Bug fixes
+* Updated documentation
+
