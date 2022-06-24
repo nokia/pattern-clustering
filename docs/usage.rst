@@ -2,6 +2,9 @@
 Usage
 =====
 
-To use Pattern clustering in a project::
+Please follow the `installation steps`_.
 
-    import pattern_clustering
+Once it's done, please follow the `tutorial`_.
+
+.. _installation steps: https://github.com/nokia/pattern-clustering/wiki/Installation
+.. _tutorial: https://github.com/nokia/pattern-clustering/wiki/Tutorial

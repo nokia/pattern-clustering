@@ -22,12 +22,8 @@ Or download the `tarball`_:
 
     $ curl -OJL https://github.com/nokia/pattern-clustering/tarball/main
 
-Once you have a copy of the source, you can install it with:
-
-.. code-block:: console
-
-    $ python setup.py install
-
+Then, please follow the `installation steps`_.
 
 .. _Github repo: https://github.com/nokia/pattern-clustering
 .. _tarball: https://github.com/nokia/pattern-clustering/tarball/main
+.. _installation steps: https://github.com/nokia/pattern-clustering/wiki/Installation
