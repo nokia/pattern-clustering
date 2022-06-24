@@ -113,7 +113,7 @@ def main():
                 " Command-line parameters are superseded by those specified in the "
                 "configuration file."
             )
-        with open(config_filename) as f_conf:
+        with open(options.config_filename) as f_conf:
             conf = json.load(f_conf)
         patterns = conf.get("patterns", None)
         if patterns:
