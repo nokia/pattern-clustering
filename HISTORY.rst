@@ -46,3 +46,17 @@ History
 * Added `pattern-distance` entry point, see `pattern-distance --help`.
 * Added `pattern-clustering-mkconf` entry point. The resulting json may be passed to `pattern-distance` and `pattern-clustering` commands.
 
+-------------------------------------------------
+0.5.0 (2022-06-25): Added entry points 
+-------------------------------------------------
+
+* Bug fixes in `notebooks/`
+* Removed unused patterns
+
+-------------------------------------------------
+1.0.0 (2022-07-01): checked experiments 
+-------------------------------------------------
+
+* Checked experiments in `notebooks/`
+* Fixed warning related to documentation build
+* Improved tests
