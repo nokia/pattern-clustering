@@ -60,7 +60,7 @@ def test_make_pattern_automaton():
     assert num_vertices(g1) == 41
     g2 = make_pattern_automaton(w, map_name_dfa)
     assert num_vertices(g2) == len(w) + 1
-    assert num_edges(g1) == num_edges(g2) == 163
+    assert num_edges(g1) == num_edges(g2) == 132
 
 
 def test_pattern_distance():

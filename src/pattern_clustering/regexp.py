@@ -91,13 +91,11 @@ RE_0_255 = r"(25[0-5]|(2[0-4]|[0-1]{0,1}[0-9]){0,1}[0-9])"
 RE_ALNUM = r"[a-zA-Z0-9]+"
 RE_ANY = r"(\S|\s)+"  # The metacharacter "." is not yet supported in pybgl
 RE_BOOL = r"0|1"
-RE_DELIMITER = r"[-+=*@~#]+"
+RE_DELIMITER = r"[-]+|[+]+|[=]+|[@]+|[~]+|[#]+"
 RE_SIGN = r"(-|[+])?"
 RE_UINT = r"[0-9]+"
 RE_INT = RE_SIGN + RE_UINT
-RE_GENERAL_INT = RE_SIGN + r"[0-9]{1,3}(,[0-9]{3})*"
 RE_FLOAT = RE_SIGN + RE_UINT + r"([.]" + RE_UINT + ")?"
-RE_APPROX_FLOAT = "~?" + RE_FLOAT
 RE_HEXA = make_re_hex_digit() + r"+"
 RE_IPV4 = r"((" + RE_0_255 + "[.]){3}" + RE_0_255 + ")"
 RE_IPV6 = make_re_ipv6()  # make_re_ipv6_strict()
@@ -111,11 +109,9 @@ RE_WORD = r"\S+"
 MAP_NAME_RE = {
     "alnum": RE_ALNUM,
     "any": RE_ANY,
-    "approx_float": RE_APPROX_FLOAT,
     "bool": RE_BOOL,
     "delimiter": RE_DELIMITER,
     "float": RE_FLOAT,
-    "general_int": RE_GENERAL_INT,
     "hexa": RE_HEXA,
     "int": RE_INT,
     "ipv4": RE_IPV4,
