@@ -231,7 +231,7 @@ def logmine_clustering(
         logmine_regexps: list = None,
         verbose: bool = False
 ):
-    call_args = [str(logmine_repo_path / "logmine")]
+    call_args = [str(logmine_repo_path) + "/logmine"]
     if k1 is not None:
         call_args += ["-k1", str(k1)]
     if k2 is not None:
@@ -505,7 +505,7 @@ def eval_on_all_logs_and_save(
             result[DR][log_name][sim_th] = dict()
 
     for log_name in templates_dict:
-        file_path = root_log_path + log_name + "/" + log_name + "_2k.log"
+        file_path = str(root_log_path) + "/" + log_name + "/" + log_name + "_2k.log"
 
         pc_collection = {**fundamental_collection, **basic_collection}
         dr_lm_collection = basic_collection
@@ -524,7 +524,7 @@ def eval_on_all_logs_and_save(
         lm_collection = to_logmine_params(dr_lm_collection)
 
         for max_dist in max_dist_pc_list:
-            result[PC][log_name][max_dist] = evaluate_fast_pattern_clustering(
+            result[PC][log_name][max_dist] = evaluate_pattern_clustering(
                 file_path,
                 templates_dict[log_name],
                 metrics,
