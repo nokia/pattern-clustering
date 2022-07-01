@@ -22,18 +22,23 @@ from pattern_clustering import (
     pattern_distance
 )
 
+
 def message(s: str):
     print(s, file=sys.stderr)
 
+
 def warning(s: str):
     message(f"[WARNING] {s}")
+
 
 def error(s: str):
     message(f"[ERROR] {s}")
     sys.exit(1)
 
+
 def info(s: str):
     print(f"[INFO] {s}")
+
 
 def main_pattern_clustering_mkconf():
     """Console script for ``pattern-clustering-mkconf``."""
@@ -46,6 +51,7 @@ def main_pattern_clustering_mkconf():
             indent=4
         )
     )
+
 
 def main_pattern_distance():
     """Console script for ``pattern-distance``."""
@@ -227,5 +233,9 @@ def main_pattern_clustering():
     return 0
 
 
+def main(): # Required by sphinx
+    return main_pattern_clustering() # pragma: no cover
+
+
 if __name__ == "__main__":
-    sys.exit(main_pattern_clustering())  # pragma: no cover
+    sys.exit(main())  # pragma: no cover
