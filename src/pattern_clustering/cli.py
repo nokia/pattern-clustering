@@ -37,7 +37,7 @@ def error(s: str):
 
 
 def info(s: str):
-    print(f"[INFO] {s}")
+    message(f"[INFO] {s}")
 
 
 def main_pattern_clustering_mkconf():
