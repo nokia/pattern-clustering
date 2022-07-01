@@ -13,6 +13,7 @@ Welcome to Pattern clustering's documentation!
    history
    Modules <api>
    API documentation <_autosummary/pattern_clustering>
+   C++ core <_autosummary/pattern_clustering.pattern_clustering>
 
 
 Indices and tables

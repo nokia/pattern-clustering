@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pattern_clustering.regexp &mdash; Pattern clustering 0.5.0 documentation</title>
+  <title>pattern_clustering.regexp &mdash; Pattern clustering 1.0.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -28,7 +28,7 @@
             <a href="../../index.html" class="icon icon-home"> Pattern clustering
           </a>
               <div class="version">
-                0.5.0
+                1.0.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -48,6 +48,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../history.html">History</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html">Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../_autosummary/pattern_clustering.html">API documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/pattern_clustering.pattern_clustering.html">C++ core</a></li>
 </ul>
 
         </div>
@@ -168,13 +169,11 @@
 <span class="n">RE_ALNUM</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;[a-zA-Z0-9]+&quot;</span>
 <span class="n">RE_ANY</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;(\S|\s)+&quot;</span>  <span class="c1"># The metacharacter &quot;.&quot; is not yet supported in pybgl</span>
 <span class="n">RE_BOOL</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;0|1&quot;</span>
-<span class="n">RE_DELIMITER</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;[-+=*@~#]+&quot;</span>
+<span class="n">RE_DELIMITER</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;[-]+|[+]+|[=]+|[@]+|[~]+|[#]+&quot;</span>
 <span class="n">RE_SIGN</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;(-|[+])?&quot;</span>
 <span class="n">RE_UINT</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;[0-9]+&quot;</span>
 <span class="n">RE_INT</span> <span class="o">=</span> <span class="n">RE_SIGN</span> <span class="o">+</span> <span class="n">RE_UINT</span>
-<span class="n">RE_GENERAL_INT</span> <span class="o">=</span> <span class="n">RE_SIGN</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;[0-9]{1,3}(,[0-9]</span><span class="si">{3}</span><span class="s2">)*&quot;</span>
 <span class="n">RE_FLOAT</span> <span class="o">=</span> <span class="n">RE_SIGN</span> <span class="o">+</span> <span class="n">RE_UINT</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;([.]&quot;</span> <span class="o">+</span> <span class="n">RE_UINT</span> <span class="o">+</span> <span class="s2">&quot;)?&quot;</span>
-<span class="n">RE_APPROX_FLOAT</span> <span class="o">=</span> <span class="s2">&quot;~?&quot;</span> <span class="o">+</span> <span class="n">RE_FLOAT</span>
 <span class="n">RE_HEXA</span> <span class="o">=</span> <span class="n">make_re_hex_digit</span><span class="p">()</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;+&quot;</span>
 <span class="n">RE_IPV4</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;((&quot;</span> <span class="o">+</span> <span class="n">RE_0_255</span> <span class="o">+</span> <span class="s2">&quot;[.])</span><span class="si">{3}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">RE_0_255</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
 <span class="n">RE_IPV6</span> <span class="o">=</span> <span class="n">make_re_ipv6</span><span class="p">()</span>  <span class="c1"># make_re_ipv6_strict()</span>
@@ -188,11 +187,9 @@
 <span class="n">MAP_NAME_RE</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;alnum&quot;</span><span class="p">:</span> <span class="n">RE_ALNUM</span><span class="p">,</span>
     <span class="s2">&quot;any&quot;</span><span class="p">:</span> <span class="n">RE_ANY</span><span class="p">,</span>
-    <span class="s2">&quot;approx_float&quot;</span><span class="p">:</span> <span class="n">RE_APPROX_FLOAT</span><span class="p">,</span>
     <span class="s2">&quot;bool&quot;</span><span class="p">:</span> <span class="n">RE_BOOL</span><span class="p">,</span>
     <span class="s2">&quot;delimiter&quot;</span><span class="p">:</span> <span class="n">RE_DELIMITER</span><span class="p">,</span>
     <span class="s2">&quot;float&quot;</span><span class="p">:</span> <span class="n">RE_FLOAT</span><span class="p">,</span>
-    <span class="s2">&quot;general_int&quot;</span><span class="p">:</span> <span class="n">RE_GENERAL_INT</span><span class="p">,</span>
     <span class="s2">&quot;hexa&quot;</span><span class="p">:</span> <span class="n">RE_HEXA</span><span class="p">,</span>
     <span class="s2">&quot;int&quot;</span><span class="p">:</span> <span class="n">RE_INT</span><span class="p">,</span>
     <span class="s2">&quot;ipv4&quot;</span><span class="p">:</span> <span class="n">RE_IPV4</span><span class="p">,</span>

@@ -17,6 +17,7 @@ pattern\_clustering.cli
    
       error
       info
+      main
       main_pattern_clustering
       main_pattern_clustering_mkconf
       main_pattern_distance
