@@ -71,3 +71,19 @@ def test_pattern_distance():
     )
     expected = 0.007259624900493844
     assert obtained == expected, f"{pformat(locals())}"
+
+
+def test_custom_collection():
+    lines = """header_a header_b header_c
+hdr_a    hdr_b    hdr_c
+
+1.23     5.89     2.34
+1        4        7
+0.000000 1.111111 2.222222""".splitlines()
+    map_name_dfa = make_map_name_dfa(MAP_NAME_RE, ["int", "alnum", "word", "float"])
+    res = pattern_clustering(
+        lines,
+        map_name_dfa=map_name_dfa,
+        max_dist=0.3
+    )
+    assert res == [0, 0, 2, 3, 3, 3], f"{pformat(locals())}"
