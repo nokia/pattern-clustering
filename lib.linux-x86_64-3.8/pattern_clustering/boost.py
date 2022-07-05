@@ -258,13 +258,10 @@ def _fix_parameters(
 ) -> tuple:
     if alphabet is None:
         alphabet = PatternClusteringEnv.alphabet
-    print(f"alphabet = {alphabet}")
     if map_name_dfa is None:
         map_name_dfa = PatternClusteringEnv.map_name_dfa
-        print(f"map_name_dfa = {map_name_dfa}")
         if not densities:
             densities = PatternClusteringEnv.densities()
-        print(f"densities = {densities}")
     elif "any" not in map_name_dfa:
         map_name_dfa["any"] = make_dfa_any()
     if densities is None:
@@ -272,10 +269,7 @@ def _fix_parameters(
             name: language_density(dfa, alphabet)
             for (name, dfa) in map_name_dfa.items()
         }
-        print(f"map_name_density = {map_name_density}")
         densities = make_densities(map_name_density)
-        print(f"densities = {densities}")
-    print(f"ret {(map_name_dfa, densities)}")
     return (map_name_dfa, densities)
 
 def pattern_clustering_without_preprocess(
